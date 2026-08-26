@@ -1,0 +1,44 @@
+meetprerna-travel/
+│
+├── animations.md                  # Apple animation bible (GSAP + Lenis reference)
+├── README.md
+├── package.json
+├── next.config.js
+├── tailwind.config.js
+├── tsconfig.json
+├── .env.local                     # (empty for now, add Calendly/Typeform later)
+│
+├── public/
+│   └── images/                    # All ultra-realistic edits (faces exactly identical)
+│       ├── tea_plantation_landscape.webp      # HERO #1 - poles removed, no wires
+│       ├── misty_forest_portrait.webp         # Lamahatta forest looking up
+│       ├── shiva_statue_daylight.webp         # Realistic Shiva Namchi, no fantasy glow
+│       ├── gopuram_golden_sunset.webp         # South Indian temple tower
+│       ├── darjeeling_misty_balcony.webp      # 3 friends foggy balcony
+│       ├── darjeeling_misty_landscape.webp   # Misty town pure landscape
+│       ├── mystical_forest_cathedral.webp    # Tall trees mist
+│       ├── ethereal_forest_canopy.webp       # Light through canopy
+│       ├── candid_phone_photo.webp           # ENTRY gate planning, yellow sunnies
+│       ├── intimate_bw_portrait.webp         # B&W couple real moment
+│       ├── cinematic_mountain_photographer.webp
+│       ├── golden_tea_plantation.webp
+│       ├── tea_garden_panorama.webp
+│       └── favicon.ico
+│
+├── app/
+│   ├── layout.tsx                 # Root layout + fonts + SmoothScroll
+│   ├── page.tsx                   # FINAL file you just downloaded - hero + stays + services
+│   ├── globals.css                # Tailwind base + grain + blobs + reveal styles
+│   │
+│   └── components/
+│       ├── SmoothScroll.tsx       # Lenis + GSAP ticker (from animations.md)
+│       ├── HeroAndStays.tsx       # Reference component (now merged into page.tsx)
+│       ├── Navbar.tsx             # Sticky blurred nav - fixes clumsy UX
+│       ├── Footer.tsx             # Contact + IG links + offline sale note
+│       └── MagneticButton.tsx     # Reusable magnetic hover button
+│
+├── lib/
+│   └── animations.ts              # GSAP helpers: parallax, pin, magnetic, reveal
+│
+└── styles/
+    └── fonts.css                  # Instrument Serif + Sora imports

@@ -20,12 +20,15 @@ export default function Page() {
     gsap.to('.hero-bg', { scale: 1.08, duration: 12, ease: 'power1.out' })
     gsap.to('.hero-sub', { y: 0, opacity: 1, duration: 1.1, ease: 'power3.out', delay: 0.8 })
 
-    // Magnetic buttons with 3D tilt — bounded pass: subtle, not aggressive
-    gsap.to('.magnetic', {
-      x: (e) => -(e.clientX - e.target.offsetLeft - e.target.offsetWidth / 2) * 0.15,
-      y: (e) => -(e.clientY - e.target.offsetTop - e.target.offsetHeight / 2) * 0.25,
-      duration: 0.4,
-      ease: 'power3.out',
+    // Magnetic buttons — refined hover response
+    document.querySelectorAll('.magnetic').forEach((btn: any) => {
+      btn.addEventListener('mousemove', (e: MouseEvent) => {
+        const r = btn.getBoundingClientRect()
+        const x = e.clientX - r.left - r.width / 2
+        const y = e.clientY - r.top - r.height / 2
+        gsap.to(btn, { x: x * 0.22, y: y * 0.32, duration: 0.5, ease: 'power3.out' })
+      })
+      btn.addEventListener('mouseleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'power3.out' }))
     })
 
     // Progress bar

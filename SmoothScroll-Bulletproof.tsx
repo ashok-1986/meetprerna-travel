@@ -1,52 +1,38 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-// BULLETPROOF SmoothScroll.tsx - fixes Race Condition #2
 export default function SmoothScroll() {
-  const lenisRef = useRef<any>(null)
-  const rafRef = useRef<(time: number) => void>(null)
-
   useEffect(() => {
-    let cancelled = false
     gsap.registerPlugin(ScrollTrigger)
+    
+    let cancelled = false
+    let lenisRef: any = null
 
-    const init = async () => {
-      try {
-        const mod = await import('lenis')
-        if (cancelled) return // Fix #2: abort if unmounted before import finishes
-
-        const Lenis = mod.default
-        const lenis = new Lenis({
-          lerp: 0.08,
-          smoothWheel: true,
-          gestureOrientation: 'vertical',
-        })
-
-        lenisRef.current = lenis
-        lenis.on('scroll', ScrollTrigger.update)
-
-        const raf = (time: number) => lenis.raf(time * 1000)
-        rafRef.current = raf
-        gsap.ticker.add(raf)
-        gsap.ticker.lagSmoothing(0)
-      } catch (e) {
-        console.error('Lenis failed to load', e)
-      }
-    }
-
-    init()
+    import('lenis').then(mod => {
+      if (cancelled) return
+      
+      const Lenis = mod.default
+      const lenis = new Lenis({ 
+        lerp: 0.08, 
+        smoothWheel: true, 
+        gestureOrientation: 'vertical' 
+      })
+      lenisRef = lenis
+      
+      ;(window as any).lenis = lenis 
+      
+      lenis.on('scroll', ScrollTrigger.update)
+      gsap.ticker.add((time: any) => lenis.raf(time * 1000))
+      gsap.ticker.lagSmoothing(0)
+    })
 
     return () => {
-      cancelled = true // Fix #2: prevents Lenis init after unmount
-      if (rafRef.current) {
-        gsap.ticker.remove(rafRef.current)
-        rafRef.current = null
-      }
-      if (lenisRef.current) {
-        lenisRef.current.destroy()
-        lenisRef.current = null
+      cancelled = true
+      if (lenisRef) {
+        lenisRef.destroy()
+        ;(window as any).lenis = null
       }
     }
   }, [])

@@ -1,0 +1,84 @@
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3001
+
+ ✓ Starting...
+ ✓ Ready in 1971ms
+ ○ Compiling / ...
+ ✓ Compiled / in 7.5s (537 modules)
+Warning: React does not recognize the `allowTransparency` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `allowtransparency` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+    at iframe
+    at div
+    at div
+    at InstagramEmbed (webpack-internal:///(ssr)/./src/app/page.tsx:1810:27)
+    at div
+    at div
+    at section
+    at main
+    at HomePage (webpack-internal:///(ssr)/./src/app/page.tsx:17:66)
+    at ClientPageRoot (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/client-page.js:14:11)
+    at Lazy
+    at InnerLayoutRouter (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/layout-router.js:242:11)
+    at RedirectErrorBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/redirect-boundary.js:73:9)
+    at RedirectBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/redirect-boundary.js:81:11)
+    at NotFoundErrorBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/not-found-boundary.js:76:9)
+    at NotFoundBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/not-found-boundary.js:84:11)
+    at LoadingBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/layout-router.js:347:11)
+    at ErrorBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/error-boundary.js:158:11)
+    at InnerScrollAndFocusHandler (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/layout-router.js:153:9)
+    at ScrollAndFocusHandler (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/layout-router.js:228:11)
+    at RenderFromTemplateContext (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/render-from-template-context.js:16:44)
+    at Lazy
+    at OuterLayoutRouter (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/layout-router.js:367:11)
+    at Lazy
+    at body
+    at html
+    at RedirectErrorBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/redirect-boundary.js:73:9)
+    at RedirectBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/redirect-boundary.js:81:11)
+    at ReactDevOverlay (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/react-dev-overlay/app/ReactDevOverlay.js:87:9)
+    at HotReload (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:322:11)
+    at Router (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/app-router.js:202:11)
+    at ErrorBoundaryHandler (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/error-boundary.js:112:9)
+    at ErrorBoundary (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/error-boundary.js:158:11)
+    at AppRouter (webpack-internal:///(ssr)/./node_modules/next/dist/client/components/app-router.js:564:13)
+    at Lazy
+    at r4 (C:\Users\Alchemetryx\Downloads\prerna-site\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:18826)
+    at r4 (C:\Users\Alchemetryx\Downloads\prerna-site\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:18826)
+    at ServerInsertedHTMLProvider (C:\Users\Alchemetryx\Downloads\prerna-site\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:24256)
+ GET / 200 in 7718ms
+ ✓ Compiled in 224ms (246 modules)
+ ✓ Compiled in 810ms (246 modules)
+ ✓ Compiled in 518ms (246 modules)
+ ✓ Compiled in 383ms (246 modules)
+ ✓ Compiled in 354ms (246 modules)
+ ✓ Compiled in 442ms (246 modules)
+ ✓ Compiled in 477ms (246 modules)
+ ✓ Compiled in 473ms (246 modules)
+ ✓ Compiled in 635ms (246 modules)
+ ✓ Compiled in 495ms (246 modules)
+ ✓ Compiled in 602ms (246 modules)
+ ✓ Compiled in 615ms (246 modules)
+ ✓ Compiled in 1027ms (246 modules)
+ ✓ Compiled in 190ms (246 modules)
+ ✓ Compiled in 1533ms (263 modules)
+ ✓ Compiled in 620ms (263 modules)
+ ✓ Compiled in 598ms (263 modules)
+ ✓ Compiled in 480ms (263 modules)
+ ✓ Compiled in 601ms (238 modules)
+ ✓ Compiled in 715ms (263 modules)
+ ✓ Compiled in 831ms (238 modules)
+ ✓ Compiled in 484ms (263 modules)
+ ✓ Compiled in 1044ms (263 modules)
+ ✓ Compiled in 324ms (263 modules)
+ ⨯ ./src/app/page.tsx:142:5
+Module not found: Can't resolve 'lenis'
+[0m [90m 140 |[39m     [90m// Initialize Lenis[39m[0m
+[0m [90m 141 |[39m     [36mlet[39m lenis[33m:[39m any[0m
+[0m[31m[1m>[22m[39m[90m 142 |[39m     [36mimport[39m([32m'lenis'[39m)[33m.[39mthen(({ [36mdefault[39m[33m:[39m [33mLenis[39m }) [33m=>[39m {[0m
+[0m [90m     |[39m     [31m[1m^[22m[39m[0m
+[0m [90m 143 |[39m       lenis [33m=[39m [36mnew[39m [33mLenis[39m({[0m
+[0m [90m 144 |[39m         duration[33m:[39m [35m1.2[39m[33m,[39m[0m
+[0m [90m 145 |[39m         easing[33m:[39m (t) [33m=>[39m [33mMath[39m[33m.[39mmin([35m1[39m[33m,[39m [35m1.001[39m [33m-[39m [33mMath[39m[33m.[39mpow([35m2[39m[33m,[39m [33m-[39m[35m10[39m [33m*[39m t))[33m,[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ✓ Compiled in 305ms (250 modules)
+ ✓ Compiled in 355ms (264 modules)

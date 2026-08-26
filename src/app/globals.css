@@ -7,7 +7,7 @@
 
 :root {
   --font-instrument: 'Instrument Serif', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
-  --font-satoshi: 'Satoshi', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-poppins: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
   /* Prerna Brand Colors */
   --color-terracotta: #C86B5A;
@@ -42,7 +42,7 @@ body {
   overflow-x: clip;
   background-color: var(--color-cream);
   color: var(--color-charcoal);
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -96,12 +96,16 @@ html.lenis {
 }
 
 /* Utility classes */
-.font-instrument {
-  font-family: var(--font-instrument);
+.font-header {
+  font-family: var(--font-instrument) !important;
 }
 
-.font-satoshi {
-  font-family: var(--font-satoshi);
+.font-body {
+  font-family: var(--font-poppins) !important;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-instrument) !important;
 }
 
 .text-balance {
@@ -280,7 +284,7 @@ html.lenis {
   font-weight: 500;
   padding: 16px 32px;
   border-radius: 4px;
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
   font-size: 15px;
   letter-spacing: 0.02em;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -305,7 +309,7 @@ html.lenis {
   font-weight: 500;
   padding: 16px 32px;
   border-radius: 4px;
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
   font-size: 15px;
   letter-spacing: 0.02em;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -329,7 +333,7 @@ html.lenis {
   font-weight: 500;
   padding: 12px 24px;
   border-radius: 4px;
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
   font-size: 14px;
   transition: all 0.2s ease;
 }
@@ -345,7 +349,7 @@ html.lenis {
   font-weight: 500;
   padding: 16px 32px;
   border-radius: 4px;
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
   font-size: 15px;
   letter-spacing: 0.02em;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -372,7 +376,7 @@ html.lenis {
   font-size: 13px;
   font-weight: 500;
   color: var(--color-white);
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
 }
 
 /* Stats */
@@ -396,7 +400,7 @@ html.lenis {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-top: 4px;
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
 }
 
 /* Section heading */
@@ -413,7 +417,7 @@ html.lenis {
   color: var(--color-terracotta);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
 }
 
 .section-title {
@@ -430,7 +434,7 @@ html.lenis {
   line-height: 1.7;
   color: var(--color-charcoal-light);
   max-width: 60ch;
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
 }
 
 /* Card styles */
@@ -521,7 +525,7 @@ html.lenis {
   background: var(--color-white);
   border: 1px solid rgba(45, 45, 45, 0.12);
   border-radius: 8px;
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
   font-size: 15px;
   color: var(--color-charcoal);
   transition: all 0.2s ease;
@@ -546,7 +550,7 @@ html.lenis {
   left: 20px;
   top: 50%;
   transform: translateY(-50%);
-  font-family: var(--font-satoshi);
+  font-family: var(--font-poppins);
   font-size: 15px;
   color: var(--color-charcoal-light);
   pointer-events: none;

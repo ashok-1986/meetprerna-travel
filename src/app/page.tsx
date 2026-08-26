@@ -67,7 +67,7 @@ export default function Page() {
       <nav className="fixed top-0 w-full z-40 backdrop-blur-xl bg-[#FFFCF5]/75 border-b border-black/[0.06]">
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 h-[64px] flex items-center justify-between">
           <div className="font-serif text-[22px]">prerna.</div>
-          <div className="hidden md:flex gap-8 text-[13px]">
+          <div className="hidden md:flex items-center gap-8 text-[13px]">
             <Link href="#stays" className="opacity-60 hover:opacity-100">Stays</Link>
             <Link href="#services" className="opacity-60 hover:opacity-100">Services</Link>
             <Link href="#contact" className="px-5 py-2 rounded-full bg-black text-white">Let's talk</Link>
@@ -78,7 +78,7 @@ export default function Page() {
       {/* HERO */}
       <section className="relative h-[92vh] min-h-[640px] overflow-hidden bg-[#FFFCF5]">
         <div className="absolute inset-0">
-          <img src="/images/tea_plantation_landscape.webp" alt="Tea estate" className="hero-bg absolute inset-0 w-full h-full object-cover" />
+          <img src="/images/cinematic_temple_portrait.webp" alt="Temple portrait" className="hero-bg absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10"></div>
         </div>
         <div className="relative z-10 h-full max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col justify-end pb-24">

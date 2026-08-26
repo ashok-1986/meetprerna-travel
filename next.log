@@ -162,3 +162,68 @@ https://nextjs.org/docs/messages/module-not-found
  ✓ Compiled in 169ms (264 modules)
  ✓ Compiled in 129ms (264 modules)
  ✓ Compiled in 478ms (247 modules)
+ ⨯ ./src/app/page.tsx
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4mC:\Users\Alchemetryx\Downloads\prerna-site\src\app\page.tsx[0m:105:1]
+ [2m105[0m |   }, [])
+ [2m106[0m | 
+ [2m107[0m |   return (
+ [2m108[0m |     <>
+     : [31;1m     ^[0m
+ [2m109[0m |       <style>{`
+ [2m110[0m |         @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@300;400;500&display=swap');
+ [2m111[0m |         *{font-family:'Sora', system-ui, sans-serif}
+     `----
+
+  [31mx[0m Expected ',', got 'className'
+     ,-[[36;1;4mC:\Users\Alchemetryx\Downloads\prerna-site\src\app\page.tsx[0m:127:1]
+ [2m127[0m |         @media(max-width:768px){.cursor,.blob{display:none}}
+ [2m128[0m |       `}</style>
+ [2m129[0m | 
+ [2m130[0m |       <div className="grain"></div>
+     : [31;1m           ^^^^^^^^^[0m
+ [2m131[0m |       <div id="progress" style={{position:'fixed',top:0,left:0,height:'3px',background:'#C86B5A',width:'0%',zIndex:10000}}></div>
+ [2m132[0m |       <div id="cursor" className="cursor"></div>
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/page.tsx
+ ⨯ ./src/app/page.tsx
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4mC:\Users\Alchemetryx\Downloads\prerna-site\src\app\page.tsx[0m:105:1]
+ [2m105[0m |   }, [])
+ [2m106[0m | 
+ [2m107[0m |   return (
+ [2m108[0m |     <>
+     : [31;1m     ^[0m
+ [2m109[0m |       <style>{`
+ [2m110[0m |         @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@300;400;500&display=swap');
+ [2m111[0m |         *{font-family:'Sora', system-ui, sans-serif}
+     `----
+
+  [31mx[0m Expected ',', got 'className'
+     ,-[[36;1;4mC:\Users\Alchemetryx\Downloads\prerna-site\src\app\page.tsx[0m:127:1]
+ [2m127[0m |         @media(max-width:768px){.cursor,.blob{display:none}}
+ [2m128[0m |       `}</style>
+ [2m129[0m | 
+ [2m130[0m |       <div className="grain"></div>
+     : [31;1m           ^^^^^^^^^[0m
+ [2m131[0m |       <div id="progress" style={{position:'fixed',top:0,left:0,height:'3px',background:'#C86B5A',width:'0%',zIndex:10000}}></div>
+ [2m132[0m |       <div id="cursor" className="cursor"></div>
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/page.tsx
+ ✓ Compiled in 862ms (247 modules)
+ ✓ Compiled in 591ms (247 modules)
+ ✓ Compiled in 583ms (247 modules)
+ ✓ Compiled in 716ms (247 modules)
+ ✓ Compiled in 630ms (247 modules)

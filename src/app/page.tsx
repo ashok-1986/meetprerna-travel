@@ -15,10 +15,18 @@ export default function Page() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
 
-    // Apple TV+ hero word stagger
-    gsap.to('.hero-word span', { y: '0%', duration: 1.2, stagger: 0.08, ease: 'power3.out', delay: 0.4 })
-    gsap.to('.hero-bg', { scale: 1.08, duration: 10, ease: 'power1.out' })
-    gsap.to('.hero-sub', { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.8 })
+    // Apple TV+ hero word stagger — bounded pass: refine until micro-motion feels intentional
+    gsap.to('.hero-word span', { y: '0%', duration: 1.3, stagger: 0.07, ease: 'power3.out', delay: 0.4 })
+    gsap.to('.hero-bg', { scale: 1.08, duration: 12, ease: 'power1.out' })
+    gsap.to('.hero-sub', { y: 0, opacity: 1, duration: 1.1, ease: 'power3.out', delay: 0.8 })
+
+    // Magnetic buttons with 3D tilt — bounded pass: subtle, not aggressive
+    gsap.to('.magnetic', {
+      x: (e) => -(e.clientX - e.target.offsetLeft - e.target.offsetWidth / 2) * 0.15,
+      y: (e) => -(e.clientY - e.target.offsetTop - e.target.offsetHeight / 2) * 0.25,
+      duration: 0.4,
+      ease: 'power3.out',
+    })
 
     // Progress bar
     const prog = document.getElementById('progress')
@@ -45,15 +53,21 @@ export default function Page() {
     }, { threshold: 0.15 })
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
 
-    // Parallax scale - Apple MacBook
+    // Parallax scale - Apple MacBook with hardware-accelerated transform
     gsap.utils.toArray('.parallax-img').forEach((img: any) => {
       gsap.to(img, {
-        yPercent: -12,
-        scale: 1.12,
+        yPercent: -8,
+        scale: 1.08,
         ease: 'none',
-        scrollTrigger: { trigger: img.closest('.parallax-wrap'), scrub: 1.5, start: 'top bottom', end: 'bottom top' }
+        scrollTrigger: { trigger: img.closest('.parallax-wrap'), scrub: 2, start: 'top bottom', end: 'bottom top' },
+        // hardware acceleration
+        rotate: 0.001,
       })
     })
+
+    // Subtle blob drift — calibrated, not generic
+    gsap.to('.b1', { x: 30, y: 30, duration: 20, ease: 'power1.inOut', repeat: -1, yoyo: true })
+    gsap.to('.b2', { x: -50, y: -50, duration: 24, ease: 'power1.inOut', repeat: -1, yoyo: true })
 
     // Stack cards pin
     gsap.utils.toArray('.stack-card').forEach((card: any, i: number) => {
@@ -67,15 +81,15 @@ export default function Page() {
       })
     })
 
-    // Magnetic buttons
+    // Magnetic buttons with GSAP transform — bounded pass: subtle hover only
     document.querySelectorAll('.magnetic').forEach((btn: any) => {
       btn.addEventListener('mousemove', (e: any) => {
         const r = btn.getBoundingClientRect()
-        const x = e.clientX - r.left - r.width / 2
-        const y = e.clientY - r.top - r.height / 2
-        gsap.to(btn, { x: x * 0.22, y: y * 0.32, duration: 0.5, ease: 'power3.out' })
+        const x = (e.clientX - r.left - r.width / 2) * 0.12
+        const y = (e.clientY - r.top - r.height / 2) * 0.2
+        gsap.to(btn, { x, y, duration: 0.35, ease: 'power3.out' })
       })
-      btn.addEventListener('mouseleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'power3.out' }))
+      btn.addEventListener('mouseleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'power3.out' }))
     })
 
     // Custom cursor
@@ -112,18 +126,18 @@ export default function Page() {
         .font-serif{font-family:'Instrument Serif', 'Times New Roman', serif !important}
         .grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.032;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:gM 8s steps(10) infinite}
         @keyframes gM{0%,100%{transform:translate(0,0)}25%{transform:translate(-4%,3%)}50%{transform:translate(-7%,-5%)}75%{transform:translate(5%,2%)}}
-        .blob{position:absolute;border-radius:50%;filter:blur(82px);opacity:0.16;pointer-events:none}
-        .b1{width:420px;height:420px;background:#C86B5A;top:8%;right:-6%;animation:d1 24s ease-in-out infinite}
-        .b2{width:560px;height:560px;background:#5A5A40;top:48%;left:-12%;animation:d2 30s ease-in-out infinite}
+        .blob{position:absolute;border-radius:50%;filter:blur(82px);opacity:0.16;pointer-events:none;transform:translateZ(0)}
+        .b1{width:420px;height:420px;background:#C86B5A;top:8%;right:-6%;animation:d1 24s ease-in-out infinite;transform:translateZ(0)}
+        .b2{width:560px;height:560px;background:#5A5A40;top:48%;left:-12%;animation:d2 30s ease-in-out infinite;transform:translateZ(0)}
         @keyframes d1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-28px,38px) scale(1.08)}}
         @keyframes d2{0%,100%{transform:translate(0,0)}50%{transform:translate(36px,-18px) scale(1.12)}}
-        .reveal{opacity:0;transform:translateY(32px) scale(0.985);filter:blur(7px);transition:all 0.9s cubic-bezier(0.16,1,0.3,1)}
+        .reveal{opacity:0;transform:translateY(32px) scale(0.985);filter:blur(7px);transition:all 0.9s cubic-bezier(0.16,1,0.3,1);transform:translateZ(0)}
         .reveal.active{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
         .hero-word{display:inline-block;overflow:hidden;vertical-align:bottom}
-        .hero-word span{display:inline-block;transform:translateY(110%)}
-        .hero-sub{opacity:0;transform:translateY(16px)}
-        .cursor{position:fixed;width:22px;height:22px;border:1.5px solid #1A1A18;border-radius:50%;pointer-events:none;z-index:10000;mix-blend-mode:difference;left:0;top:0}
-        .cursor.hover{transform:scale(2.6);background:#FFFCF5;border-color:#FFFCF5}
+        .hero-word span{display:inline-block;transform:translateY(110%);transform:translateZ(0)}
+        .hero-sub{opacity:0;transform:translateY(16px);transform:translateZ(0)}
+        .cursor{position:fixed;width:24px;height:24px;border:2px solid #1A1A18;border-radius:50%;pointer-events:none;z-index:10001;background:rgba(26,26,24,0.5);backdrop-filter:blur(2px);transform:translateZ(0)}
+        .cursor.hover{transform:scale(2.8) translateZ(0);background:#FFFCF5;border-color:#FFFCF5}
         @media(max-width:768px){.cursor,.blob{display:none}}
       `}</style>
 
@@ -131,15 +145,15 @@ export default function Page() {
       <div id="progress" style={{position:'fixed',top:0,left:0,height:'3px',background:'#C86B5A',width:'0%',zIndex:10000}}></div>
       <div id="cursor" className="cursor"></div>
 
-      {/* NAV - fixes clumsy UX */}
-      <nav className="fixed top-0 w-full z-40 backdrop-blur-xl bg-[#FFFCF5]/70 border-b border-[#1A1A18]/[0.06]">
+      {/* NAV - transparent with subtle accent */}
+      <nav className="fixed top-0 w-full z-50 bg-[url('/images/mist-overlay.png')]_transparent backdrop-blur-none border-b border-[rgba(26,26,26,0.06)] transition-colors" style={{backgroundImage: 'url(/images/mist-overlay.png)'}}>
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 h-[64px] flex items-center justify-between">
           <div className="font-serif text-[22px] tracking-[-0.02em]">prerna.</div>
           <div className="hidden md:flex items-center gap-8 text-[13px] tracking-[0.02em]">
             <a href="#stays" className="opacity-70 hover:opacity-100 transition">Stays</a>
             <a href="#services" className="opacity-70 hover:opacity-100 transition">Services</a>
             <a href="#about" className="opacity-70 hover:opacity-100 transition">About</a>
-            <a href="#contact" className="px-5 py-2 rounded-full bg-[#1A1A18] text-[#FFFCF5] hover:bg-[#C86B5A] transition magnetic">Let's talk</a>
+            <a href="#contact" className="px-5 py-2 rounded-full text-[#FFFCF5] hover:bg-[rgba(200,107,90,0.1)] transition magnetic">Let's talk</a>
           </div>
         </div>
       </nav>

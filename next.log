@@ -146,3 +146,18 @@ Import trace for requested module:
 ./src/app/page.tsx
  ✓ Compiled in 235ms (264 modules)
  ✓ Compiled in 165ms (238 modules)
+ ✓ Compiled in 584ms (264 modules)
+ ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve './components/HeroAndStays'
+[0m [90m  5 |[39m [36mimport[39m { [33mScrollTrigger[39m } [36mfrom[39m [32m'gsap/ScrollTrigger'[39m[0m
+[0m [90m  6 |[39m [36mimport[39m [33mImage[39m [36mfrom[39m [32m'next/image'[39m[0m
+[0m[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m [33mHeroAndStays[39m [36mfrom[39m [32m'./components/HeroAndStays'[39m[0m
+[0m [90m    |[39m [31m[1m^[22m[39m[0m
+[0m [90m  8 |[39m[0m
+[0m [90m  9 |[39m gsap[33m.[39mregisterPlugin([33mScrollTrigger[39m)[0m
+[0m [90m 10 |[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ✓ Compiled in 189ms (264 modules)
+ ✓ Compiled in 169ms (264 modules)
+ ✓ Compiled in 129ms (264 modules)

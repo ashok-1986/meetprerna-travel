@@ -136,41 +136,40 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="hero-section relative min-h-screen flex items-center justify-center px-6 pt-32 pb-20">
-        <div className="absolute inset-0" aria-hidden="true">
-          {/* Scattered polaroid cards */}
-          <div className="absolute top-20 left-10">
-            <PolaroidCard 
-              src="/images/goa_beach_sunset.webp" 
-              alt="Goa beach sunset"
-              rotation={-3}
-              className="w-64"
-            />
-          </div>
-          <div className="absolute top-10 right-10">
-            <PolaroidCard 
-              src="/images/bare_feet_stream.webp" 
-              alt="Bare feet in stream"
-              rotation={2}
-              className="w-56"
-            />
-          </div>
-          <div className="absolute bottom-20 left-1/4">
-            <PolaroidCard 
-              src="/images/misty_shiva_statue.webp" 
-              alt="Misty Shiva statue"
-              rotation={-2}
-              className="w-60"
-            />
-          </div>
-          <div className="absolute bottom-10 right-1/4">
-            <PolaroidCard 
-              src="/images/goa_beach_sunset.webp" 
-              alt="Goa beach detail"
-              rotation={3}
-              className="w-52"
-            />
-          </div>
-        </div>
+        {/* Decorative polaroids - semantic wrapper, reduced on mobile */}
+        <figure className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
+          <PolaroidCard 
+            src="/images/goa_beach_sunset.webp" 
+            alt="Goa beach sunset"
+            className="hidden lg:block absolute top-20 left-10 w-64 rotate-[-3deg]"
+          />
+          <PolaroidCard 
+            src="/images/bare_feet_stream.webp" 
+            alt="Bare feet in stream"
+            className="hidden lg:block absolute top-10 right-10 w-56 rotate-[2deg]"
+          />
+          <PolaroidCard 
+            src="/images/misty_shiva_statue.webp" 
+            alt="Misty Shiva statue"
+            className="hidden lg:block absolute bottom-20 left-1/4 w-60 rotate-[-2deg]"
+          />
+          <PolaroidCard 
+            src="/images/goa_beach_sunset.webp" 
+            alt="Goa beach detail"
+            className="hidden lg:block absolute bottom-10 right-1/4 w-52 rotate-[3deg]"
+          />
+          {/* Mobile: 2 cards only, no rotation */}
+          <PolaroidCard 
+            src="/images/goa_beach_sunset.webp" 
+            alt="Goa beach sunset"
+            className="lg:hidden absolute top-16 left-4 w-56"
+          />
+          <PolaroidCard 
+            src="/images/misty_shiva_statue.webp" 
+            alt="Misty Shiva statue"
+            className="lg:hidden absolute bottom-16 right-4 w-56"
+          />
+        </figure>
 
         <div className="relative z-10 max-w-page mx-auto text-center">
           <span className="eyebrow-label pill inline-block mb-8">
@@ -199,7 +198,7 @@ export default function HomePage() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#737373" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 5v14M19 12l-7 7-7-7" />
           </svg>
@@ -225,7 +224,8 @@ export default function HomePage() {
                 subtitle: 'Coastal Slow Living',
                 image: '/images/goa_beach_sunset.webp',
                 alt: 'Goa beach sunset',
-                highlights: ['Beach walks at dawn', 'Portuguese heritage homes', 'Spice plantation stays', 'Sunset tattoo sessions'],
+                tattooThumb: '/images/misty_shiva_statue.webp',
+                highlights: ['Dawn beach walks where I inked a wave line', 'Portuguese homes — azulejo patterns under skin', 'Spice plantation stays, cardamom scent in the studio', 'Sunset sessions: salt air, fresh ink'],
                 link: 'https://www.instagram.com/p/DUnrxgaDMjs/',
               },
               {
@@ -233,7 +233,8 @@ export default function HomePage() {
                 subtitle: 'Backwaters & Mountains',
                 image: '/images/bare_feet_stream.webp',
                 alt: 'Kerala backwaters',
-                highlights: ['Houseboat nights', 'Tea plantation treks', 'Ayurveda retreats', 'Temple visits'],
+                tattooThumb: '/images/goa_beach_sunset.webp',
+                highlights: ['Houseboat nights — lotus blooms at first light', 'Tea plantation treks, mist on the needles', 'Ayurveda retreats, turmeric-stained fingertips', 'Temple visits, jasmine garlands and vows'],
                 link: 'https://www.instagram.com/p/DVqkewxiTYI/',
               },
               {
@@ -241,15 +242,24 @@ export default function HomePage() {
                 subtitle: 'Himalayan Silence',
                 image: '/images/misty_shiva_statue.webp',
                 alt: 'Sikkim mountains',
-                highlights: ['Monastery stays', 'High-altitude lakes', 'Rhododendron forests', 'Prayer flag ceremonies'],
+                tattooThumb: '/images/bare_feet_stream.webp',
+                highlights: ['Monastery stays — prayer flags in the wind', 'High-altitude lakes, mirror-sky reflections', 'Rhododendron forests, blood-red petals', 'Prayer ceremonies, butter lamps and breath'],
                 link: 'https://www.instagram.com/p/DWTyPzMgDNG/',
               },
             ].map((journey, i) => (
-              <JourneyCard key={journey.title} journey={journey} index={i} />
+              <JourneyCard key={journey.title} journey={journey} />
             ))}
           </div>
         </div>
       </section>
+
+      {/* Violet connection line - threads Travel → Tattoo */}
+      <div className="relative h-24 w-px mx-auto max-w-page" aria-hidden="true">
+        <svg className="absolute top-0 left-1/2 -translate-x-1/2 h-full w-px" viewBox="0 0 1 100" preserveAspectRatio="none">
+          <path className="connection-line" d="M0.5,0 C0.5,30 0.5,70 0.5,100" />
+          <circle className="status-node" cx="0.5" cy="50" r="4" />
+        </svg>
+      </div>
 
       {/* Tattoo Section */}
       <section id="tattoo" className="py-24 px-6 bg-paper">
@@ -340,7 +350,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Journal / Instagram Section */}
+      {/* Journal / Field Notes Section */}
       <section id="journal" className="py-24 px-6 bg-fog">
         <div className="max-w-page mx-auto">
           <div className="text-center mb-16">
@@ -351,18 +361,21 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6" role="list" aria-label="Instagram posts">
-            <InstagramEmbed 
-              url="https://www.instagram.com/p/DUnrxgaDMjs/" 
+          <div className="grid md:grid-cols-3 gap-6" role="list" aria-label="Field notes">
+            <JournalCard
+              image="/images/goa_beach_sunset.webp"
               caption="Goa mornings: salt air, slow coffee, and the kind of quiet that stays with you."
+              link="https://www.instagram.com/p/DUnrxgaDMjs/"
             />
-            <InstagramEmbed 
-              url="https://www.instagram.com/p/DVqkewxiTYI/" 
+            <JournalCard
+              image="/images/bare_feet_stream.webp"
               caption="Kerala backwaters at golden hour. The water holds the sky."
+              link="https://www.instagram.com/p/DVqkewxiTYI/"
             />
-            <InstagramEmbed 
-              url="https://www.instagram.com/p/DWTyPzMgDNG/" 
+            <JournalCard
+              image="/images/misty_shiva_statue.webp"
               caption="Sikkim monastery morning prayers. Breath visible in the cold."
+              link="https://www.instagram.com/p/DWTyPzMgDNG/"
             />
           </div>
 
@@ -387,8 +400,8 @@ export default function HomePage() {
       {/* Newsletter / Contact Section */}
       <section id="contact" className="py-24 px-6 bg-paper">
         <div className="max-w-page mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <div>
+          <div className="grid lg:grid-cols-3 gap-16 items-start">
+            <div className="lg:col-span-2">
               <span className="eyebrow-label pill inline-block mb-6">Stay Connected</span>
               <h2 className="heading-lg mb-4">Letters from the Road</h2>
               <p className="text-iron text-body mb-8 max-w-md">
@@ -396,7 +409,7 @@ export default function HomePage() {
                 No spam. Just soul.
               </p>
               
-              <form className="space-y-4 max-w-md" onSubmit={handleSubscribe}>
+              <form className="space-y-4 max-w-md" onSubmit={handleSubscribe} noValidate>
                 <div>
                   <label htmlFor="email" className="sr-only">Email address</label>
                   <input
@@ -405,15 +418,27 @@ export default function HomePage() {
                     name="email"
                     placeholder="your@email.com"
                     required
+                    autoComplete="email"
                     className="w-full px-4 py-3 bg-white border border-mist rounded-inputs text-iron placeholder-slate focus:border-electric-violet focus:outline-none focus:ring-2 focus:ring-electric-violet/20 transition-all duration-200 font-inter text-body"
+                    aria-describedby="email-hint"
                   />
+                  <p id="email-hint" className="text-micro text-slate mt-1 hidden" aria-live="polite">Please enter a valid email address</p>
                 </div>
                 <button 
                   type="submit" 
                   className="btn-primary w-full"
+                  id="subscribe-btn"
                 >
-                  Subscribe
+                  <span className="btn-text">Subscribe</span>
+                  <span className="btn-loading hidden inline-flex items-center gap-2">
+                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Subscribing…
+                  </span>
                 </button>
+                <p id="form-status" className="text-micro text-slate text-center h-4" aria-live="polite" aria-atomic="true"></p>
                 <p className="text-micro text-slate text-center">
                   By subscribing, you agree to our Privacy Policy. Unsubscribe anytime.
                 </p>
@@ -533,16 +558,21 @@ function PolaroidCard({
   )
 }
 
-function JourneyCard({ journey, index }: { journey: any; index: number }) {
-  const rotations = [-2, 1, -1]
+function JourneyCard({ journey }: { journey: any }) {
   return (
     <article className="reveal-card group">
-      <div className="relative rounded-cards overflow-hidden shadow-polaroid bg-white" style={{ transform: `rotate(${rotations[index]}deg)` }}>
+      <div className="relative rounded-cards overflow-hidden shadow-polaroid bg-white">
         <img 
           src={journey.image} 
           alt={journey.alt} 
           className="w-full h-56 object-cover rounded-t-cards group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
+        />
+        {/* Tattoo micro-thumb - connects journey to ink */}
+        <div 
+          className="absolute bottom-3 right-3 w-12 h-12 rounded-full border-2 border-white bg-cover bg-center shadow-md" 
+          style={{backgroundImage: `url(${journey.tattooThumb})`}} 
+          aria-label={`${journey.title} tattoo preview`}
         />
         <div className="p-6">
           <h3 className="font-marund font-semibold text-near-black text-xl mb-1">{journey.title}</h3>
@@ -574,37 +604,76 @@ function JourneyCard({ journey, index }: { journey: any; index: number }) {
   )
 }
 
-function InstagramEmbed({ url, caption }: { url: string; caption: string }) {
-  const postId = url.split('/p/')[1]?.split('/')[0]
-  const embedUrl = `https://www.instagram.com/p/${postId}/embed/`
-  
+function JournalCard({ image, caption, link }: { image: string; caption: string; link: string }) {
   return (
-    <div className="reveal-card rounded-cards overflow-hidden bg-white shadow-polaroid" role="listitem">
-      <div className="aspect-[4/5] relative">
-        <iframe
-          src={embedUrl}
-          width="100%"
-          height="100%"
-          frameBorder="0"
-          scrolling="no"
-          allowTransparency={true}
-          title={`Instagram post: ${caption}`}
-          className="absolute inset-0 w-full h-full"
+    <article className="reveal-card group relative rounded-cards overflow-hidden bg-white shadow-polaroid" role="listitem">
+      <a href={link} target="_blank" rel="noopener noreferrer" className="block" aria-label={`Read field note: ${caption}`}>
+        <img 
+          src={image} 
+          alt="" 
+          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
         />
-      </div>
-      <div className="p-6">
-        <p className="text-iron text-body text-center">{caption}</p>
-      </div>
-    </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-near-black/70 via-transparent to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <p className="font-inter text-body text-center">{caption}</p>
+          <span className="inline-flex items-center gap-1 mt-3 text-sm opacity-80">
+            Read field note
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+      </a>
+    </article>
   )
 }
 
 function handleSubscribe(e: React.FormEvent<HTMLFormElement>) {
   e.preventDefault()
-  const formData = new FormData(e.currentTarget)
-  const email = formData.get('email')
-  
-  // TODO: Connect to Mailchimp/ConvertKit
-  alert(`Thanks for subscribing! ${email} has been added to the list.`)
-  e.currentTarget.reset()
+  const form = e.currentTarget as HTMLFormElement
+  const formData = new FormData(form)
+  const email = formData.get('email') as string
+  const emailInput = form.querySelector('#email') as HTMLInputElement
+  const emailHint = form.querySelector('#email-hint') as HTMLElement
+  const submitBtn = form.querySelector('#subscribe-btn') as HTMLButtonElement
+  const btnText = submitBtn?.querySelector('.btn-text') as HTMLElement
+  const btnLoading = submitBtn?.querySelector('.btn-loading') as HTMLElement
+  const statusEl = form.querySelector('#form-status') as HTMLElement
+
+  // Client-side validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(email)) {
+    emailInput?.setAttribute('aria-invalid', 'true')
+    emailHint?.classList.remove('hidden')
+    emailInput?.focus()
+    return
+  }
+
+  // Clear previous error
+  emailInput?.setAttribute('aria-invalid', 'false')
+  emailHint?.classList.add('hidden')
+  statusEl.textContent = ''
+
+  // Loading state
+  submitBtn?.setAttribute('disabled', 'true')
+  btnText?.classList.add('hidden')
+  btnLoading?.classList.remove('hidden')
+
+  // Simulate API call - replace with actual Mailchimp/ConvertKit integration
+  setTimeout(() => {
+    // Success
+    submitBtn?.removeAttribute('disabled')
+    btnText?.classList.remove('hidden')
+    btnLoading?.classList.add('hidden')
+    statusEl.textContent = `Thanks for subscribing! ${email} has been added.`
+    statusEl.className = 'text-micro text-signal-green text-center h-4'
+    form.reset()
+    
+    // Clear success message after 5s
+    setTimeout(() => {
+      statusEl.textContent = ''
+      statusEl.className = 'text-micro text-slate text-center h-4'
+    }, 5000)
+  }, 1200)
 }

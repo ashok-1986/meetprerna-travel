@@ -139,16 +139,27 @@ body {
 }
 
 .line-draw {
-  width: 0;
-  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .line-draw.in-view {
-  width: 100%;
+  transform: scaleX(1);
 }
 @media (min-width: 768px) {
-  .line-draw.in-view {
-    width: 180px !important;
+  .line-draw {
+    width: 180px;
   }
+}
+
+/* Scroll indicator - replaces animate-bounce with Fuser easing */
+.scroll-indicator {
+  animation: scroll-drift 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+@keyframes scroll-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
 }
 
 /* Button styles */

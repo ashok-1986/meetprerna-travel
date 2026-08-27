@@ -157,7 +157,7 @@ export default function Page() {
           </div>
 
           {/* Mobile Nav Panel */}
-          <div id="mobile-nav-panel" aria-hidden={!menuOpen} {...(!menuOpen ? { inert: "true" } : {})} className={`md:hidden fixed inset-0 bg-[#FFFCF5] pt-[100px] px-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? 'translate-x-0 visible' : 'translate-x-full invisible'}`}>
+          <div id="mobile-nav-panel" aria-hidden={!menuOpen} {...(!menuOpen ? { inert: true } : {})} className={`md:hidden fixed inset-0 bg-[#FFFCF5] pt-[100px] px-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? 'translate-x-0 visible' : 'translate-x-full invisible'}`}>
             <div className="flex flex-col gap-6 text-[24px] font-header text-[#1A1A18]">
               <Link ref={firstLinkRef} href="#journey" onClick={() => setMenuOpen(false)}>Journey</Link>
               <Link href="#work" onClick={() => setMenuOpen(false)}>Work</Link>

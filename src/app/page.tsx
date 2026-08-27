@@ -143,20 +143,20 @@ export default function Page() {
       <div id="progress" style={{position:'fixed',top:0,left:0,height:'2px',background:'#C86B5A',width:'0%',zIndex:9999}}></div>
 
       <header>
-        <nav className={`fixed top-0 w-full z-40 transition-all duration-500 border-b ${scrolled || menuOpen ? 'bg-[#FFFCF5]/70 backdrop-blur-2xl border-[#1A1A18]/5 text-[#1A1A18]' : 'bg-transparent border-transparent text-white'}`}>
+        <nav className={`fixed top-0 w-full z-40 transition-all duration-500 border-b ${scrolled || menuOpen ? 'bg-white/20 backdrop-blur-lg border-white/30 text-[#1A1A18]' : 'bg-white/5 backdrop-blur-md border-white/10 text-white'}`}>
           <div className="w-full px-6 md:px-10 h-[64px] flex items-center justify-between uppercase tracking-wider">
-            <Link href="/" className="z-50 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded flex items-center h-full pt-[6px]">
+            <Link href="/" className="z-50 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded flex items-center h-full pt-[6px]" aria-label="Prerna Home">
               <Image src="/images/Logo.png" alt="Prerna Logo" width={110} height={40} className={`w-auto h-[50px] object-contain transition-all duration-500 ${!(scrolled || menuOpen) ? 'invert brightness-0' : ''}`} />
             </Link>
             
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8 text-[12px] font-body font-medium">
-              <Link href="#journey" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Journey</Link>
-              <Link href="#work" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Work</Link>
-              <Link href="#travellers" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Travellers</Link>
-              <Link href="#stays" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Stays</Link>
-              <Link href="#about" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">About</Link>
-              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className={`px-5 py-2.5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] ${scrolled || menuOpen ? 'bg-[#1A1A18] text-white hover:bg-black' : 'bg-white text-black hover:bg-gray-100'}`}>WhatsApp Prerna</Link>
+              <Link href="#journey" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Journey</Link>
+              <Link href="#work" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Work</Link>
+              <Link href="#travellers" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Travellers</Link>
+              <Link href="#stays" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Stays</Link>
+              <Link href="#about" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">About</Link>
+              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className={`px-5 py-2.5 rounded-full transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#C86B5A] ${scrolled || menuOpen ? 'bg-[#1A1A18] text-white hover:bg-black hover:shadow-lg' : 'bg-white text-black hover:bg-gray-100 hover:shadow-lg'}`}>WhatsApp Prerna</Link>
             </div>
 
             {/* Mobile Nav Toggle */}
@@ -185,7 +185,7 @@ export default function Page() {
               <Link href="#contact" onClick={() => setMenuOpen(false)}>Contact</Link>
             </div>
             <div className="mt-12">
-              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-3 rounded-full bg-black text-white font-body text-[14px]">WhatsApp Prerna</Link>
+              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-3 rounded-full bg-black text-white font-body text-[14px] hover:scale-[1.02] transition-transform duration-300">WhatsApp Prerna</Link>
             </div>
           </div>
         </nav>
@@ -201,17 +201,17 @@ export default function Page() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10 z-10"></div>
           </div>
           
-          <div className="relative z-20 h-full w-full px-6 md:px-10 flex flex-col justify-end pb-24 pointer-events-none">
+          <div className="relative z-20 h-full w-full px-6 md:px-10 flex flex-col justify-end pb-16 md:pb-24 pointer-events-none">
             <h1 id="hero-title" className="hero-title text-white min-w-full">
               <span className="hero-word"><span>Where journeys</span></span><br/>
               <span className="hero-word"><span className="italic text-[#E8DCC6]">become lasting.</span></span>
             </h1>
-            <p className="hero-sub font-body text-[16px] md:text-[18px] text-white/80 max-w-[520px] mt-8">
+            <p className="hero-sub font-body text-[16px] md:text-[18px] text-white/90 max-w-[520px] mt-8">
               Prerna and Ashok travel slowly, notice deeply, and turn meaningful places into hand-poked tattoos and property travel-content collaborations.
             </p>
             <div className="hero-sub flex flex-wrap gap-4 mt-12 font-body text-[14px] pointer-events-auto">
-              <Link href="#travellers" className="px-8 py-4 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A]">For travellers</Link>
-              <Link href="#stays" className="px-8 py-4 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A]">For stays & properties</Link>
+              <Link href="#travellers" className="px-8 py-4 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300">For travellers</Link>
+              <Link href="#stays" className="px-8 py-4 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300">For stays & properties</Link>
             </div>
           </div>
         </section>
@@ -238,12 +238,12 @@ export default function Page() {
           <h2 id="audiences-title" className="sr-only">Our Offerings</h2>
           <div className="w-full px-6 md:px-10">
             <div className="grid md:grid-cols-2 gap-8 reveal">
-              <div className="p-10 md:p-14 rounded-[28px] bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow">
+              <div className="p-10 md:p-14 rounded-3xl bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow hover:scale-[1.02] transition-transform duration-300">
                 <h3 className="font-header text-[32px] mb-4 text-[#1A1A18]">For travellers</h3>
                 <p className="font-body text-[15px] opacity-70 mb-8 max-w-[400px]">Meaningful hand-poked tattoos connected to a journey or a memory you want to carry with you.</p>
                 <Link href="#travellers" className="font-body text-[13px] uppercase tracking-wider text-[#C86B5A] hover:opacity-70 self-start focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1 -ml-1">Explore tattoo experiences &rarr;</Link>
               </div>
-              <div className="p-10 md:p-14 rounded-[28px] bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow">
+              <div className="p-10 md:p-14 rounded-3xl bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow hover:scale-[1.02] transition-transform duration-300">
                 <h3 className="font-header text-[32px] mb-4 text-[#1A1A18]">For stays & properties</h3>
                 <p className="font-body text-[15px] opacity-70 mb-8 max-w-[400px]">Honest, place-led travel content—photography, cinematic reels, and writing that translates the feeling of a place.</p>
                 <Link href="#stays" className="font-body text-[13px] uppercase tracking-wider text-[#C86B5A] hover:opacity-70 self-start focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1 -ml-1">Explore collaborations &rarr;</Link>
@@ -264,7 +264,7 @@ export default function Page() {
 
             <div className="grid md:grid-cols-12 gap-8 text-white">
               {/* Featured 8-col */}
-              <div className="md:col-span-7 reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
+              <div className="md:col-span-7 reveal rounded-3xl overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
                 <div className="aspect-[4/3] md:aspect-[3/4] overflow-hidden bg-[#262626]">
                   <img src="/images/ethereal_forest_canopy.webp" alt="A misty, ethereal forest canopy" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                 </div>
@@ -276,13 +276,13 @@ export default function Page() {
 
               {/* Sidebar 4-col stack */}
               <div className="md:col-span-5 flex flex-col gap-8">
-                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col flex-1">
+                <div className="reveal rounded-3xl overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col flex-1">
                   <div className="flex-1 min-h-[220px] overflow-hidden bg-[#262626]">
                     <img src="/images/misty_forest_portrait.webp" alt="Prerna in a misty forest cathedral in Lamahatta" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                   </div>
                   <div className="p-8"><h3 className="font-header text-[24px]">Forest cathedral</h3></div>
                 </div>
-                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col flex-1">
+                <div className="reveal rounded-3xl overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col flex-1">
                   <div className="flex-1 min-h-[220px] overflow-hidden bg-[#262626]">
                     <img src="/images/cozy_balcony_mountain_view.webp" alt="Cozy balcony with mountain view" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                   </div>
@@ -363,7 +363,7 @@ export default function Page() {
         <section id="travellers" aria-labelledby="travellers-title" className="relative z-30 py-16 md:py-24 bg-[#FFFCF5]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
-              <div className="md:col-span-5 aspect-[3/4] bg-[#E8DCC6] rounded-[28px] overflow-hidden order-2 md:order-1">
+              <div className="md:col-span-5 aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden order-2 md:order-1">
                 <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
               </div>
               <div className="md:col-span-7 order-1 md:order-2">
@@ -380,7 +380,7 @@ export default function Page() {
                   </ul>
                 </div>
                 
-                <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full bg-[#1A1A18] text-white hover:bg-[#C86B5A] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C86B5A]">Start a tattoo enquiry</Link>
+                <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full bg-[#1A1A18] text-white hover:bg-[#C86B5A] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300">Start a tattoo enquiry</Link>
               </div>
             </div>
           </div>
@@ -405,9 +405,9 @@ export default function Page() {
                   <div>• Optional tattoo pop-ups</div>
                 </div>
 
-                <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full border border-black/20 text-black hover:border-black hover:bg-black hover:text-white transition-all font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">Discuss a collaboration</Link>
+                <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full border border-black/20 text-black hover:border-black hover:bg-black hover:text-white transition-all font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black hover:scale-[1.02] transition-transform duration-300">Discuss a collaboration</Link>
               </div>
-              <div className="md:col-span-6 aspect-[4/3] bg-[#E8DCC6] rounded-[28px] overflow-hidden">
+              <div className="md:col-span-6 aspect-[4/3] bg-[#E8DCC6] rounded-3xl overflow-hidden">
                 <img src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="w-full h-full object-cover" />
               </div>
             </div>
@@ -432,10 +432,10 @@ export default function Page() {
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full bg-[#C86B5A] hover:bg-[#A85544] text-white font-body text-[15px] font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-[#C86B5A]">
+              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full bg-[#C86B5A] hover:bg-[#A85544] text-white font-body text-[15px] font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300">
                 Message on WhatsApp
               </Link>
-              <Link href={`mailto:${EMAIL}`} className="px-8 py-4 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors font-body text-[15px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
+              <Link href={`mailto:${EMAIL}`} className="px-8 py-4 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors font-body text-[15px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white hover:scale-[1.02] transition-transform duration-300">
                 Send an email
               </Link>
             </div>

@@ -122,10 +122,10 @@ export default function TravelJourney() {
       */}
       {enhanced && (
         <div className="hidden md:flex justify-center gap-6 py-12 bg-[#1A1A18]">
-            <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
+            <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-3xl bg-white text-black hover:bg-[#E8DCC6] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
                Discuss a collaboration
             </Link>
-            <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
+            <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-3xl border border-white/40 text-white hover:bg-white/10 transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
                Book a tattoo experience
             </Link>
         </div>
@@ -174,7 +174,7 @@ export default function TravelJourney() {
       */}
       <div className={`${enhanced ? 'md:hidden' : ''} flex flex-col`}>
         {SCENES.map((scene) => (
-          <div key={`mob-${scene.id}`} className="relative min-h-[90vh] flex items-center justify-center p-8 overflow-hidden">
+          <div key={`mob-${scene.id}`} className="relative min-h-\[90vh\] flex items-center justify-center p-8 overflow-hidden reveal">
              <div className="absolute inset-0 z-0">
                <img src={scene.img} alt={scene.alt} className="w-full h-full object-cover" />
                <div className="absolute inset-0 bg-black/40"></div>
@@ -189,10 +189,10 @@ export default function TravelJourney() {
         {/* Stacked CTAs at the end of mobile layout */}
         <div className="bg-[#1A1A18] py-16 flex flex-col items-center justify-center px-6">
            <div className="flex flex-col gap-4 w-full max-w-[280px]">
-              <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-4 rounded-full bg-white text-black text-center font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
+              <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-4 rounded-3xl bg-white text-black text-center font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
                 Discuss a collaboration
               </Link>
-              <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-4 rounded-full border border-white/40 text-white text-center font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
+              <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-4 rounded-3xl border border-white/40 text-white text-center font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
                 Book a tattoo experience
               </Link>
            </div>

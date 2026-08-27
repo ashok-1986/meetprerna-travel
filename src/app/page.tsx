@@ -168,9 +168,9 @@ export default function Page() {
               aria-expanded={menuOpen}
               aria-controls="mobile-nav-panel"
             >
-              <div className="w-6 h-0.5 bg-current mb-1.5 transition-transform duration-300" style={{ transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none' }}></div>
-              <div className="w-6 h-0.5 bg-current transition-opacity duration-300" style={{ opacity: menuOpen ? 0 : 1 }}></div>
-              <div className="w-6 h-0.5 bg-current mt-1.5 transition-transform duration-300" style={{ transform: menuOpen ? 'rotate(-45deg) translate(5px, -6px)' : 'none' }}></div>
+              <div className={`w-6 h-0.5 bg-current transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[8px]' : 'mb-1.5'}`}></div>
+              <div className={`w-6 h-0.5 bg-current transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`}></div>
+              <div className={`w-6 h-0.5 bg-current transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[8px]' : 'mt-1.5'}`}></div>
             </button>
           </div>
 

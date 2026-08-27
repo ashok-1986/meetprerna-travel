@@ -174,7 +174,7 @@ export default function TravelJourney() {
       */}
       <div className={`${enhanced ? 'md:hidden' : ''} flex flex-col`}>
         {SCENES.map((scene) => (
-          <div key={`mob-${scene.id}`} className="relative min-h-\[90vh\] flex items-center justify-center p-8 overflow-hidden reveal">
+          <div key={`mob-${scene.id}`} className="relative min-h-[90vh] flex items-center justify-center p-8 overflow-hidden reveal">
              <div className="absolute inset-0 z-0">
                <img src={scene.img} alt={scene.alt} className="w-full h-full object-cover" />
                <div className="absolute inset-0 bg-black/40"></div>

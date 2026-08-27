@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TravelJourney from './components/TravelJourney'
@@ -142,9 +143,11 @@ export default function Page() {
       <div id="progress" style={{position:'fixed',top:0,left:0,height:'2px',background:'#C86B5A',width:'0%',zIndex:9999}}></div>
 
       <header>
-        <nav className={`fixed top-0 w-full z-40 transition-all duration-500 border-b ${scrolled || menuOpen ? 'bg-[#FFFCF5]/70 backdrop-blur-2xl border-black/5 text-black' : 'bg-transparent border-white/10 text-white'}`}>
+        <nav className={`fixed top-0 w-full z-40 transition-all duration-500 border-b ${scrolled || menuOpen ? 'bg-[#FFFCF5]/70 backdrop-blur-2xl border-[#1A1A18]/5 text-[#1A1A18]' : 'bg-transparent border-transparent text-white'}`}>
           <div className="w-full px-6 md:px-10 h-[64px] flex items-center justify-between uppercase tracking-wider">
-            <Link href="/" className="font-header text-[22px] z-50 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded normal-case tracking-normal">prerna.</Link>
+            <Link href="/" className="z-50 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded flex items-center h-full pt-[6px]">
+              <Image src="/images/Logo-bg.png" alt="Prerna Logo" width={110} height={40} className={`w-auto h-[50px] object-contain transition-all duration-500 ${!(scrolled || menuOpen) ? 'invert brightness-0' : ''}`} />
+            </Link>
             
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8 text-[12px] font-body font-medium">
@@ -153,7 +156,7 @@ export default function Page() {
               <Link href="#travellers" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Travellers</Link>
               <Link href="#stays" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Stays</Link>
               <Link href="#about" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">About</Link>
-              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className={`px-5 py-2.5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] ${scrolled || menuOpen ? 'bg-black text-white' : 'bg-white text-black'}`}>WhatsApp Prerna</Link>
+              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className={`px-5 py-2.5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] ${scrolled || menuOpen ? 'bg-[#1A1A18] text-white hover:bg-black' : 'bg-white text-black hover:bg-gray-100'}`}>WhatsApp Prerna</Link>
             </div>
 
             {/* Mobile Nav Toggle */}
@@ -293,12 +296,12 @@ export default function Page() {
 
         {/* NEO MACBOOK HERO EFFECT FOR 4 NEW IMAGES */}
         <section className="py-20 relative z-20">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10 mb-8 text-center">
+            <h2 className="font-header text-[42px] md:text-[60px] leading-[1.1] text-[#1A1A18]">
+              Selected <span className="italic text-[#C86B5A]">Journals.</span>
+            </h2>
+          </div>
           <FrameSequenceHero 
-            title={
-              <>
-                Selected <span className="italic text-[#C86B5A]">Journals.</span>
-              </>
-            }
             frameCount={4}
             eagerCount={4}
             framePath={(index) => {
@@ -446,7 +449,9 @@ export default function Page() {
 
       <footer className="bg-[#1A1A18] border-t border-white/10 py-12">
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
-          <div className="font-header text-[26px] text-white">prerna.</div>
+          <div className="z-50 focus:outline-none focus:ring-2 focus:ring-white rounded flex items-center">
+            <Image src="/images/Logo-bg.png" alt="Prerna Logo" width={110} height={40} className="w-auto h-[40px] object-contain invert brightness-0" />
+          </div>
           
           <div className="flex flex-wrap justify-center gap-6 font-body text-[14px] text-white/70">
             <Link href="#journey" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Journey</Link>

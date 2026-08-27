@@ -24,7 +24,7 @@ export type FrameSequenceHeroProps = {
   navLinks?: { label: string; href: string }[];
   ctaLabel?: string;
   ctaHref?: string;
-  title: React.ReactNode;
+  title?: React.ReactNode;
   subtitle?: string;
   steps: FrameSequenceStep[];
   className?: string;
@@ -190,7 +190,7 @@ export function FrameSequenceHero({
         </div>
 
         <div className="fsh-copy">
-          <h1 className="fsh-title">{title}</h1>
+          {title && <h1 className="fsh-title">{title}</h1>}
           {subtitle && (
             <p className={cx("fsh-sub", subHidden && "fsh-sub-hidden")}>{subtitle}</p>
           )}

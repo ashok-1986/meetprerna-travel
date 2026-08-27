@@ -792,16 +792,30 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .fsh-canvas-wrap {
+    padding: 40px;
+  }
 }
 
 .fsh-canvas {
   width: 100%;
-  max-width: 1000px;
-  height: 100%;
+  max-width: 896px;
+  height: auto;
   max-height: 80vh;
+  aspect-ratio: 896 / 1200;
   object-fit: cover;
-  border-radius: 24px;
+  border-radius: 16px;
+}
+
+@media (min-width: 768px) {
+  .fsh-canvas {
+    max-height: 1200px;
+    border-radius: 24px;
+  }
 }
 
 .fsh-copy {

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
-import { Instrument_Serif, Poppins } from 'next/font/google'
+import { Poppins } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 
@@ -10,12 +11,21 @@ const poppins = Poppins({
   weight: ['300', '400', '500'],
 })
 
-const instrumentSerif = Instrument_Serif({
-  subsets: ['latin'],
-  variable: '--font-instrument',
+const gambetta = localFont({
+  src: [
+    {
+      path: '../../public/fonts/Gambetta-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/Gambetta-LightItalic.woff2',
+      weight: '300',
+      style: 'italic',
+    },
+  ],
+  variable: '--font-gambetta',
   display: 'swap',
-  weight: ['400'],
-  style: ['normal', 'italic'],
 })
 
 export const metadata: Metadata = {
@@ -58,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${instrumentSerif.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${gambetta.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

@@ -47,6 +47,13 @@ export function FrameSequenceHero({
   steps,
   className,
 }: FrameSequenceHeroProps) {
+  if (!Number.isInteger(frameCount) || frameCount <= 0) {
+    throw new Error("FrameSequenceHero: frameCount must be a positive integer.");
+  }
+  if (!Number.isInteger(eagerCount) || eagerCount <= 0) {
+    throw new Error("FrameSequenceHero: eagerCount must be a positive integer.");
+  }
+
   const spacerRef = useRef<HTMLDivElement | null>(null);
 
   const cacheRef = useRef<HTMLImageElement[]>(new Array(frameCount));

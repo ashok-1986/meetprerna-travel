@@ -67,12 +67,12 @@ export default function TravelJourney() {
 
     const ctx = gsap.context(() => {
       // Set initial states for elements except the first
-      gsap.set('.journey-img:not(.journey-img-0)', { opacity: 0, scale: 1.05 })
-      gsap.set('.journey-text:not(.journey-text-0)', { opacity: 0, y: 30 })
+      gsap.set('.journey-img:not(.journey-img-0)', { opacity: 0, scale: 1.2, filter: 'blur(20px)' })
+      gsap.set('.journey-text:not(.journey-text-0)', { opacity: 0, y: 100, scale: 0.9, filter: 'blur(10px)' })
       
       // First element starts normal
-      gsap.set('.journey-img-0', { opacity: 1, scale: 1 })
-      gsap.set('.journey-text-0', { opacity: 1, y: 0 })
+      gsap.set('.journey-img-0', { opacity: 1, scale: 1, filter: 'blur(0px)' })
+      gsap.set('.journey-text-0', { opacity: 1, y: 0, scale: 1 })
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -85,21 +85,24 @@ export default function TravelJourney() {
 
       // Create the sequence
       const sceneDuration = 1
-      const transitionDuration = 0.5
+      const transitionDuration = 0.8 // Increased for smoother crossfades
       
       // First scene scales gently
       tl.to('.journey-img-0', { scale: 1.05, duration: sceneDuration, ease: 'none' })
       
       // Subsequent scenes
       for (let i = 1; i < SCENES.length; i++) {
-        // Fade out previous text
-        tl.to(`.journey-text-${i-1}`, { opacity: 0, y: -30, duration: transitionDuration, ease: 'power2.inOut' }, `scene${i}`)
+        // Fade out previous text with a scale up and blur
+        tl.to(`.journey-text-${i-1}`, { opacity: 0, y: -80, scale: 1.1, filter: 'blur(10px)', duration: transitionDuration, ease: 'power2.inOut' }, `scene${i}`)
         
-        // Fade in new image over the old one
-        tl.to(`.journey-img-${i}`, { opacity: 1, duration: transitionDuration, ease: 'power2.inOut' }, `scene${i}`)
+        // Push old image back and blur
+        tl.to(`.journey-img-${i-1}`, { scale: 1.1, filter: 'blur(15px)', duration: transitionDuration, ease: 'power2.inOut' }, `scene${i}`)
         
-        // Fade in new text
-        tl.to(`.journey-text-${i}`, { opacity: 1, y: 0, duration: transitionDuration, ease: 'power2.out' }, `scene${i}+=0.2`)
+        // Bring in new image from blurred state
+        tl.to(`.journey-img-${i}`, { opacity: 1, scale: 1.05, filter: 'blur(0px)', duration: transitionDuration, ease: 'power2.inOut' }, `scene${i}`)
+        
+        // Bring in new text from below with scale up
+        tl.to(`.journey-text-${i}`, { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: transitionDuration, ease: 'power3.out' }, `scene${i}+=0.2`)
         
         // Animate current image slightly while active
         tl.to(`.journey-img-${i}`, { scale: 1, duration: sceneDuration, ease: 'none' })
@@ -154,10 +157,10 @@ export default function TravelJourney() {
                 {SCENES.map((scene, i) => (
                   <div 
                     key={`txt-${scene.id}`} 
-                    className={`journey-text journey-text-${i} absolute flex flex-col items-center text-center max-w-[800px] ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+                    className={`journey-text journey-text-${i} absolute flex flex-col items-center text-center w-full max-w-[1200px] px-8 ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
                   >
-                    <div className="font-body text-[11px] uppercase tracking-[0.2em] text-[#E8DCC6] mb-6 drop-shadow-md">{scene.title}</div>
-                    <h2 className="font-header text-[42px] md:text-[56px] leading-[1.1] text-white drop-shadow-lg">{scene.text}</h2>
+                    <div className="font-body text-[14px] uppercase tracking-[0.2em] text-[#E8DCC6] mb-8 drop-shadow-md">{scene.title}</div>
+                    <h2 className="font-header text-[60px] md:text-[120px] leading-[1.05] tracking-tight text-white drop-shadow-2xl">{scene.text}</h2>
                   </div>
                 ))}
              </div>
@@ -177,9 +180,9 @@ export default function TravelJourney() {
                <div className="absolute inset-0 bg-black/40"></div>
              </div>
              
-             <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="font-body text-[11px] uppercase tracking-[0.2em] text-[#E8DCC6] mb-6 drop-shadow-md">{scene.title}</div>
-                <h2 className="font-header text-[36px] leading-[1.1] text-white drop-shadow-lg">{scene.text}</h2>
+             <div className="relative z-10 flex flex-col items-center text-center w-full px-4">
+                <div className="font-body text-[12px] uppercase tracking-[0.2em] text-[#E8DCC6] mb-6 drop-shadow-md">{scene.title}</div>
+                <h2 className="font-header text-[48px] leading-[1.1] text-white drop-shadow-lg">{scene.text}</h2>
              </div>
           </div>
         ))}

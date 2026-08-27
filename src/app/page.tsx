@@ -5,6 +5,7 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TravelJourney from './components/TravelJourney'
+import { FrameSequenceHero } from '@/components/ui/mac-book-neo-hero'
 
 const WA_NUMBER = "917738147935";
 const EMAIL = "prerna@meetprerna.com";
@@ -141,18 +142,18 @@ export default function Page() {
       <div id="progress" style={{position:'fixed',top:0,left:0,height:'2px',background:'#C86B5A',width:'0%',zIndex:9999}}></div>
 
       <header>
-        <nav className={`fixed top-0 w-full z-40 transition-all duration-500 border-b ${scrolled || menuOpen ? 'bg-[#FFFCF5]/90 backdrop-blur-xl border-black/5 text-black' : 'bg-transparent border-white/10 text-white'}`}>
-          <div className="max-w-[1440px] mx-auto px-6 md:px-10 h-[64px] flex items-center justify-between">
-            <Link href="/" className="font-header text-[22px] z-50 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded">prerna.</Link>
+        <nav className={`fixed top-0 w-full z-40 transition-all duration-500 border-b ${scrolled || menuOpen ? 'bg-[#FFFCF5]/70 backdrop-blur-2xl border-black/5 text-black' : 'bg-transparent border-white/10 text-white'}`}>
+          <div className="w-full px-6 md:px-10 h-[64px] flex items-center justify-between uppercase tracking-wider">
+            <Link href="/" className="font-header text-[22px] z-50 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded normal-case tracking-normal">prerna.</Link>
             
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-8 text-[13px] font-body">
+            <div className="hidden md:flex items-center gap-8 text-[12px] font-body font-medium">
               <Link href="#journey" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Journey</Link>
               <Link href="#work" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Work</Link>
               <Link href="#travellers" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Travellers</Link>
               <Link href="#stays" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Stays</Link>
               <Link href="#about" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">About</Link>
-              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className={`px-5 py-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] ${scrolled || menuOpen ? 'bg-black text-white' : 'bg-white text-black'}`}>WhatsApp Prerna</Link>
+              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className={`px-5 py-2.5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] ${scrolled || menuOpen ? 'bg-black text-white' : 'bg-white text-black'}`}>WhatsApp Prerna</Link>
             </div>
 
             {/* Mobile Nav Toggle */}
@@ -197,23 +198,23 @@ export default function Page() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10 z-10"></div>
           </div>
           
-          <div className="relative z-20 h-full max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col justify-end pb-24 pointer-events-none">
-            <h1 id="hero-title" className="hero-title text-white">
+          <div className="relative z-20 h-full w-full px-6 md:px-10 flex flex-col justify-end pb-24 pointer-events-none">
+            <h1 id="hero-title" className="hero-title text-white min-w-full">
               <span className="hero-word"><span>Where journeys</span></span><br/>
-              <span className="hero-word"><span className="italic text-[#E8DCC6]">become something lasting.</span></span>
+              <span className="hero-word"><span className="italic text-[#E8DCC6]">become lasting.</span></span>
             </h1>
-            <p className="hero-sub font-body text-[16px] md:text-[18px] text-white/80 max-w-[520px] mt-6">
+            <p className="hero-sub font-body text-[16px] md:text-[18px] text-white/80 max-w-[520px] mt-8">
               Prerna and Ashok travel slowly, notice deeply, and turn meaningful places into hand-poked tattoos and property travel-content collaborations.
             </p>
-            <div className="hero-sub flex flex-wrap gap-4 mt-8 font-body text-[14px] pointer-events-auto">
-              <Link href="#travellers" className="px-6 py-3 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A]">For travellers</Link>
-              <Link href="#stays" className="px-6 py-3 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A]">For stays & properties</Link>
+            <div className="hero-sub flex flex-wrap gap-4 mt-12 font-body text-[14px] pointer-events-auto">
+              <Link href="#travellers" className="px-8 py-4 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A]">For travellers</Link>
+              <Link href="#stays" className="px-8 py-4 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A]">For stays & properties</Link>
             </div>
           </div>
         </section>
 
         {/* SHORT JOURNEY STATEMENT */}
-        <section aria-labelledby="statement-title" className="py-20 md:py-24 bg-[#FFFCF5]">
+        <section aria-labelledby="statement-title" className="py-32 md:py-40 bg-[#FFFCF5]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10 reveal">
             <div className="max-w-[800px] mx-auto text-center">
               <h2 id="statement-title" className="font-header text-[32px] md:text-[46px] leading-[1.2] text-[#1A1A18]">
@@ -230,10 +231,10 @@ export default function Page() {
         <TravelJourney />
 
         {/* AUDIENCE SPLIT */}
-        <section id="audiences" aria-labelledby="audiences-title" className="py-20 md:py-28 bg-[#FFFCF5]">
+        <section id="audiences" aria-labelledby="audiences-title" className="py-32 md:py-40 bg-[#FFFCF5]">
           <h2 id="audiences-title" className="sr-only">Our Offerings</h2>
-          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-            <div className="grid md:grid-cols-2 gap-6 reveal">
+          <div className="w-full px-6 md:px-10">
+            <div className="grid md:grid-cols-2 gap-8 reveal">
               <div className="p-10 md:p-14 rounded-[28px] bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow">
                 <h3 className="font-header text-[32px] mb-4 text-[#1A1A18]">For travellers</h3>
                 <p className="font-body text-[15px] opacity-70 mb-8 max-w-[400px]">Meaningful hand-poked tattoos connected to a journey or a memory you want to carry with you.</p>
@@ -258,63 +259,101 @@ export default function Page() {
               <p className="font-body text-[14px] opacity-70 max-w-[400px]">Every image here comes from a real place, real day, and real point of view. Honest travel storytelling and documentation.</p>
             </div>
 
-            <div className="grid md:grid-cols-12 gap-5 text-white">
+            <div className="grid md:grid-cols-12 gap-8 text-white">
               {/* Featured 8-col */}
-              <div className="md:col-span-8 reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group">
-                <div className="aspect-[4/3] md:aspect-[16/10] overflow-hidden bg-[#262626]">
-                  <img src="/images/tea_garden_panorama.webp" alt="Prerna photographing a tea garden panorama" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
+              <div className="md:col-span-7 reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
+                <div className="aspect-[4/3] md:aspect-[3/4] overflow-hidden bg-[#262626]">
+                  <img src="/images/ethereal_forest_canopy.webp" alt="A misty, ethereal forest canopy" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                 </div>
-                <div className="p-6">
-                  <h3 className="font-header text-[24px]">Morning mist in the estate</h3>
-                  <p className="font-body text-[13px] opacity-60 mt-1">Light-touch editing that keeps the place believable.</p>
+                <div className="p-8 mt-auto">
+                  <h3 className="font-header text-[28px]">Morning mist in the estate</h3>
+                  <p className="font-body text-[14px] opacity-60 mt-2">Light-touch editing that keeps the place believable.</p>
                 </div>
               </div>
 
               {/* Sidebar 4-col stack */}
-              <div className="md:col-span-4 grid grid-rows-2 gap-5">
-                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
-                  <div className="flex-1 min-h-[180px] overflow-hidden bg-[#262626]">
+              <div className="md:col-span-5 flex flex-col gap-8">
+                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col flex-1">
+                  <div className="flex-1 min-h-[220px] overflow-hidden bg-[#262626]">
                     <img src="/images/misty_forest_portrait.webp" alt="Prerna in a misty forest cathedral in Lamahatta" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                   </div>
-                  <div className="p-5"><h3 className="font-header text-[20px]">Forest cathedral</h3></div>
+                  <div className="p-8"><h3 className="font-header text-[24px]">Forest cathedral</h3></div>
                 </div>
-                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
-                  <div className="flex-1 min-h-[180px] overflow-hidden bg-[#262626]">
+                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col flex-1">
+                  <div className="flex-1 min-h-[220px] overflow-hidden bg-[#262626]">
                     <img src="/images/cozy_balcony_mountain_view.webp" alt="Cozy balcony with mountain view" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                   </div>
-                  <div className="p-5"><h3 className="font-header text-[20px]">Slow mornings</h3></div>
+                  <div className="p-8"><h3 className="font-header text-[24px]">Slow mornings</h3></div>
                 </div>
               </div>
               
-              {/* New 4-col row for requested images */}
-              <div className="md:col-span-12 grid grid-cols-2 md:grid-cols-4 gap-5 mt-2">
-                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
-                  <div className="flex-1 aspect-square overflow-hidden bg-[#262626]">
-                    <img src="/images/Kashmir_Winter.webp" alt="Kashmir Winter" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
-                  </div>
-                  <div className="p-5"><h3 className="font-header text-[18px]">Kashmir Winter</h3></div>
-                </div>
-                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
-                  <div className="flex-1 aspect-square overflow-hidden bg-[#262626]">
-                    <img src="/images/Wayanad_Canopy_Homes_Homestay.webp" alt="Wayanad Canopy Homes Homestay" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
-                  </div>
-                  <div className="p-5"><h3 className="font-header text-[18px]">Wayanad Canopy</h3></div>
-                </div>
-                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
-                  <div className="flex-1 aspect-square overflow-hidden bg-[#262626]">
-                    <img src="/images/intimate_bw_portrait.webp" alt="Intimate BW Portrait" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
-                  </div>
-                  <div className="p-5"><h3 className="font-header text-[18px]">Intimate Portrait</h3></div>
-                </div>
-                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
-                  <div className="flex-1 aspect-square overflow-hidden bg-[#262626]">
-                    <img src="/images/candid_phone_photo.webp" alt="Candid Phone Photo" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
-                  </div>
-                  <div className="p-5"><h3 className="font-header text-[18px]">Candid Moment</h3></div>
-                </div>
-              </div>
             </div>
           </div>
+        </section>
+
+        {/* NEO MACBOOK HERO EFFECT FOR 4 NEW IMAGES */}
+        <section className="bg-black py-20 relative z-20">
+          <FrameSequenceHero 
+            title={
+              <>
+                Selected <span className="italic text-[#C86B5A]">Journals.</span>
+              </>
+            }
+            frameCount={4}
+            eagerCount={4}
+            framePath={(index) => {
+              const paths = [
+                "/images/Kashmir_Winter.webp",
+                "/images/Wayanad_Canopy_Homes_Homestay.webp",
+                "/images/intimate_bw_portrait.webp",
+                "/images/candid_phone_photo.webp"
+              ];
+              // Math.max/min because framePath is 1-indexed in FrameSequenceHero
+              return paths[Math.min(Math.max(index - 1, 0), 3)]; 
+            }}
+            steps={[
+              {
+                from: 0,
+                to: 0.25,
+                color: "var(--color-primary)",
+                num: "01",
+                total: "04",
+                title: "Kashmir Winter",
+                description: "Snow-covered peaks and quiet resilience.",
+                label: "EXPLORE"
+              },
+              {
+                from: 0.25,
+                to: 0.50,
+                color: "var(--color-primary)",
+                num: "02",
+                total: "04",
+                title: "Wayanad Canopy",
+                description: "Living within the breathing forest.",
+                label: "STAY"
+              },
+              {
+                from: 0.50,
+                to: 0.75,
+                color: "var(--color-primary)",
+                num: "03",
+                total: "04",
+                title: "Intimate Portrait",
+                description: "Capturing the emotion behind the journey.",
+                label: "VIEW"
+              },
+              {
+                from: 0.75,
+                to: 1.01,
+                color: "var(--color-primary)",
+                num: "04",
+                total: "04",
+                title: "Candid Moment",
+                description: "Real days unscripted and documented honestly.",
+                label: "DISCOVER"
+              }
+            ]}
+          />
         </section>
 
         {/* TRAVELLER EXPERIENCE */}

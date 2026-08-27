@@ -119,8 +119,10 @@ export function FrameSequenceHero({
   const onScroll = () => {
     const spacer = spacerRef.current;
     if (!spacer) return;
+    const rect = spacer.getBoundingClientRect();
     const total = spacer.offsetHeight - window.innerHeight;
-    const p = Math.max(0, Math.min(1, window.scrollY / Math.max(1, total)));
+    const scrolledPast = -rect.top;
+    const p = Math.max(0, Math.min(1, scrolledPast / Math.max(1, total)));
     targetFrameRef.current = p * (frameCount - 1);
     loop();
     setProgress(p);

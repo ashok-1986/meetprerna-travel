@@ -160,7 +160,7 @@ export default function TravelJourney() {
                     className={`journey-text journey-text-${i} absolute flex flex-col items-center text-center w-full max-w-[1200px] px-8 ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
                   >
                     <div className="font-body text-[14px] uppercase tracking-[0.2em] text-[#E8DCC6] mb-8 drop-shadow-md">{scene.title}</div>
-                    <h2 className="font-header text-[60px] md:text-[120px] leading-[1.05] tracking-tight text-white drop-shadow-2xl">{scene.text}</h2>
+                    <h2 className="font-header text-[48px] md:text-[88px] leading-[1.05] tracking-tight text-white drop-shadow-2xl">{scene.text}</h2>
                   </div>
                 ))}
              </div>

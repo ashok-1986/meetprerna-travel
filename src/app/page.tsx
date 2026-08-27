@@ -146,7 +146,7 @@ export default function Page() {
         <nav className={`fixed top-0 w-full z-40 transition-all duration-500 border-b ${scrolled || menuOpen ? 'bg-[#FFFCF5]/70 backdrop-blur-2xl border-[#1A1A18]/5 text-[#1A1A18]' : 'bg-transparent border-transparent text-white'}`}>
           <div className="w-full px-6 md:px-10 h-[64px] flex items-center justify-between uppercase tracking-wider">
             <Link href="/" className="z-50 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded flex items-center h-full pt-[6px]">
-              <Image src="/images/Logo-bg.png" alt="Prerna Logo" width={110} height={40} className={`w-auto h-[50px] object-contain transition-all duration-500 ${!(scrolled || menuOpen) ? 'invert brightness-0' : ''}`} />
+              <Image src="/images/Logo.png" alt="Prerna Logo" width={110} height={40} className={`w-auto h-[50px] object-contain transition-all duration-500 ${!(scrolled || menuOpen) ? 'invert brightness-0' : ''}`} />
             </Link>
             
             {/* Desktop Nav */}
@@ -450,7 +450,7 @@ export default function Page() {
       <footer className="bg-[#1A1A18] border-t border-white/10 py-12">
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
           <div className="z-50 focus:outline-none focus:ring-2 focus:ring-white rounded flex items-center">
-            <Image src="/images/Logo-bg.png" alt="Prerna Logo" width={110} height={40} className="w-auto h-[40px] object-contain invert brightness-0" />
+            <Image src="/images/Logo.png" alt="Prerna Logo" width={110} height={40} className="w-auto h-[40px] object-contain invert brightness-0" />
           </div>
           
           <div className="flex flex-wrap justify-center gap-6 font-body text-[14px] text-white/70">

@@ -123,21 +123,27 @@ export function FrameSequenceHero({
     const total = spacer.offsetHeight - window.innerHeight;
     const scrolledPast = -rect.top;
     const p = Math.max(0, Math.min(1, scrolledPast / Math.max(1, total)));
-    targetFrameRef.current = p * (frameCount - 1);
-    loop();
-    setProgress(p);
-    setNavScrolled(window.scrollY > 4);
-    setSubHidden(window.scrollY > 8);
     let idx = -1;
     let local = 0;
     for (let i = 0; i < steps.length; i++) {
       const s = steps[i];
-      if (p >= s.from && p < s.to) {
+      if (p >= s.from && (p < s.to || (p === 1 && s.to === 1))) {
         idx = i;
         local = (p - s.from) / (s.to - s.from);
         break;
       }
     }
+
+    if (frameCount === steps.length && idx !== -1) {
+      targetFrameRef.current = idx;
+    } else {
+      targetFrameRef.current = p * (frameCount - 1);
+    }
+
+    loop();
+    setProgress(p);
+    setNavScrolled(window.scrollY > 4);
+    setSubHidden(window.scrollY > 8);
     setActiveIdx(idx);
     setStepLocal(Math.max(0, Math.min(1, local)));
   };

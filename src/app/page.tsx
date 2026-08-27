@@ -86,17 +86,31 @@ export default function Page() {
     }
   }, [])
 
+  const prevMenuOpen = useRef(menuOpen)
+
   useEffect(() => {
-    if (menuOpen) {
+    if (menuOpen && !prevMenuOpen.current) {
       setTimeout(() => {
         firstLinkRef.current?.focus()
       }, 50)
-    } else {
-      if (document.activeElement && document.activeElement !== document.body) {
+    } else if (!menuOpen && prevMenuOpen.current) {
+      const panel = document.getElementById('mobile-nav-panel')
+      if (panel && panel.contains(document.activeElement)) {
         menuToggleRef.current?.focus()
       }
     }
+    prevMenuOpen.current = menuOpen
   }, [menuOpen])
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMenuOpen(false)
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -248,7 +262,7 @@ export default function Page() {
               {/* Featured 8-col */}
               <div className="md:col-span-8 reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group">
                 <div className="aspect-[4/3] md:aspect-[16/10] overflow-hidden bg-[#262626]">
-                  <img src="/images/tea_garden_panorama.webp" alt="Prerna photographing a tea garden panorama" className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700" />
+                  <img src="/images/tea_garden_panorama.webp" alt="Prerna photographing a tea garden panorama" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                 </div>
                 <div className="p-6">
                   <h3 className="font-header text-[24px]">Morning mist in the estate</h3>
@@ -260,13 +274,13 @@ export default function Page() {
               <div className="md:col-span-4 grid grid-rows-2 gap-5">
                 <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
                   <div className="flex-1 min-h-[180px] overflow-hidden bg-[#262626]">
-                    <img src="/images/misty_forest_portrait.webp" alt="Prerna in a misty forest cathedral in Lamahatta" className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700" />
+                    <img src="/images/misty_forest_portrait.webp" alt="Prerna in a misty forest cathedral in Lamahatta" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                   </div>
                   <div className="p-5"><h3 className="font-header text-[20px]">Forest cathedral</h3></div>
                 </div>
                 <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
                   <div className="flex-1 min-h-[180px] overflow-hidden bg-[#262626]">
-                    <img src="/images/cozy_balcony_mountain_view.webp" alt="Cozy balcony with mountain view" className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700" />
+                    <img src="/images/cozy_balcony_mountain_view.webp" alt="Cozy balcony with mountain view" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                   </div>
                   <div className="p-5"><h3 className="font-header text-[20px]">Slow mornings</h3></div>
                 </div>

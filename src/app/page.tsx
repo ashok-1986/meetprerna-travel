@@ -1,24 +1,24 @@
 'use client'
+
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import TravelJourney from './components/TravelJourney'
 
-const STAYS = [
-  { src: '/images/mystical_forest_cathedral.webp', tag: 'FOREST • DEEP', title: 'Mystical canopy', desc: 'Tall trees, mist, breathe.', alt: 'Prerna photographing a deep mystical forest canopy' },
-  { src: '/images/shiva_statue_daylight.webp', tag: 'SPIRITUAL • NAMCHI', title: '87ft of calm, real sky', desc: 'Realistic daylight, no fantasy glow.', alt: 'Prerna photographing a large Shiva statue in Namchi daylight' },
-  { src: '/images/cinematic_temple_portrait.webp', tag: 'HERITAGE • TEMPLE', title: 'Temple colours', desc: 'Gopuram detail, golden sunset.', alt: 'Prerna photographing a colourful temple Gopuram at sunset' },
-  { src: '/images/cinematic_mountain_photographer.webp', tag: 'MOUNTAIN • WORK', title: 'Mountain work', desc: 'Sony in hand, real work.', alt: 'Prerna working as a photographer in the mountains' },
-  { src: '/images/bare_feet_stream.webp', tag: 'CONNECTION • NATURE', title: 'Bare feet, cold stream', desc: 'Grounding, feeling the earth.', alt: 'Bare feet in a cold mountain stream' },
-  { src: '/images/goa_beach_sunset.webp', tag: 'BEACH • GOA', title: 'Golden hour waves', desc: 'Soft light, salt air, slow pace.', alt: 'Prerna photographing golden hour waves on a Goa beach' },
-  { src: '/images/cozy_neon_studio.webp', tag: 'STUDIO • VIBE', title: 'Cozy neon', desc: 'Warm lights, intimate space.', alt: 'Prerna working in a cozy neon-lit tattoo studio' },
-  { src: '/images/ethereal_forest_canopy.webp', tag: 'FOREST • LIGHT', title: 'Ethereal canopy', desc: 'Light filtering through ancient trees.', alt: 'Ethereal light filtering through a forest canopy' },
-  { src: '/images/darjeeling_balcony_sunglasses_stay.webp', tag: 'STAY • DARJEELING', title: 'Balcony slow morning', desc: 'Coffee, sunglasses, mountain air.', alt: 'Prerna enjoying a slow morning on a Darjeeling balcony' },
-]
+const WA_NUMBER = "917738147935";
+const EMAIL = "prerna@meetprerna.com";
+
+const getWaLink = (template: string) => `https://wa.me/${WA_NUMBER}?text=${template}`;
+
+const TRAVELLER_MSG = encodeURIComponent("Hi Prerna, I’m [name] and I’m interested in a hand-poked tattoo experience. My preferred location/date is [location/date], and the idea I have in mind is [idea].");
+const PROPERTY_MSG = encodeURIComponent("Hi Prerna, I’m interested in a travel-content collaboration for [property/location]. We’re considering [deliverables], for [dates]. Here’s a little about the stay: [details].");
+const FALLBACK_MSG = encodeURIComponent("Hi Prerna, I'm reaching out from your website.");
 
 export default function Page() {
   const ctxRef = useRef<gsap.Context | null>(null)
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -28,10 +28,34 @@ export default function Page() {
       if (prefersReducedMotion) {
         gsap.set('.hero-word span', { y: '0%' })
         gsap.set('.hero-sub', { y: 0, opacity: 1 })
+        gsap.set('.hero-img-1', { opacity: 0 })
       } else {
         gsap.to('.hero-word span', { y: '0%', duration: 1.2, stagger: 0.08, ease: 'power3.out', delay: 0.3 })
-        gsap.to('.hero-bg', { scale: 1.05, duration: 15, ease: 'power1.out' })
         gsap.to('.hero-sub', { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.7 })
+        
+        const tl = gsap.timeline({ repeat: -1 })
+        
+        // Base state
+        gsap.set('.hero-img-0', { opacity: 1, scale: 1.04, zIndex: 1 })
+        gsap.set('.hero-img-1', { opacity: 0, scale: 1.04, zIndex: 2 })
+
+        // 1. Img 0 scales
+        tl.to('.hero-img-0', { scale: 1.09, duration: 8, ease: 'none' })
+        
+        // 2. Img 0 fades out, Img 1 fades in and starts scaling
+        tl.to('.hero-img-0', { opacity: 0, duration: 1.5, ease: 'power1.inOut' }, "-=1.5")
+        tl.to('.hero-img-1', { opacity: 1, duration: 1.5, ease: 'power1.inOut' }, "-=1.5")
+        tl.to('.hero-img-1', { scale: 1.09, duration: 8, ease: 'none' }, "-=1.5")
+        
+        // 3. Img 1 fades out, Img 0 fades back in
+        tl.set('.hero-img-0', { scale: 1.04 }, "-=1.5")
+        tl.to('.hero-img-1', { opacity: 0, duration: 1.5, ease: 'power1.inOut' }, "-=1.5")
+        tl.to('.hero-img-0', { opacity: 1, duration: 1.5, ease: 'power1.inOut' }, "-=1.5")
+        tl.to('.hero-img-0', { scale: 1.05, duration: 1.5, ease: 'none' }, "-=1.5")
+        
+        // 4. Loop boundary resets
+        tl.set('.hero-img-1', { opacity: 0, scale: 1.04, zIndex: 2 })
+        tl.set('.hero-img-0', { opacity: 1, zIndex: 1 })
       }
     })
     ctxRef.current = ctx
@@ -45,7 +69,7 @@ export default function Page() {
     }
     
     window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll() // initial check
+    handleScroll()
 
     const obs = new IntersectionObserver((ents) => ents.forEach(e => {
       if (e.isIntersecting) e.target.classList.add('active')
@@ -64,14 +88,14 @@ export default function Page() {
     <>
       <style>{`
         .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-        .reveal { opacity: 0; transform: translateY(14px); filter: blur(6px); transition: all 0.9s cubic-bezier(0.16,1,0.3,1) }
-        .reveal.active { opacity: 1; transform: translateY(0); filter: blur(0) }
+        .reveal { opacity: 0; transform: translateY(14px); transition: all 0.9s cubic-bezier(0.16,1,0.3,1) }
+        .reveal.active { opacity: 1; transform: translateY(0); }
         .hero-word { overflow: hidden; display: inline-block }
         .hero-word span { display: inline-block; transform: translateY(105%) }
         .hero-sub { opacity: 0; transform: translateY(12px) }
         @media (prefers-reduced-motion: reduce) {
           .grain { display: none; }
-          .reveal { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
+          .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
         }
       `}</style>
 
@@ -79,13 +103,46 @@ export default function Page() {
       <div id="progress" style={{position:'fixed',top:0,left:0,height:'2px',background:'#C86B5A',width:'0%',zIndex:9999}}></div>
 
       <header>
-        <nav className={`fixed top-0 w-full z-40 transition-all duration-500 border-b ${scrolled ? 'bg-[#FFFCF5]/80 backdrop-blur-xl border-black/5 text-black' : 'bg-transparent border-white/10 text-white'}`}>
+        <nav className={`fixed top-0 w-full z-40 transition-all duration-500 border-b ${scrolled || menuOpen ? 'bg-[#FFFCF5]/90 backdrop-blur-xl border-black/5 text-black' : 'bg-transparent border-white/10 text-white'}`}>
           <div className="max-w-[1440px] mx-auto px-6 md:px-10 h-[64px] flex items-center justify-between">
-            <div className="font-header text-[22px]">prerna.</div>
+            <Link href="/" className="font-header text-[22px] z-50 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded">prerna.</Link>
+            
+            {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8 text-[13px] font-body">
-              <Link href="#stays" className="opacity-60 hover:opacity-100">Stays</Link>
-              <Link href="#services" className="opacity-60 hover:opacity-100">Services</Link>
-              <Link href="#contact" className={`px-5 py-2 rounded-full transition-colors ${scrolled ? 'bg-black text-white' : 'bg-white text-black'}`}>Let's talk</Link>
+              <Link href="#journey" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Journey</Link>
+              <Link href="#travellers" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Travellers</Link>
+              <Link href="#stays" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Stays</Link>
+              <Link href="#work" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Work</Link>
+              <Link href="#about" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">About</Link>
+              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className={`px-5 py-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] ${scrolled || menuOpen ? 'bg-black text-white' : 'bg-white text-black'}`}>WhatsApp Prerna</Link>
+            </div>
+
+            {/* Mobile Nav Toggle */}
+            <button 
+              className="md:hidden z-50 p-2 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle Menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav-panel"
+            >
+              <div className="w-6 h-0.5 bg-current mb-1.5 transition-transform duration-300" style={{ transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none' }}></div>
+              <div className="w-6 h-0.5 bg-current transition-opacity duration-300" style={{ opacity: menuOpen ? 0 : 1 }}></div>
+              <div className="w-6 h-0.5 bg-current mt-1.5 transition-transform duration-300" style={{ transform: menuOpen ? 'rotate(-45deg) translate(5px, -6px)' : 'none' }}></div>
+            </button>
+          </div>
+
+          {/* Mobile Nav Panel */}
+          <div id="mobile-nav-panel" aria-hidden={!menuOpen} className={`md:hidden fixed inset-0 bg-[#FFFCF5] pt-[100px] px-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? 'translate-x-0 visible' : 'translate-x-full invisible'}`}>
+            <div className="flex flex-col gap-6 text-[24px] font-header text-[#1A1A18]">
+              <Link href="#journey" onClick={() => setMenuOpen(false)}>Journey</Link>
+              <Link href="#travellers" onClick={() => setMenuOpen(false)}>Travellers</Link>
+              <Link href="#stays" onClick={() => setMenuOpen(false)}>Stays</Link>
+              <Link href="#work" onClick={() => setMenuOpen(false)}>Work</Link>
+              <Link href="#about" onClick={() => setMenuOpen(false)}>About</Link>
+              <Link href="#contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+            </div>
+            <div className="mt-12">
+              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-3 rounded-full bg-black text-white font-body text-[14px]">WhatsApp Prerna</Link>
             </div>
           </div>
         </nav>
@@ -93,209 +150,203 @@ export default function Page() {
 
       <main>
         {/* HERO */}
-        <section className="relative h-[100vh] min-h-[640px] overflow-hidden bg-[#FFFCF5]">
+        <section id="hero" className="relative h-[100vh] min-h-[640px] overflow-hidden bg-[#1A1A18]">
           <div className="absolute inset-0">
-            <img src="/images/tea_plantation_landscape.webp" alt="Prerna photographing a tea plantation landscape in Darjeeling" className="hero-bg absolute inset-0 w-full h-full object-cover scale-110" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10"></div>
+            <img src="/images/golden_tea_plantation.webp" alt="Prerna walking through golden hour tea rows in Munnar" className="hero-img-0 absolute inset-0 w-full h-full object-cover origin-center" style={{ objectPosition: 'center 60%' }} />
+            <img src="/images/cinematic_temple_portrait.webp" alt="Prerna photographing a colourful temple Gopuram at sunset" className="hero-img-1 absolute inset-0 w-full h-full object-cover origin-center" style={{ objectPosition: 'center 40%' }} />
+            {/* Dark bottom gradient overlay to protect text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10 z-10"></div>
           </div>
-          <div className="relative z-10 h-full max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col justify-end pb-24">
-            <div className="inline-flex self-start px-3.5 py-2 rounded-full bg-white/90 text-black text-[11px] uppercase tracking-[0.14em] mb-6 reveal font-body">
-              <span className="w-1.5 h-1.5 bg-[#C86B5A] rounded-full animate-pulse mr-2"></span>Darjeeling Live
-            </div>
+          
+          <div className="relative z-20 h-full max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col justify-end pb-24 pointer-events-none">
             <h1 className="font-header text-[44px] md:text-[78px] leading-[0.88] text-white max-w-[760px]">
-              <span className="hero-word"><span>Where Journeys</span></span><br/>
-              <span className="hero-word"><span className="italic text-[#E8DCC6]">Become Ink.</span></span>
+              <span className="hero-word"><span>Where journeys</span></span><br/>
+              <span className="hero-word"><span className="italic text-[#E8DCC6]">become something lasting.</span></span>
             </h1>
-            <p className="hero-sub font-body text-[18px] text-white/70 max-w-[520px] mt-6">Hand-poked tattoos and thoughtful travel storytelling across India.</p>
-            <div className="hero-sub flex flex-wrap gap-4 mt-8 font-body text-[14px]">
-              <Link href="#contact" className="px-6 py-3 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors">Book a tattoo</Link>
-              <Link href="#contact" className="px-6 py-3 rounded-full border border-white/30 text-white hover:bg-white/10 transition-colors">Plan a collaboration</Link>
+            <p className="hero-sub font-body text-[16px] md:text-[18px] text-white/80 max-w-[520px] mt-6">Prerna and Ashok travel slowly, notice deeply, and turn meaningful places into stories, images, and experiences.</p>
+            <div className="hero-sub flex flex-wrap gap-4 mt-8 font-body text-[14px] pointer-events-auto">
+              <Link href="#travellers" className="px-6 py-3 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A]">For travellers</Link>
+              <Link href="#stays" className="px-6 py-3 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A]">For stays & properties</Link>
             </div>
           </div>
         </section>
+
+        {/* SHORT JOURNEY STATEMENT */}
+        <section className="py-24 md:py-32 bg-[#FFFCF5]">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10 reveal">
+            <div className="max-w-[800px] mx-auto text-center">
+              <h2 className="font-header text-[32px] md:text-[46px] leading-[1.2] text-[#1A1A18]">
+                Prerna and Ashok travel slowly enough to notice what makes a place feel like itself.
+              </h2>
+              <p className="mt-8 font-body text-[16px] leading-[1.7] opacity-80 text-[#1A1A18]">
+                They collect those moments—not as generic tourism content, but as memories, textures, encounters, and stories. That same way of looking is what they offer to travellers and thoughtful stays.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* SCROLLYTELLING TRAVEL DIARY */}
+        <TravelJourney />
 
         {/* AUDIENCE SPLIT */}
-        <section className="py-20 bg-[#FFFCF5]">
+        <section id="audiences" className="py-20 md:py-28 bg-[#FFFCF5]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="grid md:grid-cols-2 gap-6 reveal">
-              <div className="p-10 md:p-14 rounded-[28px] bg-white border border-black/5 flex flex-col justify-center hover:shadow-xl transition-shadow">
+              <div className="p-10 md:p-14 rounded-[28px] bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow">
                 <h2 className="font-header text-[32px] mb-4 text-[#1A1A18]">For travellers</h2>
-                <p className="font-body text-[15px] opacity-70 mb-8 max-w-[400px]">Immersive hand-poked tattoo experiences, inspired by the places you visit and the stories you carry.</p>
-                <Link href="#contact" className="font-body text-[13px] uppercase tracking-wider text-[#C86B5A] hover:opacity-70 self-start">Request a booking &rarr;</Link>
+                <p className="font-body text-[15px] opacity-70 mb-8 max-w-[400px]">Meaningful hand-poked tattoos connected to a journey or a memory you want to carry with you.</p>
+                <Link href="#travellers" className="font-body text-[13px] uppercase tracking-wider text-[#C86B5A] hover:opacity-70 self-start focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1 -ml-1">Explore tattoo experiences &rarr;</Link>
               </div>
-              <div className="p-10 md:p-14 rounded-[28px] bg-white border border-black/5 flex flex-col justify-center hover:shadow-xl transition-shadow">
+              <div className="p-10 md:p-14 rounded-[28px] bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow">
                 <h2 className="font-header text-[32px] mb-4 text-[#1A1A18]">For stays & properties</h2>
-                <p className="font-body text-[15px] opacity-70 mb-8 max-w-[400px]">Cinematic reels, honest photography, and place-led stories for stays that want guests to feel the destination.</p>
-                <Link href="#contact" className="font-body text-[13px] uppercase tracking-wider text-[#C86B5A] hover:opacity-70 self-start">View packages &rarr;</Link>
+                <p className="font-body text-[15px] opacity-70 mb-8 max-w-[400px]">Honest, place-led travel content—photography, cinematic reels, and writing that translates the feeling of a place.</p>
+                <Link href="#stays" className="font-body text-[13px] uppercase tracking-wider text-[#C86B5A] hover:opacity-70 self-start focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1 -ml-1">Explore collaborations &rarr;</Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* TRAVEL & STAY */}
-        <section id="stays" className="py-20 md:py-28 bg-[#FFFCF5]">
+        {/* TRAVELLER EXPERIENCE */}
+        <section id="travellers" className="py-20 md:py-28 bg-[#FFFCF5]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-            <div className="flex flex-wrap justify-between items-end gap-6 mb-12 reveal">
-              <div>
-                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-40 mb-3 text-[#1A1A18]">For travellers and thoughtful stays</div>
-                <h2 className="font-header text-[36px] md:text-[54px] leading-[0.9] text-[#1A1A18]">Places I've experienced,<br/><span className="italic text-[#C86B5A]">photographed, and remembered.</span></h2>
+            <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
+              <div className="md:col-span-5 aspect-[3/4] bg-[#E8DCC6] rounded-[28px] overflow-hidden order-2 md:order-1">
+                <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
               </div>
-              <p className="font-body text-[13px] opacity-60 max-w-[360px] text-[#1A1A18]">Every image here comes from a real place, real day, and real point of view. No stock moodboards; just honest travel storytelling.</p>
-            </div>
-
-            <div className="grid md:grid-cols-12 gap-5 auto-rows-[1fr]">
-              {/* 8-col Featured */}
-              <div className="md:col-span-8 reveal rounded-[28px] overflow-hidden bg-white border border-black/5">
-                <div className="aspect-[16/10] md:aspect-[4/3] lg:aspect-[16/10] bg-[#E8DCC6] overflow-hidden">
-                  <img src="/images/tea_plantation_landscape.webp" alt="Prerna photographing a tea plantation landscape in Darjeeling" className="w-full h-full object-cover hover:scale-[1.03] transition duration-700" onError={(e:any)=>{e.target.src='/images/tea_plantation_landscape.webp'}} />
-                </div>
-                <div className="p-6 flex justify-between items-start text-[#1A1A18]">
-                  <div>
-                    <h3 className="font-header text-[24px]">Morning mist, no poles</h3>
-                    <p className="font-body text-[13px] opacity-60 mt-1">Light-touch editing that keeps the place believable.</p>
-                  </div>
-                  <span className="font-body text-[10px] uppercase opacity-40 whitespace-nowrap ml-4">TEA ESTATE</span>
-                </div>
-              </div>
-
-              {/* 4-col Stack */}
-              <div className="md:col-span-4 grid grid-rows-2 gap-5">
-                <div className="reveal rounded-[28px] overflow-hidden bg-white border border-black/5 flex flex-col">
-                  <div className="flex-1 bg-[#E8DCC6] overflow-hidden min-h-[160px]">
-                    <img src="/images/golden_tea_plantation.webp" alt="Prerna walking through golden hour tea rows in Munnar" className="w-full h-full object-cover hover:scale-[1.03] transition duration-700" onError={(e:any)=>{e.target.src='/images/tea_plantation_landscape.webp'}} />
-                  </div>
-                  <div className="p-5 text-[#1A1A18]"><h3 className="font-header text-[20px]">Golden hour tea rows</h3></div>
-                </div>
-                <div className="reveal rounded-[28px] overflow-hidden bg-white border border-black/5 flex flex-col">
-                  <div className="flex-1 bg-[#E8DCC6] overflow-hidden min-h-[160px]">
-                    <img src="/images/misty_forest_portrait.webp" alt="Prerna in a misty forest cathedral in Lamahatta" className="w-full h-full object-cover hover:scale-[1.03] transition duration-700" onError={(e:any)=>{e.target.src='/images/tea_plantation_landscape.webp'}} />
-                  </div>
-                  <div className="p-5 text-[#1A1A18]"><h3 className="font-header text-[20px]">Forest cathedral</h3></div>
-                </div>
-              </div>
-
-              {/* Row 2 - 9 cards using 3-col layout for larger aspect ratio but we use md:col-span-4 to fit 3 per row instead of 4 */}
-              {STAYS.map((c, i) => (
-                <div key={i} className="md:col-span-4 reveal rounded-[28px] overflow-hidden bg-white border border-black/5 flex flex-col">
-                  <div className="aspect-[4/3] bg-[#E8DCC6] overflow-hidden">
-                    <img src={c.src} alt={c.alt} className="w-full h-full object-cover hover:scale-[1.03] transition duration-700" onError={(e:any)=>{e.target.src='/images/tea_plantation_landscape.webp'}} />
-                  </div>
-                  <div className="p-6 text-[#1A1A18] flex-1">
-                    <div className="font-body text-[10px] uppercase tracking-[0.12em] opacity-40 mb-2">{c.tag}</div>
-                    <h3 className="font-header text-[22px] leading-[1.2]">{c.title}</h3>
-                    <p className="font-body text-[12px] opacity-60 mt-2">{c.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Behind scenes banner */}
-            <div className="mt-8 reveal rounded-[28px] bg-[#1A1A18] text-white p-8 md:p-12 flex flex-wrap gap-8 items-center">
-              <img src="/images/candid_phone_photo.webp" alt="Behind the scenes photo of Prerna working" className="w-[160px] h-[220px] md:w-[220px] md:h-[280px] rounded-[20px] object-cover" onError={(e:any)=>{e.target.src='/images/tea_plantation_landscape.webp'}} />
-              <div className="flex-1 min-w-[280px]">
-                <div className="font-body text-[11px] uppercase tracking-[0.18em] opacity-50 mb-3">Behind the scenes • Real work</div>
-                <h3 className="font-header text-[28px] md:text-[36px] leading-[1.15]">Real moments, <span className="italic text-[#E8DCC6]">thoughtfully captured.</span></h3>
-                <p className="font-body text-[14px] opacity-60 mt-4 max-w-[480px]">The work happens in the real world: on the road, between check-ins, and sometimes from a phone screen.</p>
-              </div>
-              <img src="/images/intimate_bw_portrait.webp" alt="Real moment portrait of Prerna" className="w-[140px] h-[140px] rounded-full object-cover opacity-80 hidden lg:block" onError={(e:any)=>{e.target.src='/images/tea_plantation_landscape.webp'}} />
-            </div>
-          </div>
-        </section>
-
-        <section id="services" className="py-20 md:py-28 bg-[#1A1A18] text-white">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-            <h2 className="font-header text-[36px] md:text-[52px] mb-12 reveal">Content packages for stays<br/>that have a <span className="italic text-[#C86B5A]">story to tell.</span></h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                { t: 'Essentials', d: 'Perfect for a fresh social push.', i: ['1 Cinematic Reel', '15 Edited Photographs', '1 Story Takeover', 'Basic usage rights'] },
-                { t: 'Story-led', d: 'Comprehensive documentation of the experience.', i: ['2-3 Cinematic Reels', '25-30 Edited Photographs', '800-word SEO Blog Story', 'Google + IG Review', 'Extended usage rights'] },
-                { t: 'Custom stay', d: 'Tailored specifically to your property goals.', i: ['Bespoke deliverable list', 'Tattoo Pop-up (Optional flash)', 'Multi-day coverage', 'Full commercial buyout option'] },
-              ].map((s, i) => (
-                <div key={i} className="reveal rounded-[24px] bg-white/[0.03] border border-white/10 p-8 hover:bg-white/[0.06] transition-colors flex flex-col">
-                  <h3 className="font-header text-[28px] mb-2">{s.t}</h3>
-                  <p className="font-body text-[14px] opacity-60 mb-6">{s.d}</p>
-                  <ul className="font-body text-[13px] opacity-80 space-y-3 flex-1">
-                    {s.i.map((item, j) => (
-                      <li key={j} className="flex gap-3 items-start">
-                        <span className="text-[#C86B5A] mt-0.5">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
+              <div className="md:col-span-7 order-1 md:order-2">
+                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-4 text-[#C86B5A]">For Travellers</div>
+                <h2 className="font-header text-[36px] md:text-[52px] leading-[1.05] text-[#1A1A18] mb-8">A tattoo that belongs<br/>to the journey.</h2>
+                
+                <div className="space-y-6 font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-10 max-w-[560px]">
+                  <p>Hand-poked work is inherently slow, intentional, and quiet. There are no machines, just a needle, ink, and time. It is a process shaped by the place you are in, the story you are carrying, and the time you have to make it meaningful.</p>
+                  
+                  <ul className="space-y-3 pt-4 border-t border-black/10">
+                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Share the idea:</strong> Tell me what you want to carry with you.</li>
+                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Shape the design:</strong> We refine the visual to fit the hand-poked medium.</li>
+                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Meet and make it:</strong> Sessions happen in curated spaces across Mumbai, Goa, and the mountains. Drink water, eat well before arriving, and bring an open mind.</li>
                   </ul>
-                  <Link href="#contact" className="mt-8 inline-block font-body text-[12px] uppercase tracking-wider text-white border border-white/20 rounded-full px-5 py-2 text-center hover:bg-white/10 transition-colors">Inquire about {s.t}</Link>
                 </div>
-              ))}
+                
+                <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full bg-[#1A1A18] text-white hover:bg-[#C86B5A] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C86B5A]">Start a tattoo enquiry</Link>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ABOUT / PROCESS */}
-        <section id="about" className="py-20 md:py-28 bg-[#FFFCF5]">
+        {/* PROPERTY COLLABORATION STORY */}
+        <section id="stays" className="py-20 md:py-28 bg-white">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-            <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center reveal">
-              <div>
-                <h2 className="font-header text-[36px] md:text-[52px] leading-[1.05] text-[#1A1A18] mb-6">Tell me where you're going <br/>&rarr; We shape the idea <br/>&rarr; <span className="italic text-[#C86B5A]">We make something lasting.</span></h2>
-                <p className="font-body text-[16px] leading-[1.7] opacity-70 text-[#1A1A18] mb-6">I believe that the best work comes from slowing down. Whether I'm hand-poking a tattoo that commemorates a journey, or creating honest imagery for a remote property, the process is always rooted in the present moment.</p>
-                <p className="font-body text-[16px] leading-[1.7] opacity-70 text-[#1A1A18]">Currently working between Mumbai, Goa, and the mountains.</p>
+            <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
+              <div className="md:col-span-6">
+                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-4 text-[#C86B5A]">For Stays & Properties</div>
+                <h2 className="font-header text-[36px] md:text-[52px] leading-[1.05] text-[#1A1A18] mb-8">Make your place felt<br/>before guests arrive.</h2>
+                
+                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-8 max-w-[500px]">Prerna and Ashok bring the same attention they use in their own travels to a property’s story. By collecting authentic moments, textures, and light, they help future guests feel the destination.</p>
+                
+                <div className="grid grid-cols-2 gap-x-6 gap-y-4 font-body text-[14px] opacity-80 mb-10 border-l-2 border-[#C86B5A]/30 pl-6">
+                  <div>• Cinematic reels</div>
+                  <div>• Honest photography</div>
+                  <div>• Place-led writing</div>
+                  <div>• Social stories & takeovers</div>
+                  <div>• Guest-facing context</div>
+                  <div>• Optional tattoo pop-ups</div>
+                </div>
+
+                <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full border border-black/20 text-black hover:border-black hover:bg-black hover:text-white transition-all font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">Discuss a collaboration</Link>
               </div>
-              <div className="aspect-square bg-[#E8DCC6] rounded-[28px] overflow-hidden">
-                <img src="/images/cozy_neon_studio.webp" alt="Prerna in the studio working on a tattoo" className="w-full h-full object-cover" onError={(e:any)=>{e.target.src='/images/tea_plantation_landscape.webp'}} />
+              <div className="md:col-span-6 aspect-[4/3] bg-[#E8DCC6] rounded-[28px] overflow-hidden">
+                <img src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ABOUT */}
+        <section id="about" className="py-20 md:py-28 bg-[#1A1A18] text-white">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10 text-center reveal">
+            <h2 className="font-header text-[42px] md:text-[56px] leading-[1.05] mb-8">Tell me where you're going <br/>&rarr; We shape the idea <br/>&rarr; <span className="italic text-[#E8DCC6]">We make something lasting.</span></h2>
+            <p className="font-body text-[16px] leading-[1.7] opacity-70 max-w-[700px] mx-auto mb-6">I believe that the best work comes from slowing down. Whether I'm hand-poking a tattoo that commemorates a journey, or creating honest imagery for a remote property, the process is always rooted in the present moment.</p>
+            <p className="font-body text-[16px] leading-[1.7] opacity-70">Currently working between Mumbai, Goa, and the mountains.</p>
+          </div>
+        </section>
+
+        {/* WORK GALLERY / PROOF */}
+        <section id="work" className="py-20 md:py-28 bg-[#FFFCF5]">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
+            <div className="flex flex-wrap justify-between items-end gap-6 mb-12 reveal text-[#1A1A18]">
+              <div>
+                <h2 className="font-header text-[36px] md:text-[54px] leading-[0.9]">Selected work &amp;<br/><span className="italic text-[#C86B5A]">real places.</span></h2>
+              </div>
+              <p className="font-body text-[14px] opacity-70 max-w-[400px]">Every image here comes from a real place, real day, and real point of view. Honest travel storytelling and documentation.</p>
+            </div>
+
+            <div className="grid md:grid-cols-12 gap-5 text-white">
+              {/* Featured 8-col */}
+              <div className="md:col-span-8 reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group">
+                <div className="aspect-[4/3] md:aspect-[16/10] overflow-hidden bg-[#262626]">
+                  <img src="/images/tea_garden_panorama.webp" alt="Prerna photographing a tea garden panorama" className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700" />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-header text-[24px]">Morning mist in the estate</h3>
+                  <p className="font-body text-[13px] opacity-60 mt-1">Light-touch editing that keeps the place believable.</p>
+                </div>
+              </div>
+
+              {/* Sidebar 4-col stack */}
+              <div className="md:col-span-4 grid grid-rows-2 gap-5">
+                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
+                  <div className="flex-1 min-h-[180px] overflow-hidden bg-[#262626]">
+                    <img src="/images/misty_forest_portrait.webp" alt="Prerna in a misty forest cathedral in Lamahatta" className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700" />
+                  </div>
+                  <div className="p-5"><h3 className="font-header text-[20px]">Forest cathedral</h3></div>
+                </div>
+                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
+                  <div className="flex-1 min-h-[180px] overflow-hidden bg-[#262626]">
+                    <img src="/images/cozy_balcony_mountain_view.webp" alt="Cozy balcony with mountain view" className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700" />
+                  </div>
+                  <div className="p-5"><h3 className="font-header text-[20px]">Slow mornings</h3></div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* CONTACT */}
-        <section id="contact" className="py-20 md:py-28 bg-[#1A1A18] text-white">
+        <section id="contact" className="py-24 md:py-32 bg-[#1A1A18] text-white">
           <div className="max-w-[800px] mx-auto px-6 md:px-10 text-center reveal">
-            <h2 className="font-header text-[42px] md:text-[64px] mb-6">Let's talk.</h2>
-            <p className="font-body text-[16px] opacity-70 mb-12">Drop a message below or reach out directly via <a href="mailto:hello@example.com" className="underline hover:text-white transition-colors">email</a> or <a href="https://wa.me/0000000000" className="underline hover:text-white transition-colors">WhatsApp</a>. I usually reply within 48 hours.</p>
+            <h2 className="font-header text-[48px] md:text-[72px] mb-6">Tell me where you're going.</h2>
+            <p className="font-body text-[16px] md:text-[18px] opacity-70 mb-12 max-w-[600px] mx-auto leading-relaxed">
+              Send a WhatsApp message with your dates, location, and what you have in mind. If it feels like a fit, we’ll shape the next step together.
+            </p>
             
-            <form className="text-left bg-white/5 p-8 md:p-12 rounded-[28px] border border-white/10" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label className="font-body text-[12px] uppercase opacity-50 block mb-2">Name</label>
-                  <input type="text" className="w-full bg-white/10 border border-white/20 rounded-[12px] px-4 py-3 font-body text-white outline-none focus:border-[#C86B5A] transition-colors" placeholder="Your name" />
-                </div>
-                <div>
-                  <label className="font-body text-[12px] uppercase opacity-50 block mb-2">Email or WhatsApp</label>
-                  <input type="text" className="w-full bg-white/10 border border-white/20 rounded-[12px] px-4 py-3 font-body text-white outline-none focus:border-[#C86B5A] transition-colors" placeholder="How to reach you" />
-                </div>
-              </div>
-              
-              <div className="mb-6">
-                <label className="font-body text-[12px] uppercase opacity-50 block mb-2">I'm interested in...</label>
-                <select className="w-full bg-white/10 border border-white/20 rounded-[12px] px-4 py-3 font-body text-white outline-none focus:border-[#C86B5A] transition-colors appearance-none">
-                  <option value="" className="text-black">Select an option</option>
-                  <option value="tattoo" className="text-black">Tattoo booking</option>
-                  <option value="content" className="text-black">Stay / Content collaboration</option>
-                  <option value="both" className="text-black">Both</option>
-                </select>
-              </div>
-
-              <div className="mb-6">
-                <label className="font-body text-[12px] uppercase opacity-50 block mb-2">Preferred dates / Location</label>
-                <input type="text" className="w-full bg-white/10 border border-white/20 rounded-[12px] px-4 py-3 font-body text-white outline-none focus:border-[#C86B5A] transition-colors" placeholder="Where and when?" />
-              </div>
-
-              <div className="mb-8">
-                <label className="font-body text-[12px] uppercase opacity-50 block mb-2">Tell me a little about the idea</label>
-                <textarea className="w-full bg-white/10 border border-white/20 rounded-[12px] px-4 py-3 font-body text-white outline-none focus:border-[#C86B5A] transition-colors h-[120px] resize-none" placeholder="Share your thoughts..."></textarea>
-              </div>
-
-              <button className="w-full bg-[#C86B5A] hover:bg-[#A85544] text-white font-body text-[15px] font-medium py-4 rounded-[12px] transition-colors">Send message</button>
-            </form>
+            <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full bg-[#C86B5A] hover:bg-[#A85544] text-white font-body text-[15px] font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-[#C86B5A]">
+                Message on WhatsApp
+              </Link>
+              <Link href={`mailto:${EMAIL}`} className="px-8 py-4 rounded-full border border-white/20 text-white hover:bg-white/10 transition-colors font-body text-[15px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
+                Send an email
+              </Link>
+            </div>
+            
+            <div className="mt-16 font-body text-[13px] opacity-50">
+              Response times vary while traveling.
+            </div>
           </div>
         </section>
       </main>
 
-      <footer className="bg-[#1A1A18] border-t border-white/10 py-10">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="font-header text-[22px] text-white">prerna.</div>
-          <div className="flex gap-6 font-body text-[13px] text-white/60">
-            <Link href="https://instagram.com/meetprerna" target="_blank" className="hover:text-white transition-colors">@meetprerna</Link>
-            <Link href="https://instagram.com/meetprerna.tattoos" target="_blank" className="hover:text-white transition-colors">@meetprerna.tattoos</Link>
+      <footer className="bg-[#1A1A18] border-t border-white/10 py-12">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+          <div className="font-header text-[26px] text-white">prerna.</div>
+          
+          <div className="flex flex-wrap justify-center gap-6 font-body text-[14px] text-white/70">
+            <Link href="#journey" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Journey</Link>
+            <Link href="#travellers" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Travellers</Link>
+            <Link href="#stays" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Stays</Link>
+            <Link href={`mailto:${EMAIL}`} className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Email</Link>
+            <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">WhatsApp</Link>
           </div>
+          
           <div className="font-body text-[12px] text-white/40">
             © {new Date().getFullYear()} Prerna. All rights reserved.
           </div>

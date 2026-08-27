@@ -1,62 +1,242 @@
-# PRD — meetprerna-travel.vercel.app Rebuild (No-Code Handoff for AI IDE)
-**Live:** https://meetprerna-travel.vercel.app/ | **Date:** 26 Aug 2026 (Review Context) | **Version:** Final v2.1
-**Owner:** Prerna — Slow Travel + Hand-poked Tattoos | Mumbai + Darjeeling 17-20 Aug
+# PRD — Prerna Travel & Tattoo Website
 
-## 1. Problem
-Live site is stale: Travel & Stay shows 1 card instead of 10, most images 404, Sora used for headers looks awful, nav solid white blocks hero, no animations (grain, progress bar, reveal missing), Day 1-7 timeline SOP kills vibe, pricing should not be shown.
+**Product:** Prerna — hand-poked tattoos and slow-travel storytelling  
+**Primary URL:** `https://meetprerna-travel.vercel.app/`  
+**Primary conversion:** WhatsApp enquiry to `+91 77381 47935`  
+**Secondary conversion:** Email to `prerna@meetprerna.com`  
+**Status:** Revised implementation-ready specification  
+**Audience model:** Two equal audience paths: travellers and stays/properties
 
-Local folder has 16 webp + your new uploads: bare_feet_stream, candid_phone_photo, cinematic_mountain_photographer, cinematic_temple_portrait, cozy_neon_studio, ethereal_forest_canopy, goa_beach_sunset, golden_tea_plantation, intimate_bw_portrait, misty_forest_portrait, misty_mountain_valley, misty_shiva_statue, mystical_forest_cathedral, shiva_statue_daylight, tea_garden_panorama, tea_plantation_landscape (hero poles removed) + new: darjeeling_balcony_sunglasses_stay (edited), group mirror photos, snowy mountain group selfies.
+## 1. Product definition
 
-Vercel only has 2 images deployed. Code references non-existent files.
+This is an editorial portfolio and enquiry website for Prerna. It serves two audiences without pretending they are the same customer:
 
-## 2. Goals
-- Portfolio, not pitch deck. Prove real stays with real photos. Sale offline, no pricing.
-- 2-level font: editorial header + clean body (user edit: body = Poppins, header = Instrument Serif ONLY, never Sora for header).
-- Transparent nav with white text visible over hero, turning blurred on scroll.
-- Apple motion slow intentional.
-- Production bulletproof.
+1. **Travellers** who want a meaningful hand-poked tattoo experience connected to a place or journey.
+2. **Stays and properties** that want honest, place-led travel content such as reels, photography, stories, and optional tattoo pop-ups.
 
-## 3. Assets
-All images must be in public/images/ and committed. Use your 16 + new edits. Renamed edited image: darjeeling_balcony_sunglasses_stay.webp (subtle cleanup, no face/body change, original IMG20250307154508.jpg).
+The site is not an ecommerce checkout, online booking engine, or pricing page. It must make the two offers clear enough for a visitor to choose the right path and start a WhatsApp conversation.
 
-## 4. Design System
-**Fonts:** Header Instrument Serif ONLY weight 400 italic accent tracking -0.02em line-height 0.88-0.95. Body Poppins (per your latest file edit) weight 300-500 line-height 1.5-1.7. Rule: .font-header {Instrument Serif !important} .font-body {Poppins !important} h1,h2,h3 {Instrument Serif !important}
+## 2. Problem statement
 
-**Nav:** Default fixed bg-transparent border-b border-white/10 text-white logo white. Scrolled >20px bg-[#FFFCF5]/80 backdrop-blur-xl border-black/5 text-black. Use useState scrolled + scroll listener cleanup. Use Link from next/link.
+The current deployed site is visually distinctive but operationally unreliable. It has unclear audience positioning, a broken `Let's talk` destination, no working contact mechanism, internal draft copy exposed in public, incomplete image deployment, weak mobile navigation, and a repository/deployment mismatch. The revised product must prioritise clarity and trustworthy conversion before visual polish.
 
-**Colors:** Cream #FFFCF5, Charcoal #1A1A18, Terracotta #C86B5A, Sand #E8DCC6.
+## 3. Goals and non-goals
 
-## 5. Sections
-**Hero:** 100vh, tea_plantation_landscape.webp scale 110->105 Ken Burns 15s, overlay gradient, badge Darjeeling Live, H1 Where Journeys / Become Ink. (Instrument Serif white + italic #E8DCC6), sub Poppins white/70, CTA gap-3, grain 0.025, progress 2px terracotta.
+### Goals
 
-**Travel & Stay:** Title Where I've stayed slow. (stayed slow italic terracotta). Grid md:grid-cols-12 gap-5 NO pin NO parallax scrub. Use ONLY existing files + new sunglasses balcony shot. Map: 8col tea_plantation_landscape Morning mist no poles, 4col stack golden_tea_plantation + misty_forest_portrait, 9 cards 3col: mystical_forest_cathedral, shiva_statue_daylight, cinematic_temple_portrait, cinematic_mountain_photographer, bare_feet_stream, goa_beach_sunset, cozy_neon_studio, ethereal_forest_canopy, darjeeling_balcony_sunglasses_stay for balcony vibe, plus candid_phone_photo + intimate_bw_portrait banner. onError fallback.
+- Explain what Prerna offers within five seconds of landing.
+- Route travellers and stays/properties into distinct journeys.
+- Present authentic work using approved images and context.
+- Convert qualified visitors into WhatsApp conversations.
+- Provide email as a visible fallback.
+- Preserve an editorial, cinematic, slow-travel visual identity.
+- Work reliably on mobile, keyboard navigation, reduced motion, and production deployment.
+- Ship valid crawler files, metadata, semantic landmarks, and zero broken image references.
 
-**Services:** Delete Day 1-7 timeline completely. Replace with 6 cards: Reels (2-3), Photo Set (25-30), Blog Story, Google + IG Review, Story Takeover, Tattoo Pop-up optional.
+### Non-goals
 
-**Instagram Pull:** Use recent IG @meetprerna posts: Chardham Shiva misty reel, barefoot Shiva temple, temple bell UPSC joke, olive dress chest tattoo (already fetched). These prove real travel.
+- Public pricing or fixed online checkout.
+- Day 1–7 itinerary/SOP timeline.
+- Fake booking availability, payment, ratings, logos, testimonials, or performance claims.
+- A complex CMS, dashboard, or account system.
+- Copying the Fuel reference website literally.
 
-**Contact:** Add a concrete Contact section targeting #contact with an inquiry form, submission success state, and direct WhatsApp/email fallback.
+## 4. Success metrics
 
-## 6. Animations (animations.md)
-Lenis lerp 0.08, gsap.context() revert cleanup, hero line stagger y 105%->0% power3.out, hero-bg scale, hero-fade y 14px, reveal IntersectionObserver 0.15, grain, progress bar.
+| Metric | Target for launch validation |
+|---|---|
+| Five-second comprehension | At least 3 of 3 test users can state that the site offers tattoos and/or property travel content. |
+| Audience routing | At least 3 of 3 test users can identify the correct traveller or property path. |
+| Contact discovery | WhatsApp is discoverable within 10 seconds on desktop and mobile. |
+| CTA reliability | 100% of hero, navigation, service, and footer CTAs reach a real destination. |
+| Asset integrity | Zero image 404s and zero placeholder asset paths in production. |
+| Technical integrity | `/robots.txt` and `/sitemap.xml` return valid formats; no accidental `noindex` on the homepage. |
+| Mobile quality | No unintended horizontal overflow at 320px, 375px, and 768px widths. |
+| Reduced motion | Non-essential motion is disabled or simplified when `prefers-reduced-motion: reduce` is active. |
 
-## 7. Production Bugs
-1 Memory Leaks track listeners array remove, 2 Lenis cancelled flag, 3 gsap.context, 4 resize listener 768px, 5 Link.
+## 5. Information architecture
 
-## 8. Config
-next.config.js images unoptimized true, gsap 3.12.5 lenis 1.1.20.
+### First-release one-page structure
 
-## 9. Acceptance
-- Nav transparent white visible over hero turning cream on scroll
-- Headers Instrument Serif ONLY body Poppins no Sora in h1/h2
-- Travel 12 cards total all images loading no 404
-- No Day 1-7 no pricing
-- Valid robots.txt and sitemap.xml generated
-- Canonical and social metadata present
-- Semantic landmarks (header, main, footer) applied
-- Visible keyboard focus and absence of unintended horizontal overflow
-- "Let's talk" CTA successfully navigates to #contact, form submissions work, and WhatsApp/email fallback is available
-- Animations run, but respect prefers-reduced-motion query
-- Vercel has 16+ webp
+```text
+/
+├── Hero                         What Prerna does + two audience CTAs
+├── Audience split               Travellers / Stays & properties
+├── Selected work                Real places, projects, and context
+├── Traveller experience         Tattoo offer, process, preparation, availability
+├── Stay collaborations          Content offer, deliverables, process, usage rights
+├── About and process             Prerna, regions, point of view
+├── Proof                        Instagram, testimonials, published work if approved
+├── Contact                      WhatsApp-first enquiry and email fallback
+└── Footer                       Social, email, privacy, copyright
+```
 
-Out of scope: Pricing, Day 1-7 SOP.
+### Stable section IDs
+
+`#travellers`, `#stays`, `#work`, `#about`, and `#contact` must exist in the DOM and must be used consistently by navigation and CTAs. The old generic `#services` anchor may remain only as a backwards-compatible redirect or alias during migration.
+
+### Future page split
+
+If analytics or user testing shows materially different user behavior, promote the audience sections into `/tattoos` and `/stays`. Do not create these routes until each has sufficient content and proof to stand alone.
+
+## 6. User journeys
+
+### Traveller journey
+
+A traveller lands on the hero, recognises that the offer is a hand-poked tattoo experience, selects `Book a tattoo experience`, reads the process and availability context, then opens WhatsApp with a prefilled message containing their name, preferred location, dates, and idea. Email remains available if WhatsApp is unsuitable.
+
+**Prefilled WhatsApp template:**
+
+```text
+Hi Prerna, I’m [name] and I’m interested in a hand-poked tattoo experience. My preferred location/date is [location/date], and the idea I have in mind is [idea].
+```
+
+### Property journey
+
+A property representative lands on the hero, selects `Create a story for your stay`, reviews selected work and collaboration deliverables, understands the process and usage rights, then opens WhatsApp with a property-specific message.
+
+**Prefilled WhatsApp template:**
+
+```text
+Hi Prerna, I’m interested in a travel-content collaboration for [property/location]. We’re considering [deliverables], for [dates]. Here’s a little about the stay: [details].
+```
+
+### Contact fallback
+
+The contact section must display the real details in readable text and as links:
+
+- WhatsApp: `https://wa.me/917738147935`
+- Email: `mailto:prerna@meetprerna.com`
+
+If a form is retained, it must have a real configured submission destination and visible success and error states. A form with `preventDefault()` and no submission handler is prohibited.
+
+## 7. Content requirements
+
+### Hero
+
+Use an emotional headline followed immediately by a literal descriptor.
+
+**Approved direction:**
+
+> **Where journeys become something lasting.**  
+> Hand-poked tattoos and thoughtful travel storytelling across India.
+
+Primary CTA: `Book a tattoo experience`  
+Secondary CTA: `Create a story for your stay`
+
+The original `Where Journeys Become Ink.` may be retained as a campaign line if the literal descriptor remains visible beside it.
+
+### Audience split
+
+**For travellers**  
+Meaningful hand-poked tattoos inspired by the places you visit and the stories you carry.  
+CTA: `Explore tattoo experiences`
+
+**For stays & properties**  
+Cinematic reels, honest photography, and place-led stories that help guests feel the destination before they arrive.  
+CTA: `Explore collaborations`
+
+### Selected work
+
+Each featured image must include a location or project context where factually known. Captions must describe the finished work, not implementation notes. Prohibited public copy includes references to local folders, missing files, offline sales, image cleanup instructions, device checks, or internal QA.
+
+### Traveller experience content
+
+The section must answer: what hand-poked means in this context, how a location influences the work, where sessions occur, how to prepare, how to enquire, and what information Prerna needs before confirming a conversation.
+
+### Stay collaboration content
+
+The section may include reels, photography, blog stories, Google/Instagram review support, story takeovers, and optional tattoo pop-ups. Present these as outcomes and collaboration components, not as a hard-sell rate card. Include scope, process, turnaround expectations if known, usage rights, travel regions, and an enquiry CTA. Do not publish prices.
+
+### About and proof
+
+Include Prerna’s short bio, working regions, creative approach, and a three-step process. Use only approved testimonials, named properties, published work, or social links. If the portfolio is early-stage, say so honestly rather than implying established results.
+
+## 8. Visual system
+
+Retain the following design direction from the current PRD:
+
+| Token | Value | Use |
+|---|---|---|
+| Cream | `#FFFCF5` | Primary page surface |
+| Charcoal | `#1A1A18` | Dark sections and strong text |
+| Terracotta | `#C86B5A` | Accent, active progress, selected emphasis |
+| Sand | `#E8DCC6` | Soft accent and italic heading emphasis |
+| Instrument Serif | Variable font | Editorial headlines only |
+| Poppins | Variable font | Body, navigation, labels, controls |
+
+Use a two-radius system: larger editorial cards around 24px and smaller controls around 8–12px. Avoid excessive shadows and avoid using motion as a substitute for hierarchy. The Fuel reference should influence the confidence of the portfolio composition, not be reproduced as a template clone.
+
+## 9. Interaction and motion
+
+- Transparent header over the hero; readable cream/blurred header after approximately 20px scroll.
+- Mobile navigation must exist; hidden desktop links alone are not a mobile solution.
+- Hero motion may include a restrained Ken Burns effect, line reveal, grain, and progress indicator.
+- Reveal animations should use transform and opacity, not layout-affecting properties.
+- Use GSAP context cleanup, remove scroll/resize listeners, disconnect observers, and cancel smooth-scroll resources on unmount.
+- Respect `prefers-reduced-motion: reduce` by removing grain and non-essential movement and showing content immediately.
+- Do not add parallax scrub, pinned gallery behavior, or a Day 1–7 timeline.
+
+## 10. Technical requirements
+
+### Asset integrity
+
+All approved images must exist in `public/images/` or the project’s chosen production asset path, be committed/deployed, and be referenced using exact case-sensitive filenames. Add an automated asset-reference check that fails the build when a local image path is missing.
+
+### Semantics and accessibility
+
+Use one `<header>`, one `<main>`, and one `<footer>`. Use labelled sections, a logical `h1 > h2 > h3` hierarchy, visible focus styles, descriptive link names, explicit form labels, accessible mobile navigation, and accurate alt text. Do not use headings solely for visual styling.
+
+### SEO and metadata
+
+Provide a canonical homepage URL, page title, description, Open Graph image, Twitter card metadata, favicon, and valid root-level `robots.txt` and `sitemap.xml`. The homepage must not contain an accidental `noindex` directive.
+
+### Contact
+
+Implement WhatsApp and email with the exact supplied destinations. The contact section must preserve intent, either through separate links or prefilled messages. If form submission is not backed by a configured provider, remove the form instead of shipping fake functionality.
+
+### Responsive layout
+
+Test 320px, 375px, 768px, 1024px, and 1440px widths. Fix overflow at the component level; do not rely on `overflow-x: clip` to hide layout defects. Ensure anchor scroll positions account for the fixed header.
+
+## 11. File-level implementation map
+
+| File | Required work |
+|---|---|
+| `src/app/page.tsx` | Rebuild section order, audience routes, real CTAs, content, mobile nav, traveller/property sections, contact links, and proof. |
+| `src/app/layout.tsx` | Confirm metadata, canonical base, Open Graph/Twitter data, favicon, font loading, and semantic shell. |
+| `src/app/globals.css` | Consolidate tokens, remove unused font baggage, preserve focus styles, correct responsive overflow, and gate motion. |
+| `src/app/robots.ts` | Keep allow-all public rules and sitemap URL; verify deployed route. |
+| `src/app/sitemap.ts` | Keep homepage entry; extend only when real routes exist. |
+| `public/images/` | Verify all approved WebP assets are present and deployed. |
+| `public/favicon.ico` | Add a small valid favicon. |
+| `animations.md` | Update to match the actual implementation; remove any unsupported or unimplemented claims. |
+| `package.json` | Keep only required animation dependencies and ensure build/check scripts are reliable. |
+| QA script or test | Add image-reference and broken-link checks before deployment. |
+
+## 12. Release acceptance criteria
+
+The release is accepted only when all of the following are true:
+
+- The hero explains both offers and provides two working CTA paths.
+- The header is readable over the hero, becomes readable on scroll, and has a working mobile menu.
+- `#travellers`, `#stays`, `#work`, `#about`, and `#contact` exist and navigation reaches them.
+- WhatsApp opens `+91 77381 47935`; email opens `prerna@meetprerna.com`.
+- No placeholder links, fake form submission, draft production notes, or stale dates remain.
+- All approved images load in production with no 404 requests.
+- Instrument Serif is used for headings and Poppins for body/UI; Sora is absent from headings.
+- No public prices and no Day 1–7 timeline appear.
+- Semantic landmarks, focus states, alt text, and reduced-motion behavior are verified.
+- No unintended horizontal overflow occurs at required widths.
+- `/robots.txt` and `/sitemap.xml` return valid content types and content.
+- Canonical, social metadata, favicon, and homepage indexing behavior are verified.
+- The deployed site matches the tested repository commit.
+
+## 13. Open operational decision
+
+The owner must choose one valid contact implementation before coding:
+
+**Option A — WhatsApp/email only:** fastest, reliable, no backend, recommended for first release.  
+**Option B — Real form plus WhatsApp/email:** requires a configured form provider or backend, success/error handling, spam protection, and privacy handling.
+
+The site must not ship a third option in which a form appears to submit but discards the visitor’s message.

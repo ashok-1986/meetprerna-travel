@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   title: 'Hand-Poked Tattoos & Slow Travel Stories | Prerna',
   description: 'Hand-poked tattoos and honest travel storytelling across India. Book a meaningful tattoo experience or create place-led content for your stay.',
   metadataBase: new URL('https://meetprerna-travel.vercel.app'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Hand-Poked Tattoos & Slow Travel Stories | Prerna',
     description: 'Hand-poked tattoos and honest travel storytelling across India. Book a meaningful tattoo experience or create place-led content for your stay.',
@@ -34,6 +37,12 @@ export const metadata: Metadata = {
         alt: 'Prerna Travel and Tattoos in India',
       }
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Hand-Poked Tattoos & Slow Travel Stories | Prerna',
+    description: 'Hand-poked tattoos and honest travel storytelling across India. Book a meaningful tattoo experience or create place-led content for your stay.',
+    images: ['/images/tea_plantation_landscape.webp'],
   },
 }
 

@@ -198,7 +198,7 @@ export default function Page() {
           </div>
           
           <div className="relative z-20 h-full max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col justify-end pb-24 pointer-events-none">
-            <h1 id="hero-title" className="font-header text-[44px] md:text-[78px] leading-[0.88] text-white max-w-[760px]">
+            <h1 id="hero-title" className="hero-title text-white">
               <span className="hero-word"><span>Where journeys</span></span><br/>
               <span className="hero-word"><span className="italic text-[#E8DCC6]">become something lasting.</span></span>
             </h1>
@@ -213,7 +213,7 @@ export default function Page() {
         </section>
 
         {/* SHORT JOURNEY STATEMENT */}
-        <section aria-labelledby="statement-title" className="py-24 md:py-32 bg-[#FFFCF5]">
+        <section aria-labelledby="statement-title" className="py-20 md:py-24 bg-[#FFFCF5]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10 reveal">
             <div className="max-w-[800px] mx-auto text-center">
               <h2 id="statement-title" className="font-header text-[32px] md:text-[46px] leading-[1.2] text-[#1A1A18]">
@@ -249,11 +249,11 @@ export default function Page() {
         </section>
 
         {/* WORK GALLERY / PROOF */}
-        <section id="work" aria-labelledby="work-title" className="py-20 md:py-28 bg-[#FFFCF5]">
+        <section id="work" aria-labelledby="work-title" className="py-16 md:py-24 bg-[#FFFCF5]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-            <div className="flex flex-wrap justify-between items-end gap-6 mb-12 reveal text-[#1A1A18]">
+            <div className="flex flex-wrap justify-between items-end gap-6 mb-16 reveal text-[#1A1A18]">
               <div>
-                <h2 id="work-title" className="font-header text-[36px] md:text-[54px] leading-[0.9]">Selected work &amp;<br/><span className="italic text-[#C86B5A]">real places.</span></h2>
+                <h2 id="work-title" className="font-header text-[36px] md:text-[54px] leading-[1.1]">Selected work &amp;<br/><span className="italic text-[#C86B5A]">real places.</span></h2>
               </div>
               <p className="font-body text-[14px] opacity-70 max-w-[400px]">Every image here comes from a real place, real day, and real point of view. Honest travel storytelling and documentation.</p>
             </div>
@@ -285,22 +285,50 @@ export default function Page() {
                   <div className="p-5"><h3 className="font-header text-[20px]">Slow mornings</h3></div>
                 </div>
               </div>
+              
+              {/* New 4-col row for requested images */}
+              <div className="md:col-span-12 grid grid-cols-2 md:grid-cols-4 gap-5 mt-2">
+                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
+                  <div className="flex-1 aspect-square overflow-hidden bg-[#262626]">
+                    <img src="/images/Kashmir_Winter.webp" alt="Kashmir Winter" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
+                  </div>
+                  <div className="p-5"><h3 className="font-header text-[18px]">Kashmir Winter</h3></div>
+                </div>
+                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
+                  <div className="flex-1 aspect-square overflow-hidden bg-[#262626]">
+                    <img src="/images/Wayanad_Canopy_Homes_Homestay.webp" alt="Wayanad Canopy Homes Homestay" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
+                  </div>
+                  <div className="p-5"><h3 className="font-header text-[18px]">Wayanad Canopy</h3></div>
+                </div>
+                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
+                  <div className="flex-1 aspect-square overflow-hidden bg-[#262626]">
+                    <img src="/images/intimate_bw_portrait.webp" alt="Intimate BW Portrait" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
+                  </div>
+                  <div className="p-5"><h3 className="font-header text-[18px]">Intimate Portrait</h3></div>
+                </div>
+                <div className="reveal rounded-[24px] overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
+                  <div className="flex-1 aspect-square overflow-hidden bg-[#262626]">
+                    <img src="/images/candid_phone_photo.webp" alt="Candid Phone Photo" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
+                  </div>
+                  <div className="p-5"><h3 className="font-header text-[18px]">Candid Moment</h3></div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* TRAVELLER EXPERIENCE */}
-        <section id="travellers" aria-labelledby="travellers-title" className="py-20 md:py-28 bg-[#FFFCF5]">
+        <section id="travellers" aria-labelledby="travellers-title" className="py-16 md:py-24 bg-[#FFFCF5]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
               <div className="md:col-span-5 aspect-[3/4] bg-[#E8DCC6] rounded-[28px] overflow-hidden order-2 md:order-1">
                 <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
               </div>
               <div className="md:col-span-7 order-1 md:order-2">
-                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-4 text-[#C86B5A]">For Travellers</div>
-                <h2 id="travellers-title" className="font-header text-[36px] md:text-[52px] leading-[1.05] text-[#1A1A18] mb-8">A tattoo that belongs<br/>to the journey.</h2>
+                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For Travellers</div>
+                <h2 id="travellers-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">A tattoo that belongs<br/>to the journey.</h2>
                 
-                <div className="space-y-6 font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-10 max-w-[560px]">
+                <div className="space-y-6 font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-12 max-w-[560px]">
                   <p>Hand-poked work is inherently slow, intentional, and quiet. There are no machines, just a needle, ink, and time. It is a process shaped by the place you are in, the story you are carrying, and the time you have to make it meaningful.</p>
                   
                   <ul className="space-y-3 pt-4 border-t border-black/10">
@@ -317,16 +345,16 @@ export default function Page() {
         </section>
 
         {/* PROPERTY COLLABORATION STORY */}
-        <section id="stays" aria-labelledby="stays-title" className="py-20 md:py-28 bg-white">
+        <section id="stays" aria-labelledby="stays-title" className="py-16 md:py-24 bg-white">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
               <div className="md:col-span-6">
-                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-4 text-[#C86B5A]">For Stays & Properties</div>
-                <h2 id="stays-title" className="font-header text-[36px] md:text-[52px] leading-[1.05] text-[#1A1A18] mb-8">Make your place felt<br/>before guests arrive.</h2>
+                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For Stays & Properties</div>
+                <h2 id="stays-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">Make your place felt<br/>before guests arrive.</h2>
                 
-                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-8 max-w-[500px]">Prerna and Ashok bring the same attention they use in their own travels to a property’s story. By collecting authentic moments, textures, and light, they help future guests feel the destination.</p>
+                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-10 max-w-[500px]">Prerna and Ashok bring the same attention they use in their own travels to a property’s story. By collecting authentic moments, textures, and light, they help future guests feel the destination.</p>
                 
-                <div className="grid grid-cols-2 gap-x-6 gap-y-4 font-body text-[14px] opacity-80 mb-10 border-l-2 border-[#C86B5A]/30 pl-6">
+                <div className="grid grid-cols-2 gap-x-6 gap-y-4 font-body text-[14px] opacity-80 mb-12 border-l-2 border-[#C86B5A]/30 pl-6">
                   <div>• Cinematic reels</div>
                   <div>• Honest photography</div>
                   <div>• Place-led writing</div>
@@ -347,7 +375,7 @@ export default function Page() {
         {/* ABOUT */}
         <section id="about" aria-labelledby="about-title" className="py-20 md:py-28 bg-[#1A1A18] text-white">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10 text-center reveal">
-            <h2 id="about-title" className="font-header text-[42px] md:text-[56px] leading-[1.05] mb-8">Tell me where you're going <br/>&rarr; We shape the idea <br/>&rarr; <span className="italic text-[#E8DCC6]">We make something lasting.</span></h2>
+            <h2 id="about-title" className="font-header text-[42px] md:text-[56px] leading-[1.15] mb-8">Tell me where you're going <br/>&rarr; We shape the idea <br/>&rarr; <span className="italic text-[#E8DCC6]">We make something lasting.</span></h2>
             <p className="font-body text-[16px] leading-[1.7] opacity-70 max-w-[700px] mx-auto mb-6">I believe that the best work comes from slowing down. Whether I'm hand-poking a tattoo that commemorates a journey, or creating honest imagery for a remote property, the process is always rooted in the present moment.</p>
             <p className="font-body text-[16px] leading-[1.7] opacity-70">Currently working between Mumbai, Goa, and the mountains.</p>
           </div>

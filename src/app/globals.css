@@ -4,8 +4,6 @@
 
 
 :root {
-  --font-gambetta: 'Gambetta-Light', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
-  --font-poppins: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
   /* Prerna Brand Colors */
   --color-terracotta: #C86B5A;
@@ -102,7 +100,18 @@ html.lenis {
 }
 
 h1, h2, h3 {
-  font-family: var(--font-instrument) !important;
+  font-family: var(--font-gambetta) !important;
+}
+
+.hero-title {
+  font-family: var(--font-gambetta);
+  font-size: clamp(5.25rem, 10.5vw, 10.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.018em;
+  word-spacing: 0.012em;
+  font-weight: 400;
+  max-width: 9.5ch;
+  text-wrap: balance;
 }
 
 .text-balance {
@@ -638,4 +647,4 @@ h1, h2, h3 {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
+}@keyframes fsh-shimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
@@ -51,111 +51,123 @@ const getWaLink = (msg: string) => `https://wa.me/917738147935?text=${msg}`
 
 export default function TravelJourney() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [enhanced, setEnhanced] = useState(false)
   
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
     
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (isReduced) return // Leave CSS handling if reduced motion
-    
-    // Set initial states for elements except the first
-    gsap.set('.journey-img:not(.journey-img-0)', { opacity: 0, scale: 1.05 })
-    gsap.set('.journey-text:not(.journey-text-0)', { opacity: 0, y: 30 })
-    
-    // First element starts normal
-    gsap.set('.journey-img-0', { opacity: 1, scale: 1 })
-    gsap.set('.journey-text-0', { opacity: 1, y: 0 })
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-      }
-    })
-
-    // Create the sequence
-    const sceneDuration = 1
-    const transitionDuration = 0.5
-    
-    // First scene scales gently
-    tl.to('.journey-img-0', { scale: 1.05, duration: sceneDuration, ease: 'none' })
-    
-    // Subsequent scenes
-    for (let i = 1; i < SCENES.length; i++) {
-      // Fade out previous text
-      tl.to(`.journey-text-${i-1}`, { opacity: 0, y: -30, duration: transitionDuration, ease: 'power2.inOut' }, `scene${i}`)
-      
-      // Fade in new image over the old one
-      tl.to(`.journey-img-${i}`, { opacity: 1, duration: transitionDuration, ease: 'power2.inOut' }, `scene${i}`)
-      
-      // Fade in new text
-      tl.to(`.journey-text-${i}`, { opacity: 1, y: 0, duration: transitionDuration, ease: 'power2.out' }, `scene${i}+=0.2`)
-      
-      // Animate current image slightly while active
-      tl.to(`.journey-img-${i}`, { scale: 1, duration: sceneDuration, ease: 'none' })
-    }
-    
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill())
+    if (!isReduced) {
+      setEnhanced(true)
     }
   }, [])
+
+  useEffect(() => {
+    if (!enhanced || !containerRef.current) return
+
+    const ctx = gsap.context(() => {
+      // Set initial states for elements except the first
+      gsap.set('.journey-img:not(.journey-img-0)', { opacity: 0, scale: 1.05 })
+      gsap.set('.journey-text:not(.journey-text-0)', { opacity: 0, y: 30 })
+      
+      // First element starts normal
+      gsap.set('.journey-img-0', { opacity: 1, scale: 1 })
+      gsap.set('.journey-text-0', { opacity: 1, y: 0 })
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1,
+        }
+      })
+
+      // Create the sequence
+      const sceneDuration = 1
+      const transitionDuration = 0.5
+      
+      // First scene scales gently
+      tl.to('.journey-img-0', { scale: 1.05, duration: sceneDuration, ease: 'none' })
+      
+      // Subsequent scenes
+      for (let i = 1; i < SCENES.length; i++) {
+        // Fade out previous text
+        tl.to(`.journey-text-${i-1}`, { opacity: 0, y: -30, duration: transitionDuration, ease: 'power2.inOut' }, `scene${i}`)
+        
+        // Fade in new image over the old one
+        tl.to(`.journey-img-${i}`, { opacity: 1, duration: transitionDuration, ease: 'power2.inOut' }, `scene${i}`)
+        
+        // Fade in new text
+        tl.to(`.journey-text-${i}`, { opacity: 1, y: 0, duration: transitionDuration, ease: 'power2.out' }, `scene${i}+=0.2`)
+        
+        // Animate current image slightly while active
+        tl.to(`.journey-img-${i}`, { scale: 1, duration: sceneDuration, ease: 'none' })
+      }
+    })
+    
+    return () => {
+      ctx.revert()
+    }
+  }, [enhanced])
 
   return (
     <section id="journey" className="relative w-full bg-[#1A1A18] text-white">
       
       {/* 
+        DESKTOP CTAs (Exposed before animation sequence)
+      */}
+      <div className="hidden md:flex justify-center gap-6 py-12 bg-[#1A1A18]">
+          <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
+             Discuss a collaboration
+          </Link>
+          <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
+             Book a tattoo experience
+          </Link>
+      </div>
+
+      {/* 
         DESKTOP & JS ENABLED SCROLLYTELLING
         Uses a sticky container that tracks progress over 500vh 
       */}
-      <div 
-        ref={containerRef} 
-        className="hidden md:block relative h-[500vh]"
-      >
-        <div className="sticky top-0 w-full h-[100vh] overflow-hidden">
-           {/* Layered Images */}
-           {SCENES.map((scene, i) => (
-             <div 
-                key={`img-${scene.id}`} 
-                className={`journey-img journey-img-${i} absolute inset-0 z-0 origin-center ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
-             >
-                <img src={scene.img} alt={scene.alt} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-black/40"></div>
-             </div>
-           ))}
+      {enhanced && (
+        <div 
+          ref={containerRef} 
+          className="hidden md:block relative h-[500vh]"
+        >
+          <div className="sticky top-0 w-full h-[100vh] overflow-hidden">
+             {/* Layered Images */}
+             {SCENES.map((scene, i) => (
+               <div 
+                  key={`img-${scene.id}`} 
+                  className={`journey-img journey-img-${i} absolute inset-0 z-0 origin-center ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+               >
+                  <img src={scene.img} alt={scene.alt} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/40"></div>
+               </div>
+             ))}
 
-           {/* Layered Text */}
-           <div className="absolute inset-0 flex items-center justify-center p-10 z-10 pointer-events-none">
-              {SCENES.map((scene, i) => (
-                <div 
-                  key={`txt-${scene.id}`} 
-                  className={`journey-text journey-text-${i} absolute flex flex-col items-center text-center max-w-[800px] ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
-                >
-                  <div className="font-body text-[11px] uppercase tracking-[0.2em] text-[#E8DCC6] mb-6 drop-shadow-md">{scene.title}</div>
-                  <h2 className="font-header text-[42px] md:text-[56px] leading-[1.1] text-white drop-shadow-lg">{scene.text}</h2>
-                  
-                  {scene.hasCta && (
-                    <div className="mt-12 flex flex-wrap gap-4 justify-center pointer-events-auto">
-                       <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
-                         Discuss a collaboration
-                       </Link>
-                       <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
-                         Book a tattoo experience
-                       </Link>
-                    </div>
-                  )}
-                </div>
-              ))}
-           </div>
+             {/* Layered Text */}
+             <div className="absolute inset-0 flex items-center justify-center p-10 z-10 pointer-events-none">
+                {SCENES.map((scene, i) => (
+                  <div 
+                    key={`txt-${scene.id}`} 
+                    className={`journey-text journey-text-${i} absolute flex flex-col items-center text-center max-w-[800px] ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+                  >
+                    <div className="font-body text-[11px] uppercase tracking-[0.2em] text-[#E8DCC6] mb-6 drop-shadow-md">{scene.title}</div>
+                    <h2 className="font-header text-[42px] md:text-[56px] leading-[1.1] text-white drop-shadow-lg">{scene.text}</h2>
+                  </div>
+                ))}
+             </div>
+          </div>
         </div>
-      </div>
+      )}
       
       {/* 
-        MOBILE FALLBACK (or JS disabled)
+        MOBILE FALLBACK (or JS disabled fallback for desktop)
         Stacks the scenes sequentially.
       */}
-      <div className="md:hidden flex flex-col">
+      <div className={`${enhanced ? 'md:hidden' : ''} flex flex-col`}>
         {SCENES.map((scene) => (
           <div key={`mob-${scene.id}`} className="relative min-h-[90vh] flex items-center justify-center p-8 overflow-hidden">
              <div className="absolute inset-0 z-0">
@@ -166,20 +178,20 @@ export default function TravelJourney() {
              <div className="relative z-10 flex flex-col items-center text-center">
                 <div className="font-body text-[11px] uppercase tracking-[0.2em] text-[#E8DCC6] mb-6 drop-shadow-md">{scene.title}</div>
                 <h2 className="font-header text-[36px] leading-[1.1] text-white drop-shadow-lg">{scene.text}</h2>
-                
-                {scene.hasCta && (
-                  <div className="mt-10 flex flex-col gap-4 w-full max-w-[280px]">
-                     <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-4 rounded-full bg-white text-black text-center font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
-                       Discuss a collaboration
-                     </Link>
-                     <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-4 rounded-full border border-white/40 text-white text-center font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
-                       Book a tattoo experience
-                     </Link>
-                  </div>
-                )}
              </div>
           </div>
         ))}
+        {/* Stacked CTAs at the end of mobile layout */}
+        <div className="bg-[#1A1A18] py-16 flex flex-col items-center justify-center px-6">
+           <div className="flex flex-col gap-4 w-full max-w-[280px]">
+              <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-4 rounded-full bg-white text-black text-center font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
+                Discuss a collaboration
+              </Link>
+              <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-4 rounded-full border border-white/40 text-white text-center font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
+                Book a tattoo experience
+              </Link>
+           </div>
+        </div>
       </div>
       
     </section>

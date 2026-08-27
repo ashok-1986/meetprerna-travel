@@ -210,7 +210,7 @@ Test 320px, 375px, 768px, 1024px, and 1440px widths. Fix overflow at the compone
 | `src/app/sitemap.ts` | Keep homepage entry; extend only when real routes exist. |
 | `public/images/` | Verify all approved WebP assets are present and deployed. |
 | `public/favicon.ico` | Add a small valid favicon. |
-| `animations.md` | Update to match the actual implementation; remove any unsupported or unimplemented claims. |
+| `Animations.md` | Update to match the actual implementation; remove any unsupported or unimplemented claims. |
 | `package.json` | Keep only required animation dependencies and ensure build/check scripts are reliable. |
 | QA script or test | Add image-reference and broken-link checks before deployment. |
 

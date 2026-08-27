@@ -9,16 +9,18 @@ import TravelJourney from './components/TravelJourney'
 const WA_NUMBER = "917738147935";
 const EMAIL = "prerna@meetprerna.com";
 
-const getWaLink = (template: string) => `https://wa.me/${WA_NUMBER}?text=${template}`;
+const getWaLink = (template: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(template)}`;
 
-const TRAVELLER_MSG = encodeURIComponent("Hi Prerna, I’m [name] and I’m interested in a hand-poked tattoo experience. My preferred location/date is [location/date], and the idea I have in mind is [idea].");
-const PROPERTY_MSG = encodeURIComponent("Hi Prerna, I’m interested in a travel-content collaboration for [property/location]. We’re considering [deliverables], for [dates]. Here’s a little about the stay: [details].");
-const FALLBACK_MSG = encodeURIComponent("Hi Prerna, I'm reaching out from your website.");
+const TRAVELLER_MSG = "Hi Prerna, I’m [name] and I’m interested in a hand-poked tattoo experience. My preferred location/date is [location/date], and the idea I have in mind is [idea].";
+const PROPERTY_MSG = "Hi Prerna, I’m interested in a travel-content collaboration for [property/location]. We’re considering [deliverables], for [dates]. Here’s a little about the stay: [details].";
+const FALLBACK_MSG = "Hi Prerna, I'm reaching out from your website.";
 
 export default function Page() {
   const ctxRef = useRef<gsap.Context | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuToggleRef = useRef<HTMLButtonElement>(null)
+  const firstLinkRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -84,6 +86,28 @@ export default function Page() {
     }
   }, [])
 
+  useEffect(() => {
+    if (menuOpen) {
+      setTimeout(() => {
+        firstLinkRef.current?.focus()
+      }, 50)
+    } else {
+      if (document.activeElement && document.activeElement !== document.body) {
+        menuToggleRef.current?.focus()
+      }
+    }
+  }, [menuOpen])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && menuOpen) {
+        setMenuOpen(false)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [menuOpen])
+
   return (
     <>
       <style>{`
@@ -110,15 +134,16 @@ export default function Page() {
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8 text-[13px] font-body">
               <Link href="#journey" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Journey</Link>
+              <Link href="#work" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Work</Link>
               <Link href="#travellers" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Travellers</Link>
               <Link href="#stays" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Stays</Link>
-              <Link href="#work" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Work</Link>
               <Link href="#about" className="opacity-60 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">About</Link>
               <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className={`px-5 py-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] ${scrolled || menuOpen ? 'bg-black text-white' : 'bg-white text-black'}`}>WhatsApp Prerna</Link>
             </div>
 
             {/* Mobile Nav Toggle */}
             <button 
+              ref={menuToggleRef}
               className="md:hidden z-50 p-2 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle Menu"
@@ -132,12 +157,12 @@ export default function Page() {
           </div>
 
           {/* Mobile Nav Panel */}
-          <div id="mobile-nav-panel" aria-hidden={!menuOpen} className={`md:hidden fixed inset-0 bg-[#FFFCF5] pt-[100px] px-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? 'translate-x-0 visible' : 'translate-x-full invisible'}`}>
+          <div id="mobile-nav-panel" aria-hidden={!menuOpen} {...(!menuOpen ? { inert: "true" } : {})} className={`md:hidden fixed inset-0 bg-[#FFFCF5] pt-[100px] px-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? 'translate-x-0 visible' : 'translate-x-full invisible'}`}>
             <div className="flex flex-col gap-6 text-[24px] font-header text-[#1A1A18]">
-              <Link href="#journey" onClick={() => setMenuOpen(false)}>Journey</Link>
+              <Link ref={firstLinkRef} href="#journey" onClick={() => setMenuOpen(false)}>Journey</Link>
+              <Link href="#work" onClick={() => setMenuOpen(false)}>Work</Link>
               <Link href="#travellers" onClick={() => setMenuOpen(false)}>Travellers</Link>
               <Link href="#stays" onClick={() => setMenuOpen(false)}>Stays</Link>
-              <Link href="#work" onClick={() => setMenuOpen(false)}>Work</Link>
               <Link href="#about" onClick={() => setMenuOpen(false)}>About</Link>
               <Link href="#contact" onClick={() => setMenuOpen(false)}>Contact</Link>
             </div>
@@ -150,7 +175,7 @@ export default function Page() {
 
       <main>
         {/* HERO */}
-        <section id="hero" className="relative h-[100vh] min-h-[640px] overflow-hidden bg-[#1A1A18]">
+        <section id="hero" aria-labelledby="hero-title" className="relative h-[100vh] min-h-[640px] overflow-hidden bg-[#1A1A18]">
           <div className="absolute inset-0">
             <img src="/images/golden_tea_plantation.webp" alt="Prerna walking through golden hour tea rows in Munnar" className="hero-img-0 absolute inset-0 w-full h-full object-cover origin-center" style={{ objectPosition: 'center 60%' }} />
             <img src="/images/cinematic_temple_portrait.webp" alt="Prerna photographing a colourful temple Gopuram at sunset" className="hero-img-1 absolute inset-0 w-full h-full object-cover origin-center" style={{ objectPosition: 'center 40%' }} />
@@ -159,11 +184,13 @@ export default function Page() {
           </div>
           
           <div className="relative z-20 h-full max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col justify-end pb-24 pointer-events-none">
-            <h1 className="font-header text-[44px] md:text-[78px] leading-[0.88] text-white max-w-[760px]">
+            <h1 id="hero-title" className="font-header text-[44px] md:text-[78px] leading-[0.88] text-white max-w-[760px]">
               <span className="hero-word"><span>Where journeys</span></span><br/>
               <span className="hero-word"><span className="italic text-[#E8DCC6]">become something lasting.</span></span>
             </h1>
-            <p className="hero-sub font-body text-[16px] md:text-[18px] text-white/80 max-w-[520px] mt-6">Prerna and Ashok travel slowly, notice deeply, and turn meaningful places into stories, images, and experiences.</p>
+            <p className="hero-sub font-body text-[16px] md:text-[18px] text-white/80 max-w-[520px] mt-6">
+              Prerna and Ashok travel slowly, notice deeply, and turn meaningful places into hand-poked tattoos and property travel-content collaborations.
+            </p>
             <div className="hero-sub flex flex-wrap gap-4 mt-8 font-body text-[14px] pointer-events-auto">
               <Link href="#travellers" className="px-6 py-3 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A]">For travellers</Link>
               <Link href="#stays" className="px-6 py-3 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A]">For stays & properties</Link>
@@ -172,10 +199,10 @@ export default function Page() {
         </section>
 
         {/* SHORT JOURNEY STATEMENT */}
-        <section className="py-24 md:py-32 bg-[#FFFCF5]">
+        <section aria-labelledby="statement-title" className="py-24 md:py-32 bg-[#FFFCF5]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10 reveal">
             <div className="max-w-[800px] mx-auto text-center">
-              <h2 className="font-header text-[32px] md:text-[46px] leading-[1.2] text-[#1A1A18]">
+              <h2 id="statement-title" className="font-header text-[32px] md:text-[46px] leading-[1.2] text-[#1A1A18]">
                 Prerna and Ashok travel slowly enough to notice what makes a place feel like itself.
               </h2>
               <p className="mt-8 font-body text-[16px] leading-[1.7] opacity-80 text-[#1A1A18]">
@@ -189,16 +216,17 @@ export default function Page() {
         <TravelJourney />
 
         {/* AUDIENCE SPLIT */}
-        <section id="audiences" className="py-20 md:py-28 bg-[#FFFCF5]">
+        <section id="audiences" aria-labelledby="audiences-title" className="py-20 md:py-28 bg-[#FFFCF5]">
+          <h2 id="audiences-title" className="sr-only">Our Offerings</h2>
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="grid md:grid-cols-2 gap-6 reveal">
               <div className="p-10 md:p-14 rounded-[28px] bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow">
-                <h2 className="font-header text-[32px] mb-4 text-[#1A1A18]">For travellers</h2>
+                <h3 className="font-header text-[32px] mb-4 text-[#1A1A18]">For travellers</h3>
                 <p className="font-body text-[15px] opacity-70 mb-8 max-w-[400px]">Meaningful hand-poked tattoos connected to a journey or a memory you want to carry with you.</p>
                 <Link href="#travellers" className="font-body text-[13px] uppercase tracking-wider text-[#C86B5A] hover:opacity-70 self-start focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1 -ml-1">Explore tattoo experiences &rarr;</Link>
               </div>
               <div className="p-10 md:p-14 rounded-[28px] bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow">
-                <h2 className="font-header text-[32px] mb-4 text-[#1A1A18]">For stays & properties</h2>
+                <h3 className="font-header text-[32px] mb-4 text-[#1A1A18]">For stays & properties</h3>
                 <p className="font-body text-[15px] opacity-70 mb-8 max-w-[400px]">Honest, place-led travel content—photography, cinematic reels, and writing that translates the feeling of a place.</p>
                 <Link href="#stays" className="font-body text-[13px] uppercase tracking-wider text-[#C86B5A] hover:opacity-70 self-start focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1 -ml-1">Explore collaborations &rarr;</Link>
               </div>
@@ -206,76 +234,12 @@ export default function Page() {
           </div>
         </section>
 
-        {/* TRAVELLER EXPERIENCE */}
-        <section id="travellers" className="py-20 md:py-28 bg-[#FFFCF5]">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-            <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
-              <div className="md:col-span-5 aspect-[3/4] bg-[#E8DCC6] rounded-[28px] overflow-hidden order-2 md:order-1">
-                <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
-              </div>
-              <div className="md:col-span-7 order-1 md:order-2">
-                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-4 text-[#C86B5A]">For Travellers</div>
-                <h2 className="font-header text-[36px] md:text-[52px] leading-[1.05] text-[#1A1A18] mb-8">A tattoo that belongs<br/>to the journey.</h2>
-                
-                <div className="space-y-6 font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-10 max-w-[560px]">
-                  <p>Hand-poked work is inherently slow, intentional, and quiet. There are no machines, just a needle, ink, and time. It is a process shaped by the place you are in, the story you are carrying, and the time you have to make it meaningful.</p>
-                  
-                  <ul className="space-y-3 pt-4 border-t border-black/10">
-                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Share the idea:</strong> Tell me what you want to carry with you.</li>
-                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Shape the design:</strong> We refine the visual to fit the hand-poked medium.</li>
-                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Meet and make it:</strong> Sessions happen in curated spaces across Mumbai, Goa, and the mountains. Drink water, eat well before arriving, and bring an open mind.</li>
-                  </ul>
-                </div>
-                
-                <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full bg-[#1A1A18] text-white hover:bg-[#C86B5A] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C86B5A]">Start a tattoo enquiry</Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* PROPERTY COLLABORATION STORY */}
-        <section id="stays" className="py-20 md:py-28 bg-white">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-            <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
-              <div className="md:col-span-6">
-                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-4 text-[#C86B5A]">For Stays & Properties</div>
-                <h2 className="font-header text-[36px] md:text-[52px] leading-[1.05] text-[#1A1A18] mb-8">Make your place felt<br/>before guests arrive.</h2>
-                
-                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-8 max-w-[500px]">Prerna and Ashok bring the same attention they use in their own travels to a property’s story. By collecting authentic moments, textures, and light, they help future guests feel the destination.</p>
-                
-                <div className="grid grid-cols-2 gap-x-6 gap-y-4 font-body text-[14px] opacity-80 mb-10 border-l-2 border-[#C86B5A]/30 pl-6">
-                  <div>• Cinematic reels</div>
-                  <div>• Honest photography</div>
-                  <div>• Place-led writing</div>
-                  <div>• Social stories & takeovers</div>
-                  <div>• Guest-facing context</div>
-                  <div>• Optional tattoo pop-ups</div>
-                </div>
-
-                <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full border border-black/20 text-black hover:border-black hover:bg-black hover:text-white transition-all font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">Discuss a collaboration</Link>
-              </div>
-              <div className="md:col-span-6 aspect-[4/3] bg-[#E8DCC6] rounded-[28px] overflow-hidden">
-                <img src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="w-full h-full object-cover" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ABOUT */}
-        <section id="about" className="py-20 md:py-28 bg-[#1A1A18] text-white">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-10 text-center reveal">
-            <h2 className="font-header text-[42px] md:text-[56px] leading-[1.05] mb-8">Tell me where you're going <br/>&rarr; We shape the idea <br/>&rarr; <span className="italic text-[#E8DCC6]">We make something lasting.</span></h2>
-            <p className="font-body text-[16px] leading-[1.7] opacity-70 max-w-[700px] mx-auto mb-6">I believe that the best work comes from slowing down. Whether I'm hand-poking a tattoo that commemorates a journey, or creating honest imagery for a remote property, the process is always rooted in the present moment.</p>
-            <p className="font-body text-[16px] leading-[1.7] opacity-70">Currently working between Mumbai, Goa, and the mountains.</p>
-          </div>
-        </section>
-
         {/* WORK GALLERY / PROOF */}
-        <section id="work" className="py-20 md:py-28 bg-[#FFFCF5]">
+        <section id="work" aria-labelledby="work-title" className="py-20 md:py-28 bg-[#FFFCF5]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="flex flex-wrap justify-between items-end gap-6 mb-12 reveal text-[#1A1A18]">
               <div>
-                <h2 className="font-header text-[36px] md:text-[54px] leading-[0.9]">Selected work &amp;<br/><span className="italic text-[#C86B5A]">real places.</span></h2>
+                <h2 id="work-title" className="font-header text-[36px] md:text-[54px] leading-[0.9]">Selected work &amp;<br/><span className="italic text-[#C86B5A]">real places.</span></h2>
               </div>
               <p className="font-body text-[14px] opacity-70 max-w-[400px]">Every image here comes from a real place, real day, and real point of view. Honest travel storytelling and documentation.</p>
             </div>
@@ -311,10 +275,74 @@ export default function Page() {
           </div>
         </section>
 
+        {/* TRAVELLER EXPERIENCE */}
+        <section id="travellers" aria-labelledby="travellers-title" className="py-20 md:py-28 bg-[#FFFCF5]">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
+            <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
+              <div className="md:col-span-5 aspect-[3/4] bg-[#E8DCC6] rounded-[28px] overflow-hidden order-2 md:order-1">
+                <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
+              </div>
+              <div className="md:col-span-7 order-1 md:order-2">
+                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-4 text-[#C86B5A]">For Travellers</div>
+                <h2 id="travellers-title" className="font-header text-[36px] md:text-[52px] leading-[1.05] text-[#1A1A18] mb-8">A tattoo that belongs<br/>to the journey.</h2>
+                
+                <div className="space-y-6 font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-10 max-w-[560px]">
+                  <p>Hand-poked work is inherently slow, intentional, and quiet. There are no machines, just a needle, ink, and time. It is a process shaped by the place you are in, the story you are carrying, and the time you have to make it meaningful.</p>
+                  
+                  <ul className="space-y-3 pt-4 border-t border-black/10">
+                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Share the idea:</strong> Tell me what you want to carry with you.</li>
+                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Shape the design:</strong> We refine the visual to fit the hand-poked medium.</li>
+                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Meet and make it:</strong> Sessions happen in curated spaces across Mumbai, Goa, and the mountains. Drink water, eat well before arriving, and bring an open mind.</li>
+                  </ul>
+                </div>
+                
+                <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full bg-[#1A1A18] text-white hover:bg-[#C86B5A] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C86B5A]">Start a tattoo enquiry</Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PROPERTY COLLABORATION STORY */}
+        <section id="stays" aria-labelledby="stays-title" className="py-20 md:py-28 bg-white">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
+            <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
+              <div className="md:col-span-6">
+                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-4 text-[#C86B5A]">For Stays & Properties</div>
+                <h2 id="stays-title" className="font-header text-[36px] md:text-[52px] leading-[1.05] text-[#1A1A18] mb-8">Make your place felt<br/>before guests arrive.</h2>
+                
+                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-8 max-w-[500px]">Prerna and Ashok bring the same attention they use in their own travels to a property’s story. By collecting authentic moments, textures, and light, they help future guests feel the destination.</p>
+                
+                <div className="grid grid-cols-2 gap-x-6 gap-y-4 font-body text-[14px] opacity-80 mb-10 border-l-2 border-[#C86B5A]/30 pl-6">
+                  <div>• Cinematic reels</div>
+                  <div>• Honest photography</div>
+                  <div>• Place-led writing</div>
+                  <div>• Social stories & takeovers</div>
+                  <div>• Guest-facing context</div>
+                  <div>• Optional tattoo pop-ups</div>
+                </div>
+
+                <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full border border-black/20 text-black hover:border-black hover:bg-black hover:text-white transition-all font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">Discuss a collaboration</Link>
+              </div>
+              <div className="md:col-span-6 aspect-[4/3] bg-[#E8DCC6] rounded-[28px] overflow-hidden">
+                <img src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ABOUT */}
+        <section id="about" aria-labelledby="about-title" className="py-20 md:py-28 bg-[#1A1A18] text-white">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10 text-center reveal">
+            <h2 id="about-title" className="font-header text-[42px] md:text-[56px] leading-[1.05] mb-8">Tell me where you're going <br/>&rarr; We shape the idea <br/>&rarr; <span className="italic text-[#E8DCC6]">We make something lasting.</span></h2>
+            <p className="font-body text-[16px] leading-[1.7] opacity-70 max-w-[700px] mx-auto mb-6">I believe that the best work comes from slowing down. Whether I'm hand-poking a tattoo that commemorates a journey, or creating honest imagery for a remote property, the process is always rooted in the present moment.</p>
+            <p className="font-body text-[16px] leading-[1.7] opacity-70">Currently working between Mumbai, Goa, and the mountains.</p>
+          </div>
+        </section>
+
         {/* CONTACT */}
-        <section id="contact" className="py-24 md:py-32 bg-[#1A1A18] text-white">
+        <section id="contact" aria-labelledby="contact-title" className="py-24 md:py-32 bg-[#1A1A18] text-white">
           <div className="max-w-[800px] mx-auto px-6 md:px-10 text-center reveal">
-            <h2 className="font-header text-[48px] md:text-[72px] mb-6">Tell me where you're going.</h2>
+            <h2 id="contact-title" className="font-header text-[48px] md:text-[72px] mb-6">Tell me where you're going.</h2>
             <p className="font-body text-[16px] md:text-[18px] opacity-70 mb-12 max-w-[600px] mx-auto leading-relaxed">
               Send a WhatsApp message with your dates, location, and what you have in mind. If it feels like a fit, we’ll shape the next step together.
             </p>

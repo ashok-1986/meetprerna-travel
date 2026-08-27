@@ -115,21 +115,9 @@ export default function TravelJourney() {
   }, [enhanced])
 
   return (
-    <section id="journey" className="relative w-full bg-[#1A1A18] text-white">
+    <section id="journey" className="relative w-full bg-[#1A1A18] text-white mb-[60px]">
       
-      {/* 
-        DESKTOP CTAs (Exposed before animation sequence)
-      */}
-      {enhanced && (
-        <div className="hidden md:flex justify-center gap-6 py-12 bg-[#1A1A18]">
-            <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-3xl bg-white text-black hover:bg-[#E8DCC6] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
-               Discuss a collaboration
-            </Link>
-            <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="px-6 py-3 rounded-3xl border border-white/40 text-white hover:bg-white/10 transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1A1A18] focus:ring-white">
-               Book a tattoo experience
-            </Link>
-        </div>
-      )}
+      
 
       {/* 
         DESKTOP & JS ENABLED SCROLLYTELLING

@@ -193,7 +193,7 @@ export default function Page() {
 
       <main>
         {/* HERO */}
-        <section id="hero" aria-labelledby="hero-title" className="relative h-[100vh] min-h-[640px] overflow-hidden bg-[#1A1A18]">
+        <section id="hero" aria-labelledby="hero-title" className="relative h-[100vh] min-h-[640px] overflow-hidden bg-[#1A1A18] mb-[60px]">
           <div className="absolute inset-0">
             <img src="/images/golden_tea_plantation.webp" alt="Prerna walking through golden hour tea rows in Munnar" className="hero-img-0 absolute inset-0 w-full h-full object-cover origin-center" style={{ objectPosition: 'center 60%' }} />
             <img src="/images/cinematic_temple_portrait.webp" alt="Prerna photographing a colourful temple Gopuram at sunset" className="hero-img-1 absolute inset-0 w-full h-full object-cover origin-center" style={{ objectPosition: 'center 40%' }} />
@@ -217,7 +217,7 @@ export default function Page() {
         </section>
 
         {/* SHORT JOURNEY STATEMENT */}
-        <section aria-labelledby="statement-title" className="py-32 md:py-40 bg-[#FFFCF5]">
+        <section aria-labelledby="statement-title" className="py-32 md:py-40 bg-[#FFFCF5] mb-[60px]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10 reveal">
             <div className="max-w-[800px] mx-auto text-center">
               <h2 id="statement-title" className="font-header text-[32px] md:text-[46px] leading-[1.2] text-[#1A1A18]">
@@ -234,7 +234,7 @@ export default function Page() {
         <TravelJourney />
 
         {/* AUDIENCE SPLIT */}
-        <section id="audiences" aria-labelledby="audiences-title" className="py-32 md:py-40 bg-[#FFFCF5]">
+        <section id="audiences" aria-labelledby="audiences-title" className="py-32 md:py-40 bg-[#FFFCF5] mb-[60px]">
           <h2 id="audiences-title" className="sr-only">Our Offerings</h2>
           <div className="w-full px-6 md:px-10">
             <div className="grid md:grid-cols-2 gap-8 reveal">
@@ -253,7 +253,7 @@ export default function Page() {
         </section>
 
         {/* WORK GALLERY / PROOF */}
-        <section id="work" aria-labelledby="work-title" className="py-16 md:py-24 bg-[#FFFCF5]">
+        <section id="work" aria-labelledby="work-title" className="py-16 md:py-24 bg-[#FFFCF5] mb-[60px]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="flex flex-wrap justify-between items-end gap-6 mb-16 reveal text-[#1A1A18]">
               <div>
@@ -295,7 +295,7 @@ export default function Page() {
         </section>
 
         {/* NEO MACBOOK HERO EFFECT FOR 4 NEW IMAGES */}
-        <section className="py-20 relative z-20">
+        <section className="py-20 relative z-20 mb-[60px]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10 mb-8 text-center">
             <h2 className="font-header text-[42px] md:text-[60px] leading-[1.1] text-[#1A1A18]">
               Selected <span className="italic text-[#C86B5A]">Journals.</span>
@@ -360,7 +360,7 @@ export default function Page() {
         </section>
 
         {/* TRAVELLER EXPERIENCE */}
-        <section id="travellers" aria-labelledby="travellers-title" className="relative z-30 py-16 md:py-24 bg-[#FFFCF5]">
+        <section id="travellers" aria-labelledby="travellers-title" className="relative z-30 py-16 md:py-24 bg-[#FFFCF5] mb-[60px]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
               <div className="md:col-span-5 aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden order-2 md:order-1">
@@ -387,7 +387,7 @@ export default function Page() {
         </section>
 
         {/* PROPERTY COLLABORATION STORY */}
-        <section id="stays" aria-labelledby="stays-title" className="relative z-30 py-16 md:py-24 bg-white">
+        <section id="stays" aria-labelledby="stays-title" className="relative z-30 py-16 md:py-24 bg-white mb-[60px]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
               <div className="md:col-span-6">
@@ -415,7 +415,7 @@ export default function Page() {
         </section>
 
         {/* ABOUT */}
-        <section id="about" aria-labelledby="about-title" className="relative z-30 py-20 md:py-28 bg-[#1A1A18] text-white">
+        <section id="about" aria-labelledby="about-title" className="relative z-30 py-20 md:py-28 bg-[#1A1A18] text-white mb-[60px]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10 text-center reveal">
             <h2 id="about-title" className="font-header text-[42px] md:text-[56px] leading-[1.15] mb-8">Tell me where you're going <br/>&rarr; We shape the idea <br/>&rarr; <span className="italic text-[#E8DCC6]">We make something lasting.</span></h2>
             <p className="font-body text-[16px] leading-[1.7] opacity-70 max-w-[700px] mx-auto mb-6">I believe that the best work comes from slowing down. Whether I'm hand-poking a tattoo that commemorates a journey, or creating honest imagery for a remote property, the process is always rooted in the present moment.</p>
@@ -424,7 +424,7 @@ export default function Page() {
         </section>
 
         {/* CONTACT */}
-        <section id="contact" aria-labelledby="contact-title" className="relative z-30 py-24 md:py-32 bg-[#1A1A18] text-white">
+        <section id="contact" aria-labelledby="contact-title" className="relative z-30 py-24 md:py-32 bg-[#1A1A18] text-white mb-[60px]">
           <div className="max-w-[800px] mx-auto px-6 md:px-10 text-center reveal">
             <h2 id="contact-title" className="font-header text-[48px] md:text-[72px] leading-[1.05] mb-6">Tell me where you're going.</h2>
             <p className="font-body text-[16px] md:text-[18px] opacity-70 mb-12 max-w-[600px] mx-auto leading-relaxed">

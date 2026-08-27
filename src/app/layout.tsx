@@ -15,12 +15,12 @@ const gambetta = localFont({
   src: [
     {
       path: '../../public/fonts/Gambetta-Variable.woff2',
-      weight: '400',
+      weight: '300 400',
       style: 'normal',
     },
     {
       path: '../../public/fonts/Gambetta-VariableItalic.woff2',
-      weight: '400',
+      weight: '300 400',
       style: 'italic',
     },
   ],

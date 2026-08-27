@@ -186,14 +186,15 @@ export function FrameSequenceHero({
 
       {/* Pinned stage — always full viewport */}
       <div className="fsh-stage">
-        <div className="fsh-canvas-wrap">
-          <img
-            src={currentSrc}
-            alt=""
-            className="fsh-canvas"
-            draggable={false}
-          />
-        </div>
+<div className="fsh-canvas-wrap">
+            <img
+              src={currentSrc}
+              alt=""
+              className="fsh-canvas"
+              draggable={false}
+              style={{ width: '75%', height: '75%' }}
+            />
+          </div>
 
         <div className="fsh-copy">
           {title && <h1 className="fsh-title">{title}</h1>}

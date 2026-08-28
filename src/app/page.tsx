@@ -64,7 +64,7 @@ export default function Page() {
       
       // Editorial spread animations
       // Traveller section: stagger step cards
-      gsap.fromTo('#travellers .step-card', 
+      gsap.fromTo('#travelers .step-card', 
         { y: 60, opacity: 0 },
         { 
           y: 0, 
@@ -73,7 +73,7 @@ export default function Page() {
           stagger: 0.15, 
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: '#travellers',
+            trigger: '#travelers',
             start: 'top 75%',
             toggleActions: 'play none none reverse'
           }
@@ -188,7 +188,7 @@ export default function Page() {
             <div className="hidden md:flex items-center gap-8 text-[12px] font-body font-medium">
               <Link href="#journey" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Journey</Link>
               <Link href="#work" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Work</Link>
-              <Link href="#travellers" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Travellers</Link>
+              <Link href="#travelers" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">travelers</Link>
               <Link href="#stays" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">Stays</Link>
               <Link href="#about" className="opacity-60 hover:opacity-100 hover:scale-[1.03] transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1">About</Link>
               <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className={`px-5 py-2.5 rounded-full transition-all duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#C86B5A] ${scrolled || menuOpen ? 'bg-[#1A1A18] text-white hover:bg-black hover:shadow-lg' : 'bg-white text-black hover:bg-gray-100 hover:shadow-lg'}`}>WhatsApp Prerna</Link>
@@ -214,7 +214,7 @@ export default function Page() {
             <div className="flex flex-col gap-6 text-[24px] font-header text-[#1A1A18]">
               <Link ref={firstLinkRef} href="#journey" onClick={() => setMenuOpen(false)}>Journey</Link>
               <Link href="#work" onClick={() => setMenuOpen(false)}>Work</Link>
-              <Link href="#travellers" onClick={() => setMenuOpen(false)}>Travellers</Link>
+              <Link href="#travelers" onClick={() => setMenuOpen(false)}>travelers</Link>
               <Link href="#stays" onClick={() => setMenuOpen(false)}>Stays</Link>
               <Link href="#about" onClick={() => setMenuOpen(false)}>About</Link>
               <Link href="#contact" onClick={() => setMenuOpen(false)}>Contact</Link>
@@ -245,7 +245,7 @@ export default function Page() {
               Prerna and Ashok travel slowly, notice deeply, and turn meaningful places into hand-poked tattoos and property travel-content collaborations.
             </p>
             <div className="hero-sub flex flex-wrap gap-4 mt-12 font-body text-[14px] pointer-events-auto">
-              <Link href="#travellers" className="px-8 py-4 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300">For travellers</Link>
+              <Link href="#travelers" className="px-8 py-4 rounded-full bg-white text-black hover:bg-[#E8DCC6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300">For travelers</Link>
               <Link href="#stays" className="px-8 py-4 rounded-full border border-white/40 text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300">For stays & properties</Link>
             </div>
           </div>
@@ -259,7 +259,7 @@ export default function Page() {
                 Prerna and Ashok travel slowly enough to notice what makes a place feel like itself.
               </h2>
               <p className="mt-8 font-body text-[16px] leading-[1.7] opacity-80 text-[#1A1A18]">
-                They collect those moments—not as generic tourism content, but as memories, textures, encounters, and stories. That same way of looking is what they offer to travellers and thoughtful stays.
+                They collect those moments—not as generic tourism content, but as memories, textures, encounters, and stories. That same way of looking is what they offer to travelers and thoughtful stays.
               </p>
             </div>
           </div>
@@ -274,9 +274,9 @@ export default function Page() {
           <div className="w-full px-6 md:px-10">
             <div className="grid md:grid-cols-2 gap-8 reveal">
               <div className="p-10 md:p-14 rounded-3xl bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow hover:scale-[1.02] transition-transform duration-300">
-                <h3 className="font-header text-[32px] mb-4 text-[#1A1A18]">For travellers</h3>
+                <h3 className="font-header text-[32px] mb-4 text-[#1A1A18]">For travelers</h3>
                 <p className="font-body text-[15px] opacity-70 mb-8 max-w-[400px]">Meaningful hand-poked tattoos connected to a journey or a memory you want to carry with you.</p>
-                <Link href="#travellers" className="font-body text-[13px] uppercase tracking-wider text-[#C86B5A] hover:opacity-70 self-start focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1 -ml-1">Explore tattoo experiences &rarr;</Link>
+                <Link href="#travelers" className="font-body text-[13px] uppercase tracking-wider text-[#C86B5A] hover:opacity-70 self-start focus:outline-none focus:ring-2 focus:ring-[#C86B5A] rounded px-1 -ml-1">Explore tattoo experiences &rarr;</Link>
               </div>
               <div className="p-10 md:p-14 rounded-3xl bg-white border border-black/5 flex flex-col justify-center hover:shadow-lg transition-shadow hover:scale-[1.02] transition-transform duration-300">
                 <h3 className="font-header text-[32px] mb-4 text-[#1A1A18]">For stays & properties</h3>
@@ -394,23 +394,21 @@ export default function Page() {
           />
         </section>
 
-        {/* TRAVELLER EXPERIENCE */}
+{/* TRAVELLER EXPERIENCE */}
         <section id="travellers" aria-labelledby="travellers-title" className="relative z-30 py-16 md:py-24 bg-[#FFFCF5] mb-[60px]">
           <div className="w-full px-6 md:px-10">
-            <div className="grid md:grid-cols-12 gap-0 reveal">
-              {/* Full-bleed image spanning cols 1-8, overlapping into text area */}
-              <div className="col-span-12 md:col-start-1 md:col-span-8 md:col-end-9 relative mt-0">
+            <div className="grid md:grid-cols-12 gap-8 reveal items-center">
+              {/* Image - cols 1-6 (50%) */}
+              <div className="col-span-12 md:col-span-6">
                 <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
                   <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
                 </div>
-                {/* Terracotta accent line connecting steps - desktop only */}
-                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#C86B5A] to-transparent opacity-30" style={{ left: '50%', transform: 'translateX(-50%)' }} />
               </div>
               
-              {/* Text content in cols 6-12, overlapping image */}
-              <div className="col-span-12 md:col-start-6 md:col-span-7 md:col-end-13 relative z-10 pt-8 md:pt-0">
-                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For Travellers</div>
-                <h2 id="travellers-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">A tattoo that belongs<br/>to the journey.</h2>
+              {/* Text content - cols 7-12 (50%) */}
+              <div className="col-span-12 md:col-span-6">
+                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For travelers</div>
+                <h2 id="travelers-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">A tattoo that belongs<br/>to the journey.</h2>
                 
                 <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-12 max-w-[560px]">Hand-poked work is inherently slow, intentional, and quiet. There are no machines, just a needle, ink, and time. It is a process shaped by the place you are in, the story you are carrying, and the time you have to make it meaningful.</p>
                 
@@ -545,7 +543,7 @@ export default function Page() {
           
           <div className="flex flex-wrap justify-center gap-6 font-body text-[14px] text-white/70">
             <Link href="#journey" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Journey</Link>
-            <Link href="#travellers" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Travellers</Link>
+            <Link href="#travelers" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">travelers</Link>
             <Link href="#stays" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Stays</Link>
             <Link href={`mailto:${EMAIL}`} className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Email</Link>
             <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">WhatsApp</Link>

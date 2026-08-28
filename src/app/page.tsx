@@ -80,18 +80,6 @@ export default function Page() {
         }
       )
       
-      // Traveller section: parallax on overlapping image (drifts down 15%)
-      gsap.to('#travellers [class*="col-start-1"]', {
-        yPercent: 15,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#travellers',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1
-        }
-      })
-      
       // Stays section: stagger deliverable cards
       gsap.fromTo('#stays .step-card', 
         { y: 40, opacity: 0 },
@@ -108,18 +96,6 @@ export default function Page() {
           }
         }
       )
-      
-      // Stays section: parallax on overlapping image (drifts up 15% - opposite direction)
-      gsap.to('#stays [class*="col-start-6"]', {
-        yPercent: -15,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#stays',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1
-        }
-      })
     })
     ctxRef.current = ctx
 

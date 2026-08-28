@@ -412,7 +412,7 @@ export default function Page() {
         {/* TRAVELLER EXPERIENCE */}
         <section id="travellers" aria-labelledby="travellers-title" className="relative z-30 py-16 md:py-24 bg-[#FFFCF5] mb-[60px]">
           <div className="w-full px-6 md:px-10">
-            <div className="grid md:grid-cols-12 gap-0 reveal">
+            <div className="grid md:grid-cols-12 gap-0 items-center reveal">
               {/* Full-bleed image spanning cols 1-8, overlapping into text area */}
               <div className="col-span-12 md:col-start-1 md:col-span-8 md:col-end-9 relative mt-0">
                 <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
@@ -462,7 +462,7 @@ export default function Page() {
 {/* PROPERTY COLLABORATION STORY */}
         <section id="stays" aria-labelledby="stays-title" className="relative z-30 py-16 md:py-24 bg-white mb-[60px]">
           <div className="w-full px-6 md:px-10">
-            <div className="grid md:grid-cols-12 gap-0 reveal">
+            <div className="grid md:grid-cols-12 gap-0 items-center reveal">
               {/* Text content in cols 1-7, overlapping image */}
               <div className="col-span-12 md:col-start-1 md:col-span-7 md:col-end-7 relative z-10 pt-8 md:pt-0 pr-8 md:pr-12">
                 <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For Stays & Properties</div>

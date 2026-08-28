@@ -434,8 +434,8 @@ export default function Page() {
                   </article>
                 </div>
                 
-                <div className="w-full">
-                  <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="w-full inline-block px-8 py-4 rounded-full bg-[#1A1A18] text-white hover:bg-[#C86B5A] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300 text-center">Start a tattoo enquiry</Link>
+                <div>
+                  <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full bg-[#1A1A18] text-white hover:bg-[#C86B5A] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300 text-center">Start a tattoo enquiry</Link>
                 </div>
               </div>
             </div>

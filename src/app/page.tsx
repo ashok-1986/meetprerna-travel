@@ -520,6 +520,7 @@ export default function Page() {
             <Link href="#stays" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Stays</Link>
             <Link href={`mailto:${EMAIL}`} className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Email</Link>
             <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">WhatsApp</Link>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Privacy Policy</Link>
           </div>
           
           <div className="font-body text-[12px] text-white/60">

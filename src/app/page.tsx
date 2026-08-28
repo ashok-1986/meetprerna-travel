@@ -62,8 +62,8 @@ export default function Page() {
         tl.set('.hero-img-0', { opacity: 1, zIndex: 1 })
       }
       
-      // Editorial spread animations - RUN REGARDLESS of reduced motion (per user request)
-      // Traveller section: stagger step cards, parallax image, accent line draw
+      // Editorial spread animations
+      // Traveller section: stagger step cards (always run)
       gsap.fromTo('#travellers .step-card', 
         { y: 60, opacity: 0 },
         { 
@@ -80,19 +80,21 @@ export default function Page() {
         }
       )
       
-      // Traveller section: parallax on overlapping image
-      gsap.to('#travellers [class*="col-start-1"]', {
-        yPercent: 15,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#travellers',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1
-        }
-      })
+      // Traveller section: parallax on overlapping image (respect reduced motion)
+      if (!prefersReducedMotion) {
+        gsap.to('#travellers [class*="col-start-1"]', {
+          yPercent: 15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#travellers',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          }
+        })
+      }
       
-      // Stays section: stagger deliverable cards
+      // Stays section: stagger deliverable cards (always run)
       gsap.fromTo('#stays .step-card', 
         { y: 40, opacity: 0 },
         { 
@@ -109,17 +111,19 @@ export default function Page() {
         }
       )
       
-      // Stays section: parallax on overlapping image (reverse direction)
-      gsap.to('#stays [class*="col-start-6"]', {
-        yPercent: -15,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#stays',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1
-        }
-      })
+      // Stays section: parallax on overlapping image - reverse direction (respect reduced motion)
+      if (!prefersReducedMotion) {
+        gsap.to('#stays [class*="col-start-6"]', {
+          yPercent: -15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#stays',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          }
+        })
+      }
     })
     ctxRef.current = ctx
 
@@ -311,7 +315,7 @@ export default function Page() {
             <div className="grid md:grid-cols-12 gap-8 text-white">
               {/* Featured 8-col */}
               <div className="md:col-span-7 reveal rounded-3xl overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
-                <div className="aspect-[4/3] md:aspect-[3/4] overflow-hidden bg-[#262626]">
+                <div className="aspect-[3/4] overflow-hidden bg-[#262626]">
                   <img src="/images/ethereal_forest_canopy.webp" alt="A misty, ethereal forest canopy" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                 </div>
                 <div className="p-8 mt-auto">
@@ -323,13 +327,13 @@ export default function Page() {
               {/* Sidebar 4-col stack */}
               <div className="md:col-span-5 flex flex-col gap-8">
                 <div className="reveal rounded-3xl overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col flex-1">
-                  <div className="flex-1 min-h-[220px] overflow-hidden bg-[#262626]">
+                  <div className="aspect-[3/4] overflow-hidden bg-[#262626]">
                     <img src="/images/misty_forest_portrait.webp" alt="Prerna in a misty forest cathedral in Lamahatta" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                   </div>
                   <div className="p-8"><h3 className="font-header text-[24px]">Forest cathedral</h3></div>
                 </div>
                 <div className="reveal rounded-3xl overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col flex-1">
-                  <div className="flex-1 min-h-[220px] overflow-hidden bg-[#262626]">
+                  <div className="aspect-[3/4] overflow-hidden bg-[#262626]">
                     <img src="/images/cozy_balcony_mountain_view.webp" alt="Cozy balcony with mountain view" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
                   </div>
                   <div className="p-8"><h3 className="font-header text-[24px]">Slow mornings</h3></div>
@@ -410,7 +414,7 @@ export default function Page() {
           <div className="w-full px-6 md:px-10">
             <div className="grid md:grid-cols-12 gap-0 reveal">
               {/* Full-bleed image spanning cols 1-8, overlapping into text area */}
-              <div className="col-span-12 md:col-start-1 md:col-span-8 md:col-end-9 relative -mt-16 md:mt-0">
+              <div className="col-span-12 md:col-start-1 md:col-span-8 md:col-end-9 relative mt-0">
                 <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
                   <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
                 </div>
@@ -419,7 +423,7 @@ export default function Page() {
               </div>
               
               {/* Text content in cols 6-12, overlapping image */}
-              <div className="col-span-12 md:col-start-6 md:col-span-7 md:col-end-13 relative z-10 pt-12 md:pt-0">
+              <div className="col-span-12 md:col-start-6 md:col-span-7 md:col-end-13 relative z-10 pt-8 md:pt-0">
                 <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For Travellers</div>
                 <h2 id="travellers-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">A tattoo that belongs<br/>to the journey.</h2>
                 
@@ -460,7 +464,7 @@ export default function Page() {
           <div className="w-full px-6 md:px-10">
             <div className="grid md:grid-cols-12 gap-0 reveal">
               {/* Text content in cols 1-7, overlapping image */}
-              <div className="col-span-12 md:col-start-1 md:col-span-7 md:col-end-7 relative z-10 pt-12 md:pt-0 pr-8 md:pr-12">
+              <div className="col-span-12 md:col-start-1 md:col-span-7 md:col-end-7 relative z-10 pt-8 md:pt-0 pr-8 md:pr-12">
                 <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For Stays & Properties</div>
                 <h2 id="stays-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">Make your place felt<br/>before guests arrive.</h2>
                 
@@ -504,8 +508,8 @@ export default function Page() {
               </div>
               
               {/* Full-bleed image spanning cols 6-12, overlapping into text area */}
-              <div className="col-span-12 md:col-start-6 md:col-span-7 md:col-end-13 relative -mt-16 md:mt-0">
-                <div className="aspect-[4/3] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
+              <div className="col-span-12 md:col-start-6 md:col-span-7 md:col-end-13 relative mt-0">
+                <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
                   <img src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="w-full h-full object-cover" />
                 </div>
                 {/* Terracotta accent line connecting deliverables - desktop only */}

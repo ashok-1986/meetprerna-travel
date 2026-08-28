@@ -4,6 +4,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import { Agentation } from 'agentation'
+import Script from 'next/script'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -77,7 +78,7 @@ export default function RootLayout({
       <body className="bg-[#FFFCF5] text-[#1A1A18] antialiased">
         <SmoothScroll />
         {children}
-        <script async src="//www.instagram.com/embed.js" />
+        <Script strategy="lazyOnload" src="//www.instagram.com/embed.js" />
         {process.env.NODE_ENV === 'development' && <Agentation />}
       </body>
     </html>

@@ -205,8 +205,8 @@ export default function Page() {
         {/* HERO */}
         <section id="hero" aria-labelledby="hero-title" className="relative h-[100vh] min-h-[640px] overflow-hidden bg-[#1A1A18] mb-[60px]">
           <div className="absolute inset-0">
-            <img src="/images/golden_tea_plantation.webp" alt="Prerna walking through golden hour tea rows in Munnar" className="hero-img-0 absolute inset-0 w-full h-full object-cover origin-center" style={{ objectPosition: 'center 60%' }} />
-            <img src="/images/cinematic_temple_portrait.webp" alt="Prerna photographing a colourful temple Gopuram at sunset" className="hero-img-1 absolute inset-0 w-full h-full object-cover origin-center" style={{ objectPosition: 'center 40%' }} />
+            <Image src="/images/golden_tea_plantation.webp" alt="Prerna walking through golden hour tea rows in Munnar" className="hero-img-0 object-cover origin-center" style={{ objectPosition: 'center 60%' }} fill priority sizes="100vw" quality={85} />
+            <Image src="/images/cinematic_temple_portrait.webp" alt="Prerna photographing a colourful temple Gopuram at sunset" className="hero-img-1 object-cover origin-center" style={{ objectPosition: 'center 40%' }} fill priority sizes="100vw" quality={85} />
             {/* Dark bottom gradient overlay to protect text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10 z-10"></div>
           </div>
@@ -275,8 +275,8 @@ export default function Page() {
             <div className="grid md:grid-cols-12 gap-8 text-white">
               {/* Featured 8-col */}
               <div className="md:col-span-7 reveal rounded-3xl overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col">
-                <div className="aspect-[4/3] md:aspect-[3/4] overflow-hidden bg-[#262626]">
-                  <img src="/images/ethereal_forest_canopy.webp" alt="A misty, ethereal forest canopy" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
+                <div className="aspect-[4/3] md:aspect-[3/4] overflow-hidden bg-[#262626] relative">
+                  <Image src="/images/ethereal_forest_canopy.webp" alt="A misty, ethereal forest canopy" className="object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" fill sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
                 <div className="p-8 mt-auto">
                   <h3 className="font-header text-[28px]">Morning mist in the estate</h3>
@@ -287,14 +287,14 @@ export default function Page() {
               {/* Sidebar 4-col stack */}
               <div className="md:col-span-5 flex flex-col gap-8">
                 <div className="reveal rounded-3xl overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col flex-1">
-                  <div className="flex-1 min-h-[220px] overflow-hidden bg-[#262626]">
-                    <img src="/images/misty_forest_portrait.webp" alt="Prerna in a misty forest cathedral in Lamahatta" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
+                  <div className="flex-1 min-h-[220px] overflow-hidden bg-[#262626] relative">
+                    <Image src="/images/misty_forest_portrait.webp" alt="Prerna in a misty forest cathedral in Lamahatta" className="object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" fill sizes="(max-width: 768px) 100vw, 33vw" />
                   </div>
                   <div className="p-8"><h3 className="font-header text-[24px]">Forest cathedral</h3></div>
                 </div>
                 <div className="reveal rounded-3xl overflow-hidden bg-[#1A1A18] border border-black/10 group flex flex-col flex-1">
-                  <div className="flex-1 min-h-[220px] overflow-hidden bg-[#262626]">
-                    <img src="/images/cozy_balcony_mountain_view.webp" alt="Cozy balcony with mountain view" className="w-full h-full object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" />
+                  <div className="flex-1 min-h-[220px] overflow-hidden bg-[#262626] relative">
+                    <Image src="/images/cozy_balcony_mountain_view.webp" alt="Cozy balcony with mountain view" className="object-cover motion-safe:group-hover:scale-[1.03] motion-safe:transition motion-safe:duration-700" fill sizes="(max-width: 768px) 100vw, 33vw" />
                   </div>
                   <div className="p-8"><h3 className="font-header text-[24px]">Slow mornings</h3></div>
                 </div>
@@ -375,8 +375,8 @@ export default function Page() {
             <div className="grid md:grid-cols-12 gap-8 md:gap-16 lg:gap-24 reveal items-center">
               {/* Image */}
               <div className="col-span-12 md:col-span-5">
-                <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
-                  <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
+                <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] relative">
+                  <Image src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="object-cover" fill sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               
@@ -467,8 +467,8 @@ export default function Page() {
               
               {/* Image */}
               <div className="col-span-12 md:col-span-5 md:col-start-8">
-                <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
-                  <img src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="w-full h-full object-cover" />
+                <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] relative">
+                  <Image src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="object-cover" fill sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
             </div>

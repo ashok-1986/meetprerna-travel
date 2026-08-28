@@ -395,15 +395,18 @@ export default function Page() {
         </section>
 
 {/* TRAVELLER EXPERIENCE */}
-        <section id="travellers" aria-labelledby="travellers-title" className="relative z-30 py-16 md:py-24 bg-[#FFFCF5] mb-[60px]">`n          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
+        <section id="travellers" aria-labelledby="travellers-title" className="relative z-30 py-16 md:py-24 bg-[#FFFCF5] mb-[60px]">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="grid md:grid-cols-12 gap-8 md:gap-16 lg:gap-24 reveal items-center">
-              {/* Image */}`n              <div className="col-span-12 md:col-span-5">
+              {/* Image */}
+              <div className="col-span-12 md:col-span-5">
                 <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
                   <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
                 </div>
               </div>
               
-{/* Text content */}`n              <div className="col-span-12 md:col-span-6 md:col-start-7">
+              {/* Text content */}
+              <div className="col-span-12 md:col-span-6 md:col-start-7">
                 <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For travelers</div>
                 <h2 id="travelers-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">A tattoo that belongs<br/>to the journey.</h2>
                 
@@ -440,7 +443,8 @@ export default function Page() {
         </section>
 
 {/* PROPERTY COLLABORATION STORY */}
-        <section id="stays" aria-labelledby="stays-title" className="relative z-30 py-16 md:py-24 bg-white mb-[60px]">`n          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
+        <section id="stays" aria-labelledby="stays-title" className="relative z-30 py-16 md:py-24 bg-white mb-[60px]">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <div className="grid md:grid-cols-12 gap-8 md:gap-16 lg:gap-24 reveal items-center">
               {/* Text content - cols 1-6 (50%) */}
               <div className="col-span-12 md:col-span-6">
@@ -486,7 +490,8 @@ export default function Page() {
                 <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full border border-black/20 text-black hover:border-black hover:bg-black hover:text-white transition-all font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black hover:scale-[1.02] transition-transform duration-300">Discuss a collaboration</Link>
               </div>
               
-              {/* Image */}`n              <div className="col-span-12 md:col-span-5 md:col-start-8">
+              {/* Image */}
+              <div className="col-span-12 md:col-span-5 md:col-start-8">
                 <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
                   <img src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="w-full h-full object-cover" />
                 </div>

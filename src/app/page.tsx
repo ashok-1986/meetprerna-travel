@@ -405,15 +405,15 @@ export default function Page() {
                 </div>
               </div>
               
-              {/* Text content - cols 7-12 (50%) */}
+{/* Text content - cols 7-12 (50%) */}
               <div className="col-span-12 md:col-span-6">
                 <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For travelers</div>
                 <h2 id="travelers-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">A tattoo that belongs<br/>to the journey.</h2>
                 
-                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-12 max-w-[560px]">Hand-poked work is inherently slow, intentional, and quiet. There are no machines, just a needle, ink, and time. It is a process shaped by the place you are in, the story you are carrying, and the time you have to make it meaningful.</p>
+                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-12">Hand-poked work is inherently slow, intentional, and quiet. There are no machines, just a needle, ink, and time. It is a process shaped by the place you are in, the story you are carrying, and the time you have to make it meaningful.</p>
                 
-                {/* 3-step cards in a 3-col grid within cols 6-12 */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-[560px]">
+                {/* 3-step cards in a 3-col grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                   <article className="step-card group p-6 rounded-2xl bg-white border border-black/5 hover:border-[#C86B5A]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 relative overflow-hidden" style={{ transitionDelay: '0ms' }}>
                     <div className="absolute inset-0 bg-gradient-to-br from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <span className="text-[#C86B5A] font-body text-[15px] leading-[1.6] block mb-2 relative z-10">01</span>
@@ -434,7 +434,7 @@ export default function Page() {
                   </article>
                 </div>
                 
-                <div className="w-full max-w-[560px]">
+                <div className="w-full">
                   <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="w-full inline-block px-8 py-4 rounded-full bg-[#1A1A18] text-white hover:bg-[#C86B5A] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300 text-center">Start a tattoo enquiry</Link>
                 </div>
               </div>
@@ -445,16 +445,16 @@ export default function Page() {
 {/* PROPERTY COLLABORATION STORY */}
         <section id="stays" aria-labelledby="stays-title" className="relative z-30 py-16 md:py-24 bg-white mb-[60px]">
           <div className="w-full px-6 md:px-10">
-            <div className="grid md:grid-cols-12 gap-0 reveal">
-              {/* Text content in cols 1-7, overlapping image */}
-              <div className="col-span-12 md:col-start-1 md:col-span-7 md:col-end-7 relative z-10 pt-8 md:pt-0 pr-8 md:pr-12">
+            <div className="grid md:grid-cols-12 gap-8 reveal items-center">
+              {/* Text content - cols 1-6 (50%) */}
+              <div className="col-span-12 md:col-span-6">
                 <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For Stays & Properties</div>
                 <h2 id="stays-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">Make your place felt<br/>before guests arrive.</h2>
                 
-                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-12 max-w-[500px]">Prerna and Ashok bring the same attention they use in their own travels to a property's story. By collecting authentic moments, textures, and light, they help future guests feel the destination.</p>
+                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-12">Prerna and Ashok bring the same attention they use in their own travels to a property's story. By collecting authentic moments, textures, and light, they help future guests feel the destination.</p>
                 
-                {/* 6 deliverables in a 2-col grid within cols 1-7 */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 max-w-[500px]">
+                {/* 6 deliverables in a 2-col grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
                   <div className="step-card group p-4 rounded-xl bg-[#FFFCF5] border border-black/5 hover:border-[#C86B5A]/30 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-start gap-3 relative overflow-hidden" style={{ transitionDelay: '0ms' }}>
                     <div className="absolute inset-0 bg-gradient-to-r from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <span className="text-[#C86B5A] font-body text-[14px] leading-[1.5] shrink-0 w-6 text-center relative z-10">01</span>
@@ -490,13 +490,11 @@ export default function Page() {
                 <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full border border-black/20 text-black hover:border-black hover:bg-black hover:text-white transition-all font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black hover:scale-[1.02] transition-transform duration-300">Discuss a collaboration</Link>
               </div>
               
-              {/* Full-bleed image spanning cols 6-12, overlapping into text area */}
-              <div className="col-span-12 md:col-start-6 md:col-span-7 md:col-end-13 relative mt-0">
+              {/* Image - cols 7-12 (50%) */}
+              <div className="col-span-12 md:col-span-6">
                 <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
                   <img src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="w-full h-full object-cover" />
                 </div>
-                {/* Terracotta accent line connecting deliverables - desktop only */}
-                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#C86B5A] to-transparent opacity-30" style={{ left: '50%', transform: 'translateX(-50%)' }} />
               </div>
             </div>
           </div>

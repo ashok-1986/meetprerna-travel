@@ -748,17 +748,27 @@ h3 {
   }
 }
 
-/* Reduced motion */
+/* Reduced motion - targeted, preserves useful feedback */
 @media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  /* Disable non-essential decorative animations */
+  .grain,
+  .blob-terracotta,
+  .blob-olive,
+  .ken-burns-slide,
+  .fsh-card,
+  .fsh-progress-fill,
+  .fsh-loader-fill,
+  [class*="motion-safe:"] {
+    animation: none !important;
+    transition: none !important;
   }
+  
+  /* Disable scroll-triggered parallax */
+  .gsap-parallax {
+    transform: none !important;
+  }
+  
+  /* Preserve: focus, hover, button presses, form interactions */
 }
 
 /* Frame Sequence Hero */
@@ -799,7 +809,8 @@ h3 {
   display: block;
   height: 100%;
   background: white;
-  transition: width 0.1s linear;
+  transform-origin: left;
+  transition: transform 0.1s linear;
 }
 
 .fsh-nav {

@@ -166,7 +166,7 @@ export function FrameSequenceHero({
           {loadPct < 100 ? `Loading · ${loadPct}%` : "Ready"}
         </div>
         <div className="fsh-loader-track">
-          <span className="fsh-loader-fill" style={{ width: `${loadPct}%` }} />
+          <span className="fsh-loader-fill" style={{ transform: `scaleX(${loadPct / 100})` }} />
         </div>
       </div>
 

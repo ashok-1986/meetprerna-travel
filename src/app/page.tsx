@@ -29,6 +29,7 @@ export default function Page() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     
     const ctx = gsap.context(() => {
+      // Hero animations
       if (prefersReducedMotion) {
         gsap.set('.hero-word span', { y: '0%' })
         gsap.set('.hero-sub', { y: 0, opacity: 1 })
@@ -38,64 +39,38 @@ export default function Page() {
         gsap.to('.hero-sub', { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.7 })
         
         const tl = gsap.timeline({ repeat: -1 })
-        
-        // Base state
         gsap.set('.hero-img-0', { opacity: 1, scale: 1.04, zIndex: 1 })
         gsap.set('.hero-img-1', { opacity: 0, scale: 1.04, zIndex: 2 })
-
-        // 1. Img 0 scales
         tl.to('.hero-img-0', { scale: 1.09, duration: 8, ease: 'none' })
-        
-        // 2. Img 0 fades out, Img 1 fades in and starts scaling
         tl.to('.hero-img-0', { opacity: 0, duration: 1.5, ease: 'power1.inOut' }, "-=1.5")
         tl.to('.hero-img-1', { opacity: 1, duration: 1.5, ease: 'power1.inOut' }, "-=1.5")
         tl.to('.hero-img-1', { scale: 1.09, duration: 8, ease: 'none' }, "-=1.5")
-        
-        // 3. Img 1 fades out, Img 0 fades back in
         tl.set('.hero-img-0', { scale: 1.04 }, "-=1.5")
         tl.to('.hero-img-1', { opacity: 0, duration: 1.5, ease: 'power1.inOut' }, "-=1.5")
         tl.to('.hero-img-0', { opacity: 1, duration: 1.5, ease: 'power1.inOut' }, "-=1.5")
         tl.to('.hero-img-0', { scale: 1.05, duration: 1.5, ease: 'none' }, "-=1.5")
-        
-        // 4. Loop boundary resets
         tl.set('.hero-img-1', { opacity: 0, scale: 1.04, zIndex: 2 })
         tl.set('.hero-img-0', { opacity: 1, zIndex: 1 })
       }
       
-      // Editorial spread animations
-      // Traveller section: stagger step cards
-      gsap.fromTo('#travelers .step-card', 
-        { y: 60, opacity: 0 },
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 0.8, 
-          stagger: 0.15, 
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '#travelers',
-            start: 'top 75%',
-            toggleActions: 'play none none reverse'
+      // Scroll-triggered animations: skip entirely if reduced motion
+      if (!prefersReducedMotion) {
+        // Traveller section: stagger step cards
+        gsap.fromTo('#travelers .step-card', 
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: '#travelers', start: 'top 75%', toggleActions: 'play none none reverse' }
           }
-        }
-      )
-      
-      // Stays section: stagger deliverable cards
-      gsap.fromTo('#stays .step-card', 
-        { y: 40, opacity: 0 },
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 0.6, 
-          stagger: 0.08, 
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '#stays',
-            start: 'top 75%',
-            toggleActions: 'play none none reverse'
+        )
+        
+        // Stays section: stagger deliverable cards
+        gsap.fromTo('#stays .step-card', 
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: 'power3.out',
+            scrollTrigger: { trigger: '#stays', start: 'top 75%', toggleActions: 'play none none reverse' }
           }
-        }
-      )
+        )
+      }
     })
     ctxRef.current = ctx
 
@@ -407,7 +382,7 @@ export default function Page() {
               
               {/* Text content */}
               <div className="col-span-12 md:col-span-6 md:col-start-7">
-                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For travelers</div>
+                <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For Travellers</div>
                 <h2 id="travelers-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">A tattoo that belongs<br/>to the journey.</h2>
                 
                 <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-12">Hand-poked work is inherently slow, intentional, and quiet. There are no machines, just a needle, ink, and time. It is a process shaped by the place you are in, the story you are carrying, and the time you have to make it meaningful.</p>
@@ -539,7 +514,7 @@ export default function Page() {
             <Image src="/images/Logo.png" alt="Prerna Logo" width={110} height={40} className="w-auto h-[40px] object-contain invert brightness-0" />
           </div>
           
-          <div className="flex flex-wrap justify-center gap-6 font-body text-[14px] text-white/70">
+          <div className="flex flex-wrap justify-center gap-6 font-body text-[14px] text-white/80">
             <Link href="#journey" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Journey</Link>
             <Link href="#travelers" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">travelers</Link>
             <Link href="#stays" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">Stays</Link>
@@ -547,7 +522,7 @@ export default function Page() {
             <Link href={getWaLink(FALLBACK_MSG)} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors focus:outline-none focus:ring-1 focus:ring-white rounded">WhatsApp</Link>
           </div>
           
-          <div className="font-body text-[12px] text-white/40">
+          <div className="font-body text-[12px] text-white/60">
             © {new Date().getFullYear()} Prerna. All rights reserved.
           </div>
         </div>

@@ -37,7 +37,7 @@ export function FrameSequenceHero({
   frameCount,
   framePath,
   eagerCount = 140,
-  scrollHeight = "600vh",
+  scrollHeight = "400vh",
   brand,
   navLinks = [],
   ctaLabel,
@@ -192,7 +192,7 @@ export function FrameSequenceHero({
               alt=""
               className="fsh-canvas"
               draggable={false}
-              style={{ width: '75%', height: '75%' }}
+              style={{ width: '50%', aspectRatio: '1376 / 1824' }}
             />
           </div>
 

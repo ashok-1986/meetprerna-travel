@@ -145,6 +145,53 @@ h3 {
   animation: grain-shift 8s infinite;
 }
 
+/* Hero animations (moved from inline style to fix hydration) */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-word {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.hero-word span {
+  display: inline-block;
+  transform: translateY(105%);
+}
+
+.hero-sub {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain {
+    display: none;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 @keyframes grain-shift {
 
   0%,

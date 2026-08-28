@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google'
 import localFont from 'next/font/local'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
+import { Agentation } from 'agentation'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -77,6 +78,7 @@ export default function RootLayout({
         <SmoothScroll />
         {children}
         <script async src="//www.instagram.com/embed.js" />
+        {process.env.NODE_ENV === 'development' && <Agentation />}
       </body>
     </html>
   )

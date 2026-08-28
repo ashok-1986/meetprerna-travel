@@ -61,6 +61,65 @@ export default function Page() {
         tl.set('.hero-img-1', { opacity: 0, scale: 1.04, zIndex: 2 })
         tl.set('.hero-img-0', { opacity: 1, zIndex: 1 })
       }
+      
+      // Editorial spread animations - RUN REGARDLESS of reduced motion (per user request)
+      // Traveller section: stagger step cards, parallax image, accent line draw
+      gsap.fromTo('#travellers .step-card', 
+        { y: 60, opacity: 0 },
+        { 
+          y: 0, 
+          opacity: 1, 
+          duration: 0.8, 
+          stagger: 0.15, 
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '#travellers',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      )
+      
+      // Traveller section: parallax on overlapping image
+      gsap.to('#travellers [class*="col-start-1"]', {
+        yPercent: 15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#travellers',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        }
+      })
+      
+      // Stays section: stagger deliverable cards
+      gsap.fromTo('#stays .step-card', 
+        { y: 40, opacity: 0 },
+        { 
+          y: 0, 
+          opacity: 1, 
+          duration: 0.6, 
+          stagger: 0.08, 
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '#stays',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      )
+      
+      // Stays section: parallax on overlapping image (reverse direction)
+      gsap.to('#stays [class*="col-start-6"]', {
+        yPercent: -15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#stays',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        }
+      })
     })
     ctxRef.current = ctx
 
@@ -126,19 +185,6 @@ export default function Page() {
 
   return (
     <>
-      <style>{`
-        .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-        .reveal { opacity: 0; transform: translateY(14px); transition: all 0.9s cubic-bezier(0.16,1,0.3,1) }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .hero-word { overflow: hidden; display: inline-block }
-        .hero-word span { display: inline-block; transform: translateY(105%) }
-        .hero-sub { opacity: 0; transform: translateY(12px) }
-        @media (prefers-reduced-motion: reduce) {
-          .grain { display: none; }
-          .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-        }
-      `}</style>
-
       <div className="grain"></div>
       <div id="progress" style={{position:'fixed',top:0,left:0,height:'2px',background:'#C86B5A',width:'0%',zIndex:9999}}></div>
 
@@ -295,7 +341,7 @@ export default function Page() {
         </section>
 
         {/* NEO MACBOOK HERO EFFECT FOR 4 NEW IMAGES */}
-        <section className="py-20 relative z-20 mb-[60px]">
+        <section className="relative z-20 mb-[60px]">
           <div className="max-w-[1440px] mx-auto px-6 md:px-10 mb-8 text-center">
             <h2 className="font-header text-[42px] md:text-[60px] leading-[1.1] text-[#1A1A18]">
               Selected <span className="italic text-[#C86B5A]">Journals.</span>
@@ -361,54 +407,109 @@ export default function Page() {
 
         {/* TRAVELLER EXPERIENCE */}
         <section id="travellers" aria-labelledby="travellers-title" className="relative z-30 py-16 md:py-24 bg-[#FFFCF5] mb-[60px]">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-            <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
-              <div className="md:col-span-5 aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden order-2 md:order-1">
-                <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
+          <div className="w-full px-6 md:px-10">
+            <div className="grid md:grid-cols-12 gap-0 reveal">
+              {/* Full-bleed image spanning cols 1-8, overlapping into text area */}
+              <div className="col-span-12 md:col-start-1 md:col-span-8 md:col-end-9 relative -mt-16 md:mt-0">
+                <div className="aspect-[3/4] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
+                  <img src="/images/cozy_neon_studio.webp" alt="Prerna hand-poking a tattoo in a cozy neon studio" className="w-full h-full object-cover" />
+                </div>
+                {/* Terracotta accent line connecting steps - desktop only */}
+                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#C86B5A] to-transparent opacity-30" style={{ left: '50%', transform: 'translateX(-50%)' }} />
               </div>
-              <div className="md:col-span-7 order-1 md:order-2">
+              
+              {/* Text content in cols 6-12, overlapping image */}
+              <div className="col-span-12 md:col-start-6 md:col-span-7 md:col-end-13 relative z-10 pt-12 md:pt-0">
                 <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For Travellers</div>
                 <h2 id="travellers-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">A tattoo that belongs<br/>to the journey.</h2>
                 
-                <div className="space-y-6 font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-12 max-w-[560px]">
-                  <p>Hand-poked work is inherently slow, intentional, and quiet. There are no machines, just a needle, ink, and time. It is a process shaped by the place you are in, the story you are carrying, and the time you have to make it meaningful.</p>
-                  
-                  <ul className="space-y-3 pt-4 border-t border-black/10">
-                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Share the idea:</strong> Tell me what you want to carry with you.</li>
-                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Shape the design:</strong> We refine the visual to fit the hand-poked medium.</li>
-                    <li className="flex items-start gap-3"><span className="text-[#C86B5A] mt-1">•</span><strong>Meet and make it:</strong> Sessions happen in curated spaces across Mumbai, Goa, and the mountains. Drink water, eat well before arriving, and bring an open mind.</li>
-                  </ul>
+                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-12 max-w-[560px]">Hand-poked work is inherently slow, intentional, and quiet. There are no machines, just a needle, ink, and time. It is a process shaped by the place you are in, the story you are carrying, and the time you have to make it meaningful.</p>
+                
+                {/* 3-step cards in a 3-col grid within cols 6-12 */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-[560px]">
+                  <article className="step-card group p-6 rounded-2xl bg-white border border-black/5 hover:border-[#C86B5A]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 relative overflow-hidden" style={{ transitionDelay: '0ms' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <span className="text-[#C86B5A] font-body text-[15px] leading-[1.6] block mb-2 relative z-10">01</span>
+                    <strong className="block font-header text-[18px] leading-[1.3] mb-2 group-hover:text-[#C86B5A] transition-colors duration-300 relative z-10">Share the idea</strong>
+                    <span className="block font-body text-[15px] leading-[1.6] opacity-80 relative z-10">Tell me what you want to carry with you.</span>
+                  </article>
+                  <article className="step-card group p-6 rounded-2xl bg-white border border-black/5 hover:border-[#C86B5A]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 relative overflow-hidden" style={{ transitionDelay: '100ms' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <span className="text-[#C86B5A] font-body text-[15px] leading-[1.6] block mb-2 relative z-10">02</span>
+                    <strong className="block font-header text-[18px] leading-[1.3] mb-2 group-hover:text-[#C86B5A] transition-colors duration-300 relative z-10">Shape the design</strong>
+                    <span className="block font-body text-[15px] leading-[1.6] opacity-80 relative z-10">We refine the visual to fit the hand-poked medium.</span>
+                  </article>
+                  <article className="step-card group p-6 rounded-2xl bg-white border border-black/5 hover:border-[#C86B5A]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 relative overflow-hidden" style={{ transitionDelay: '200ms' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <span className="text-[#C86B5A] font-body text-[15px] leading-[1.6] block mb-2 relative z-10">03</span>
+                    <strong className="block font-header text-[18px] leading-[1.3] mb-2 group-hover:text-[#C86B5A] transition-colors duration-300 relative z-10">Meet and make it</strong>
+                    <span className="block font-body text-[15px] leading-[1.6] opacity-80 relative z-10">Sessions happen in curated spaces across Mumbai, Goa, and the mountains. Drink water, eat well before arriving, and bring an open mind.</span>
+                  </article>
                 </div>
                 
-                <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full bg-[#1A1A18] text-white hover:bg-[#C86B5A] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300">Start a tattoo enquiry</Link>
+                <div className="w-full max-w-[560px]">
+                  <Link href={getWaLink(TRAVELLER_MSG)} target="_blank" rel="noopener noreferrer" className="w-full inline-block px-8 py-4 rounded-full bg-[#1A1A18] text-white hover:bg-[#C86B5A] transition-colors font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C86B5A] hover:scale-[1.02] transition-transform duration-300 text-center">Start a tattoo enquiry</Link>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* PROPERTY COLLABORATION STORY */}
+{/* PROPERTY COLLABORATION STORY */}
         <section id="stays" aria-labelledby="stays-title" className="relative z-30 py-16 md:py-24 bg-white mb-[60px]">
-          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-            <div className="grid md:grid-cols-12 gap-12 md:gap-20 items-center reveal">
-              <div className="md:col-span-6">
+          <div className="w-full px-6 md:px-10">
+            <div className="grid md:grid-cols-12 gap-0 reveal">
+              {/* Text content in cols 1-7, overlapping image */}
+              <div className="col-span-12 md:col-start-1 md:col-span-7 md:col-end-7 relative z-10 pt-12 md:pt-0 pr-8 md:pr-12">
                 <div className="font-body text-[11px] uppercase tracking-[0.2em] opacity-50 mb-6 text-[#C86B5A]">For Stays & Properties</div>
                 <h2 id="stays-title" className="font-header text-[36px] md:text-[52px] leading-[1.15] text-[#1A1A18] mb-10">Make your place felt<br/>before guests arrive.</h2>
                 
-                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-10 max-w-[500px]">Prerna and Ashok bring the same attention they use in their own travels to a property’s story. By collecting authentic moments, textures, and light, they help future guests feel the destination.</p>
+                <p className="font-body text-[15px] leading-[1.6] opacity-80 text-[#1A1A18] mb-12 max-w-[500px]">Prerna and Ashok bring the same attention they use in their own travels to a property's story. By collecting authentic moments, textures, and light, they help future guests feel the destination.</p>
                 
-                <div className="grid grid-cols-2 gap-x-6 gap-y-4 font-body text-[14px] opacity-80 mb-12 border-l-2 border-[#C86B5A]/30 pl-6">
-                  <div>• Cinematic reels</div>
-                  <div>• Honest photography</div>
-                  <div>• Place-led writing</div>
-                  <div>• Social stories & takeovers</div>
-                  <div>• Guest-facing context</div>
-                  <div>• Optional tattoo pop-ups</div>
+                {/* 6 deliverables in a 2-col grid within cols 1-7 */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 max-w-[500px]">
+                  <div className="step-card group p-4 rounded-xl bg-[#FFFCF5] border border-black/5 hover:border-[#C86B5A]/30 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-start gap-3 relative overflow-hidden" style={{ transitionDelay: '0ms' }}>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span className="text-[#C86B5A] font-body text-[14px] leading-[1.5] shrink-0 w-6 text-center relative z-10">01</span>
+                    <span className="font-body text-[14px] leading-[1.5] opacity-80 relative z-10">Cinematic reels</span>
+                  </div>
+                  <div className="step-card group p-4 rounded-xl bg-[#FFFCF5] border border-black/5 hover:border-[#C86B5A]/30 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-start gap-3 relative overflow-hidden" style={{ transitionDelay: '50ms' }}>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span className="text-[#C86B5A] font-body text-[14px] leading-[1.5] shrink-0 w-6 text-center relative z-10">02</span>
+                    <span className="font-body text-[14px] leading-[1.5] opacity-80 relative z-10">Honest photography</span>
+                  </div>
+                  <div className="step-card group p-4 rounded-xl bg-[#FFFCF5] border border-black/5 hover:border-[#C86B5A]/30 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-start gap-3 relative overflow-hidden" style={{ transitionDelay: '100ms' }}>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span className="text-[#C86B5A] font-body text-[14px] leading-[1.5] shrink-0 w-6 text-center relative z-10">03</span>
+                    <span className="font-body text-[14px] leading-[1.5] opacity-80 relative z-10">Place-led writing</span>
+                  </div>
+                  <div className="step-card group p-4 rounded-xl bg-[#FFFCF5] border border-black/5 hover:border-[#C86B5A]/30 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-start gap-3 relative overflow-hidden" style={{ transitionDelay: '150ms' }}>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span className="text-[#C86B5A] font-body text-[14px] leading-[1.5] shrink-0 w-6 text-center relative z-10">04</span>
+                    <span className="font-body text-[14px] leading-[1.5] opacity-80 relative z-10">Social stories & takeovers</span>
+                  </div>
+                  <div className="step-card group p-4 rounded-xl bg-[#FFFCF5] border border-black/5 hover:border-[#C86B5A]/30 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-start gap-3 relative overflow-hidden" style={{ transitionDelay: '200ms' }}>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span className="text-[#C86B5A] font-body text-[14px] leading-[1.5] shrink-0 w-6 text-center relative z-10">05</span>
+                    <span className="font-body text-[14px] leading-[1.5] opacity-80 relative z-10">Guest-facing context</span>
+                  </div>
+                  <div className="step-card group p-4 rounded-xl bg-[#FFFCF5] border border-black/5 hover:border-[#C86B5A]/30 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-start gap-3 relative overflow-hidden" style={{ transitionDelay: '250ms' }}>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#C86B5A]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <span className="text-[#C86B5A] font-body text-[14px] leading-[1.5] shrink-0 w-6 text-center relative z-10">06</span>
+                    <span className="font-body text-[14px] leading-[1.5] opacity-80 relative z-10">Optional tattoo pop-ups</span>
+                  </div>
                 </div>
-
+                
                 <Link href={getWaLink(PROPERTY_MSG)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 rounded-full border border-black/20 text-black hover:border-black hover:bg-black hover:text-white transition-all font-body text-[14px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black hover:scale-[1.02] transition-transform duration-300">Discuss a collaboration</Link>
               </div>
-              <div className="md:col-span-6 aspect-[4/3] bg-[#E8DCC6] rounded-3xl overflow-hidden">
-                <img src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="w-full h-full object-cover" />
+              
+              {/* Full-bleed image spanning cols 6-12, overlapping into text area */}
+              <div className="col-span-12 md:col-start-6 md:col-span-7 md:col-end-13 relative -mt-16 md:mt-0">
+                <div className="aspect-[4/3] bg-[#E8DCC6] rounded-3xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
+                  <img src="/images/darjeeling_balcony_sunglasses_stay.webp" alt="Prerna enjoying a slow morning on a Darjeeling balcony" className="w-full h-full object-cover" />
+                </div>
+                {/* Terracotta accent line connecting deliverables - desktop only */}
+                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#C86B5A] to-transparent opacity-30" style={{ left: '50%', transform: 'translateX(-50%)' }} />
               </div>
             </div>
           </div>
